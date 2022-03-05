@@ -12,8 +12,8 @@ namespace BILTIFUL.ModuloCompra
         List<Compra> compras = new List<Compra>();
         public void SubMenu()
         {
-            Console.WriteLine("1- Adicionar");
-            Console.WriteLine("2- Remover");
+            Console.WriteLine("1 - Adicionar");
+            Console.WriteLine("2 - Remover");
         }
     }
 }

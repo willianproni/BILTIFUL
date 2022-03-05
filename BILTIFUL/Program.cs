@@ -6,7 +6,7 @@ namespace BILTIFUL
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("");
+            Console.WriteLine(" ");
         }
     }
 }

@@ -9,8 +9,8 @@ namespace BILTIFUL.ModuloVenda
         List<Venda> vendas = new List<Venda>();
         public void SubMenu()
         {
-            Console.WriteLine("1- Adicionar");
-            Console.WriteLine("2- Remover");
+            Console.WriteLine("1 - Adicionar");
+            Console.WriteLine("2 - Remover");
         }
     }
 }

@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BILTIFUL.Compra\BILTIFUL.Compra.csproj" />
-    <ProjectReference Include="..\BILTIFUL.Producao\BILTIFUL.Producao.csproj" />
-    <ProjectReference Include="..\BILTIFUL.Venda\BILTIFUL.Venda.csproj" />
+    <ProjectReference Include="..\BILTIFUL.ModuloCompra\BILTIFUL.ModuloCompra.csproj" />
+    <ProjectReference Include="..\BILTIFUL.ModuloProducao\BILTIFUL.ModuloProducao.csproj" />
+    <ProjectReference Include="..\BILTIFUL.ModuloVenda\BILTIFUL.ModuloVenda.csproj" />
   </ItemGroup>
 
 </Project>

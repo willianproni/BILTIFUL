@@ -3,7 +3,7 @@ using System;
 
 namespace BILTIFUL.Core.Entidades
 {
-    internal class Produto
+    public class Produto
     {
         public int cbarras { get; set; }
         public string nome { get; set; }

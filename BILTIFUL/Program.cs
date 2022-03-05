@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using BILTIFUL.Core.Controle;
+using BILTIFUL.Core.Entidades;
 
 namespace BILTIFUL
 {
@@ -6,7 +10,7 @@ namespace BILTIFUL
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(" ");
+            //Controle controle = new Controle(new Cliente());
         }
     }
 }

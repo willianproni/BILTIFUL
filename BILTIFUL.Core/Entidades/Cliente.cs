@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BILTIFUL.Core.Entidades
 {
-    internal class Cliente
+    public class Cliente
     {
 
         public long cpf { get; set; }
@@ -15,11 +15,14 @@ namespace BILTIFUL.Core.Entidades
         public DateTime dnascimento { get; set; }
         public Sexo sexo { get; set; }
         public DateTime ucompra { get; set; }
-        public DateTime dcadastro { get; set; } = DateTime.Now;
+        public DateTime dcadastro { get; set; }
         public Situacao situacao { get; set; }
 
         public Cliente()
         {
+            ucompra = DateTime.Now;
+            dcadastro = DateTime.Now;
+            situacao = (Situacao)0;
         }
     }
 

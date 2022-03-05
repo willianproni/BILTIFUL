@@ -9,5 +9,9 @@ namespace BILTIFUL.Core.Entidades
         public int qtd { get; set; }
         public int vunitario { get; set; }
         public int titem => qtd * vunitario;
+        public ItemVenda()
+        {
+
+        }
     }
 }

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BILTIFUL.Core.Entidades.Cliente">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARAAAAAIAADABAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Entidades\Cliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BILTIFUL.Core.Entidades.Compra">
+    <Position X="8.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Entidades\Compra.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BILTIFUL.Core.Entidades.Fornecedor">
+    <Position X="3.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAABABAAAAAAAACAAAAAAAAAAAAAIAAAAACA=</HashCode>
+      <FileName>Entidades\Fornecedor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BILTIFUL.Core.Entidades.ItemCompra">
+    <Position X="6.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAACAAAAAAAAIAAAAAAAIAAAAA=</HashCode>
+      <FileName>Entidades\ItemCompra.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BILTIFUL.Core.Entidades.ItemProducao">
+    <Position X="12.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAIQAAAA=</HashCode>
+      <FileName>Entidades\ItemProducao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BILTIFUL.Core.Entidades.ItemVenda">
+    <Position X="4.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entidades\ItemVenda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BILTIFUL.Core.Entidades.MPrima">
+    <Position X="10.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARAAAAAAAABABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entidades\MPrima.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BILTIFUL.Core.Entidades.Producao">
+    <Position X="7" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAIEgAAAAAAAAAAA=</HashCode>
+      <FileName>Entidades\Producao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BILTIFUL.Core.Entidades.Produto">
+    <Position X="0.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARABAAAAAABAAAEAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Entidades\Produto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BILTIFUL.Core.Entidades.Venda">
+    <Position X="2.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAQAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entidades\Venda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BILTIFUL.Core.Entidades.Base.EntidadeBase" Collapsed="true">
+    <Position X="12.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Entidades\Base\EntidadeBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

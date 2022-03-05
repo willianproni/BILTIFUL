@@ -9,5 +9,9 @@ namespace BILTIFUL.Core.Entidades
         //CNPJ
         public long fornecedor { get; set; }
         public int vtotal { get; set; }
+        public Compra()
+        {
+
+        }
     }
 }

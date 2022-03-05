@@ -9,5 +9,9 @@ namespace BILTIFUL.Core.Entidades
         //CPF
         public long cliente { get; set; }
         public int vtotal { get; set; }
+        public Venda()
+        {
+
+        }
     }
 }

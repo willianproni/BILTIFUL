@@ -9,5 +9,10 @@ namespace BILTIFUL.Core.Entidades
         //ID Materia Prima
         public int mprima { get; set; }
         public int qtdmp { get; set; }
+
+        public ItemProducao()
+        {
+
+        }
     }
 }

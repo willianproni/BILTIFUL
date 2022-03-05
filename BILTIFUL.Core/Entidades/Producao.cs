@@ -10,5 +10,10 @@ namespace BILTIFUL.Core.Entidades
         public int produto { get; set; }
         public DateTime dproduto { get; set; }
         public int qtd { get; set; }
+
+        public Producao()
+        {
+
+        }
     }
 }

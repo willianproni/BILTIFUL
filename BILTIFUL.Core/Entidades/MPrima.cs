@@ -10,5 +10,10 @@ namespace BILTIFUL.Core.Entidades
         public DateTime ucompra { get; set; }
         public DateTime dcadastro { get; set; }
         public Situacao situacao { get; set; }
+
+        public MPrima()
+        {
+
+        }
     }
 }

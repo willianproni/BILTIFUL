@@ -3,7 +3,7 @@ using System;
 
 namespace BILTIFUL.Core.Entidades
 {
-    internal class ItemProducao : EntidadeBase
+    public class ItemProducao : EntidadeBase
     {
         public DateTime dproducao { get; set; } = DateTime.Now;
         //ID Materia Prima

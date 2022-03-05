@@ -3,7 +3,7 @@ using System;
 
 namespace BILTIFUL.Core.Entidades
 {
-    internal class Venda : EntidadeBase
+    public class Venda : EntidadeBase
     {
         public DateTime dvenda { get; set; }
         //CPF

@@ -3,7 +3,7 @@ using System;
 
 namespace BILTIFUL.Core.Entidades
 {
-    internal class Fornecedor
+    public class Fornecedor
     {
         public long cnpj { get; set; }
         public string rsocial { get; set; }

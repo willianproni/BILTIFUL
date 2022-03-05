@@ -3,7 +3,7 @@ using System;
 
 namespace BILTIFUL.Core.Entidades
 {
-    internal class Compra : EntidadeBase
+    public class Compra : EntidadeBase
     {
         public DateTime dcompra { get; set; }
         //CNPJ

@@ -4,7 +4,7 @@ using System;
 
 namespace BILTIFUL.Core.Entidades
 {
-    internal class MPrima : EntidadeBase
+    public class MPrima : EntidadeBase
     {
         public string nome { get; set; }
         public DateTime ucompra { get; set; }

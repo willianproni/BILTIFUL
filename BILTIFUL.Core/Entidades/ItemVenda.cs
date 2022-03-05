@@ -2,7 +2,7 @@
 
 namespace BILTIFUL.Core.Entidades
 {
-    internal class ItemVenda : EntidadeBase
+    public class ItemVenda : EntidadeBase
     {
         //ID produto
         public int produto { get; set; }

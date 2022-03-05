@@ -12,8 +12,8 @@ namespace BILTIFUL.ModuloProducao
         List<Producao> producao = new List<Producao>();
         public void SubMenu()
         {
-            Console.WriteLine("1- Adicionar");
-            Console.WriteLine("2- Remover");
+            Console.WriteLine("1 - Adicionar");
+            Console.WriteLine("2 - Remover");
         }
     }
 }

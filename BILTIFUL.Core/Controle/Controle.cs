@@ -13,7 +13,7 @@ namespace BILTIFUL.Core.Controle
         public Controle(Cliente cliente)
         {
             //ler arqeuivo
-            //List<Cliente> clientes = new List<Cliente>();
+            List<Cliente> clientes = new List<Cliente>();
             //cliente.add = sr.ReadLine();
             
         }

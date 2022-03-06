@@ -21,6 +21,15 @@ namespace BILTIFUL.Core.Entidades
             this.nome = nome;
         }
 
+        public MPrima(string id,string nome, DateTime ucompra, DateTime dcadastro, Situacao situacao)
+        {
+            this.id = id; 
+            this.nome = nome;
+            this.ucompra = ucompra;
+            this.dcadastro = dcadastro;
+            this.situacao = situacao;
+        }
+
         public string ConverterParaEDI()
         {
             return $"{id}{nome.PadRight(20)}{ucompra.ToString("dd/MM/yyyy")}{dcadastro.ToString("dd/MM/yyyy")}{(char)situacao}";

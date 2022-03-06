@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,6 +15,11 @@ namespace BILTIFUL.Core
     {
 
         public Controle cadastros = new Controle();
+
+        public CadastroService()
+        {
+        }
+
         public void SubMenu()
         {
             string opc;
@@ -36,12 +41,16 @@ namespace BILTIFUL.Core
                         Controle materiaprima = new Controle(CadastroMateriaPrima());
                         break;
                     case "5":
+                        Controle inadimplente = new Controle(CadastroInadimplente());
                         break;
                     case "6":
+                        Controle bloqueado = new Controle(CadastroBloqueado());
                         break;
                     case "7":
+                        Controle removerInadimplencia = new Controle(RemoverInadimplencia(),"remover");
                         break;
                     case "8":
+                        Controle removerBloqueado = new Controle(CadastroBloqueado(), "remover");
                         break;
                     case "0":
                         break;
@@ -110,7 +119,7 @@ namespace BILTIFUL.Core
             Sexo sexo = (Sexo)char.Parse(csexo);
             return new Cliente(long.Parse(cpf), nome, dnascimento, sexo);
         }
-        public bool ValidaCpf(string cpf)
+        public static bool ValidaCpf(string cpf)
         {
             int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -174,6 +183,7 @@ namespace BILTIFUL.Core
                 Console.WriteLine("Deve ter se passado pelo menos 6 meses desde a abertura!");
                 return null;
             }
+            
             return new Fornecedor(long.Parse(cnpj), rsocial, dabertura);
         }
         public static bool ValidaCnpj(string cnpj)
@@ -240,7 +250,7 @@ namespace BILTIFUL.Core
                 sw.Close();
             }
             catch (Exception ex)
-            { 
+            {
                 Console.WriteLine(ex.Message);
             }
         }
@@ -248,14 +258,91 @@ namespace BILTIFUL.Core
         {
             Console.Clear();
             Console.WriteLine("===========CADASTRO MATERIA PRIMA===========");
-            Console.WriteLine("Digite o nome do Produto");
+            Console.WriteLine("Digite o nome da Materia Prima");
             string nome = Console.ReadLine().Trim();
 
             cadastros.codigos[1]++;
             SalvarCodigos();
             string cod = "" + cadastros.codigos[1];
             cadastros.materiasprimas.Add(new MPrima(cod, nome));
-            return new MPrima(cod,nome);
+            return new MPrima(cod, nome);
+        } 
+        public long CadastroInadimplente()
+        {
+            string inadimplente;
+            Console.Clear();
+            Console.WriteLine("===========CADASTRO DE INADIMPLENTE===========");
+            do
+            {
+                Console.WriteLine("Digite o cpf do caloteiro: ");
+                inadimplente = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
+                if (!ValidaCpf(inadimplente))//valida cpf
+                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+            } while (!ValidaCpf(inadimplente));
+
+            long cpf = long.Parse(inadimplente);
+
+            if (cadastros.clientes.Find(p => p.cpf == cpf) != null)
+                return cpf;
+            return 0;
         }
+        public long CadastroBloqueado()
+        {
+            string bloqueado;
+            Console.Clear();
+            Console.WriteLine("===========CADASTRO DE BLOQUEADO===========");
+            do
+            {
+                Console.WriteLine("Digite o cpf do fornecedor: ");
+                bloqueado = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
+                if (!ValidaCnpj(bloqueado))//valida cpf
+                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+            } while (!ValidaCnpj(bloqueado));
+
+            long cnpj = long.Parse(bloqueado);
+
+            if(cadastros.fornecedores.Find(p => p.cnpj==cnpj)!=null)
+                return cnpj;
+            return 0;
+        }
+        public long RemoverInadimplencia()
+        {
+            string inadimplente;
+            Console.Clear();
+            Console.WriteLine("===========REMOVER DE INADIMPLENTE===========");
+            do
+            {
+                Console.WriteLine("Digite o cpf do ex caloteiro: ");
+                inadimplente = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
+                if (!ValidaCpf(inadimplente))//valida cpf
+                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+            } while (!ValidaCpf(inadimplente));
+
+            long cpf = long.Parse(inadimplente);
+
+            if (cadastros.inadimplentes.Find(p => p == ""+cpf) != null)
+                return cpf;
+            return 0;
+        }
+        public long RemoverBloqueio()
+        {
+            string bloqueado;
+            Console.Clear();
+            Console.WriteLine("===========REMOVER DE BLOQUEADO===========");
+            do
+            {
+                Console.WriteLine("Digite o cnpj do fornecedor bloqueado: ");
+                bloqueado = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
+                if (!ValidaCnpj(bloqueado))//valida cpf
+                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+            } while (!ValidaCnpj(bloqueado));
+
+            long cnpj = long.Parse(bloqueado);
+
+            if (cadastros.bloqueados.Find(p => p == ""+cnpj) != null)
+                return cnpj;
+            return 0;
+        }
+
     }
 }

@@ -24,6 +24,8 @@ namespace BILTIFUL.Core.Controles
         public List<string> inadimplentes { get; set; }
         public List<string> bloqueados { get; set; }
 
+
+        
         public Controle()//esse construtora instanciará todas as listas qnd feito
         {
             //instancia cada lista qnd o programa é iniciado
@@ -155,6 +157,8 @@ namespace BILTIFUL.Core.Controles
         }
         public Controle(Fornecedor fornecedor)
         {
+                       
+            
             if (fornecedor != null)
             {
                 try//envia cliente para arquivo como novo cliente]try

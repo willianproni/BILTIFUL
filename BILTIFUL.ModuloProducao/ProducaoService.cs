@@ -53,7 +53,6 @@ namespace BILTIFUL.ModuloProducao
         void Cadastrar()
         {
             Producao producao = new Producao();
-            producao.id = 1;
 
             Console.WriteLine("O produto a ser produzido existe?");
             Console.WriteLine("Insira o nome do produto:");

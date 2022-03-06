@@ -7,7 +7,7 @@ namespace BILTIFUL.Core.Entidades
     {
         public DateTime dproducao { get; set; } = DateTime.Now;
         //ID Materia Prima
-        public int mprima { get; set; }
+        public string mprima { get; set; }
         public int qtdmp { get; set; }
 
         public ItemProducao()

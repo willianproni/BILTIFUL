@@ -13,13 +13,13 @@ namespace BILTIFUL.ModuloCompra
     public class CompraService
     {
         Controle controle = new Controle();
-        List<Fornecedor> testes = new List<Fornecedor>();
-        public void AdicionarFornecedor()
-        {
+        //List<Fornecedor> testes = new List<Fornecedor>();
+        //public void AdicionarFornecedor()
+        //{
 
-            testes.Add(new Fornecedor(1, "fornecedor1"));
-            testes.Add(new Fornecedor(2, "fornecedor2"));
-        }
+        //    testes.Add(new Fornecedor(1, "fornecedor1"));
+        //    testes.Add(new Fornecedor(2, "fornecedor2"));
+        //}
 
         public void SubMenu()
         {
@@ -45,10 +45,11 @@ namespace BILTIFUL.ModuloCompra
 
         public void Cadastrar()
         {
-            AdicionarFornecedor();
+            //AdicionarFornecedor();
             int cont = 0;
             string saida = "a";
             string opc = "a";
+            string opcp = "a";
             do
             {
                 Console.Clear();
@@ -56,7 +57,7 @@ namespace BILTIFUL.ModuloCompra
                 {
                     Console.WriteLine("Informe o CNPJ do forncedor");
                     long cnpj = long.Parse(Console.ReadLine());
-                    Fornecedor fornecedorCompra = BuscarCnpj(cnpj, testes);
+                    Fornecedor fornecedorCompra = BuscarCnpj(cnpj, controle.fornecedores);
                     if (fornecedorCompra == null)
                     {
                         Console.WriteLine("Fornecedor nao encontrado. Favor informar outro cnpj");
@@ -69,17 +70,43 @@ namespace BILTIFUL.ModuloCompra
                         opc = Console.ReadLine();
                         if (opc == "0")
                         {
-                            Console.WriteLine("Pressione uma tecla para voltar e informar o fornecedor correto");
-                            Console.ReadKey();
+                            Console.WriteLine("Informe o CNPJ do fornecedor correto");
+                            
 
                         }
                     }
                 } while (opc != "1");
-                Console.WriteLine("Informe o codigo da materia-prima");
-                string mprima = Console.ReadLine();
-                BuscaMPrima(mprima, controle.materiasprimas);
-                Console.WriteLine("Informe a quantiade");
-                int quat = int.Parse(Console.ReadLine());
+                do
+                {
+                    Console.WriteLine("Informe o ID da Materia-Prima");
+                    string idMPrima = Console.ReadLine();
+                    MPrima mPrimaCompra = BuscaMPrima(idMPrima, controle.materiasprimas);
+                    if (mPrimaCompra == null)
+                    {
+                        Console.WriteLine("Materia-Prima nao encontrada. Favor informar outro ID");
+                    }
+                    else
+                    {
+                        Console.WriteLine(mPrimaCompra.ToString());
+                        Console.WriteLine("[1]SIM [0]NAO");
+                        Console.WriteLine("Confirma dados da Materia-Prima?");
+                        opcp = Console.ReadLine();
+                        if (opcp == "0")
+                        {
+                            Console.WriteLine("Informe o ID da Materia-Prima correta");                           
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Informe o valor unitario da Materia-Prima");
+                            int valor = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Informe a quantiade");
+                            int quat = int.Parse(Console.ReadLine());
+                            
+                        }
+                    }
+
+                } while (opcp != "1");
                 Console.WriteLine("Deseja adicionar mais materia-prima\n[1]SIM [0]NAO");
                 saida = Console.ReadLine();
                 cont++;
@@ -89,25 +116,14 @@ namespace BILTIFUL.ModuloCompra
 
         public Fornecedor BuscarCnpj(long fcnpj, List<Fornecedor> fornecedor)
         {
-            Fornecedor fornecedorcompra = fornecedor.Find(delegate (Fornecedor f) { return f.cnpj == fcnpj; });
+            Fornecedor fornecedorcompra = fornecedor.Find(delegate (Fornecedor f) { return f.CNPJ == fcnpj; });
 
             return fornecedorcompra;
-
-
-            //if (fornecedorcompra == null)
-            //{
-            //    string retorno = "Fornecedor nao encontrado favor informar outro cnpj";
-            //    return retorno;
-            //}
-            //else
-            //{
-            //    return fornecedorcompra.ToString();
-            //}
         }
 
         public MPrima BuscaMPrima(string idMPrima, List<MPrima> mPrima)
         {
-            MPrima mPrimaCompra = mPrima.Find(delegate (MPrima mP) { return mP.id == idMPrima; });
+            MPrima mPrimaCompra = mPrima.Find(delegate (MPrima mP) { return mP.Id == idMPrima; });
 
             return mPrimaCompra;
         }

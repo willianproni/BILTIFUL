@@ -5,12 +5,12 @@ namespace BILTIFUL.Core.Entidades
 {
     public class Fornecedor
     {
-        public long cnpj { get; set; }
-        public string rsocial { get; set; }
-        public DateTime dabertura { get; set; }
-        public DateTime ucompra { get; set; } = DateTime.Now;
-        public DateTime dcadastro { get; set; } = DateTime.Now;
-        public Situacao situacao { get; set; } = Situacao.Ativo;
+        public long CNPJ { get; set; }
+        public string RazaoSocial { get; set; }
+        public DateTime DataAbertura { get; set; }
+        public DateTime UltimaCompra { get; set; } = DateTime.Now;
+        public DateTime DataCadastro { get; set; } = DateTime.Now;
+        public Situacao Situacao { get; set; } = Situacao.Ativo;
 
         public Fornecedor()
         {
@@ -18,36 +18,36 @@ namespace BILTIFUL.Core.Entidades
 
         public Fornecedor(long cnpj, string rsocial, DateTime dabertura)
         {
-            this.cnpj = cnpj;
-            this.rsocial = rsocial;
-            this.dabertura = dabertura;
+            this.CNPJ = cnpj;
+            this.RazaoSocial = rsocial;
+            this.DataAbertura = dabertura;
         }
         public Fornecedor(long cnpj, string rsocial)
         {
-            this.cnpj = cnpj;
-            this.rsocial = rsocial;
+            this.CNPJ = cnpj;
+            this.RazaoSocial = rsocial;
             
         }
 
         public override string ToString()
         {
-            return "Fornecedor:\t" + rsocial + "\nCnpj:\t" + cnpj;
+            return "Fornecedor:\t" + RazaoSocial + "\nCnpj:\t" + CNPJ+"\nData de Abertura:\t"+DataAbertura.ToString("dd/MM/yyyy");
         }
 
         public Fornecedor(long cnpj, string rsocial, DateTime dabertura, DateTime ucompra, DateTime dcadastro, Situacao situacao)
         {
 
-            this.cnpj = cnpj;
-            this.rsocial = rsocial;
-            this.dabertura = dabertura;
-            this.ucompra = ucompra;
-            this.dcadastro = dcadastro;
-            this.situacao = situacao;
+            this.CNPJ = cnpj;
+            this.RazaoSocial = rsocial;
+            this.DataAbertura = dabertura;
+            this.UltimaCompra = ucompra;
+            this.DataCadastro = dcadastro;
+            this.Situacao = situacao;
         }
 
         public string ConverterParaEDI()
         {
-            return $"{cnpj}{rsocial.PadRight(50, ' ')}{dabertura.ToString("dd/MM/yyyy")}{ucompra.ToString("dd/MM/yyyy")}{dcadastro.ToString("dd/MM/yyyy")}{(char)situacao}";
+            return $"{CNPJ}{RazaoSocial.PadRight(50, ' ')}{DataAbertura.ToString("dd/MM/yyyy")}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
         }
     }
 }

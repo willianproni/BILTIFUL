@@ -25,7 +25,7 @@ namespace BILTIFUL.Core.Controles
         public List<string> bloqueados { get; set; }
 
 
-        
+
         public Controle()//esse construtora instanciará todas as listas qnd feito
         {
             //instancia cada lista qnd o programa é iniciado
@@ -39,99 +39,136 @@ namespace BILTIFUL.Core.Controles
 
             try
             {
-                //LISTA CONTROLE
-                StreamReader sr = new StreamReader("Arquivos\\Controle.dat");//le o arquivo controle
-                string line = sr.ReadLine();
-                while (line != null)
+                StreamReader sr;
+                string line;
+
+                if (!Directory.Exists("Arquivos"))
                 {
-                    codigos.Add(int.Parse(line));//adicionando na minha lista codigo linha por linha
-                    line = sr.ReadLine();
+                    Directory.CreateDirectory("Arquivos");
                 }
-                sr.Close();
+
+                //LISTA CONTROLE
+                if (File.Exists("Arquivos\\Controle.dat"))
+                {
+                    sr = new StreamReader("Arquivos\\Controle.dat");//le o arquivo controle
+                    line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        codigos.Add(int.Parse(line));//adicionando na minha lista codigo linha por linha
+                        line = sr.ReadLine();
+                    }
+                    sr.Close();
+                }
+                else
+                {
+                    StreamWriter streamWriter = new StreamWriter("Arquivos\\Controle.dat");
+                    streamWriter.WriteLine("0");
+                    streamWriter.WriteLine("0");
+                    streamWriter.Close();
+
+                }
 
                 //LISTA CLIENTES
-                sr = new StreamReader("Arquivos\\Clientes.dat");
-                line = sr.ReadLine();
-                while (line != null)
+                if (File.Exists("Arquivos\\Clientes.dat"))
                 {
-                    long cpf = long.Parse(line.Substring(0, 11));
-                    string nome = line.Substring(11, 50).Trim();
-                    DateTime dnascimento = DateTime.Parse(line.Substring(61, 10));
-                    Sexo sexo = (Sexo)char.Parse(line.Substring(71, 1));
-                    DateTime ucompra = DateTime.Parse(line.Substring(72, 10));
-                    DateTime dcadastro = DateTime.Parse(line.Substring(82, 10));
-                    Situacao situacao = (Situacao)char.Parse(line.Substring(92, 1));
-                    clientes.Add(new Cliente(cpf, nome, dnascimento, sexo, ucompra, dcadastro, situacao));
+                    sr = new StreamReader("Arquivos\\Clientes.dat");
                     line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        long cpf = long.Parse(line.Substring(0, 11));
+                        string nome = line.Substring(11, 50).Trim();
+                        DateTime dnascimento = DateTime.Parse(line.Substring(61, 10));
+                        Sexo sexo = (Sexo)char.Parse(line.Substring(71, 1));
+                        DateTime ucompra = DateTime.Parse(line.Substring(72, 10));
+                        DateTime dcadastro = DateTime.Parse(line.Substring(82, 10));
+                        Situacao situacao = (Situacao)char.Parse(line.Substring(92, 1));
+                        clientes.Add(new Cliente(cpf, nome, dnascimento, sexo, ucompra, dcadastro, situacao));
+                        line = sr.ReadLine();
+                    }
+                    sr.Close();
                 }
-                sr.Close();
 
                 //LISTA FORNECEDORES
-                sr = new StreamReader("Arquivos\\Fornecedor.dat");
-                line = sr.ReadLine();
-                while (line != null)
+                if (File.Exists("Arquivos\\Fornecedor.dat"))
                 {
-                    long cnpj = long.Parse(line.Substring(0, 14));
-                    string rsocial = line.Substring(14, 50).Trim();
-                    DateTime dabertura = DateTime.Parse(line.Substring(64, 10));
-                    DateTime ucompra = DateTime.Parse(line.Substring(74, 10));
-                    DateTime dcadastro = DateTime.Parse(line.Substring(84, 10));
-                    Situacao situacao = (Situacao)char.Parse(line.Substring(94, 1));
-                    fornecedores.Add(new Fornecedor(cnpj, rsocial, dabertura, ucompra, dcadastro, situacao));
+                    sr = new StreamReader("Arquivos\\Fornecedor.dat");
                     line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        long cnpj = long.Parse(line.Substring(0, 14));
+                        string rsocial = line.Substring(14, 50).Trim();
+                        DateTime dabertura = DateTime.Parse(line.Substring(64, 10));
+                        DateTime ucompra = DateTime.Parse(line.Substring(74, 10));
+                        DateTime dcadastro = DateTime.Parse(line.Substring(84, 10));
+                        Situacao situacao = (Situacao)char.Parse(line.Substring(94, 1));
+                        fornecedores.Add(new Fornecedor(cnpj, rsocial, dabertura, ucompra, dcadastro, situacao));
+                        line = sr.ReadLine();
+                    }
+                    sr.Close();
                 }
-                sr.Close();
 
                 //LISTA PRODUTOS
-                sr = new StreamReader("Arquivos\\Cosmetico.dat");
-                line = sr.ReadLine();
-                while (line != null)
+                if (File.Exists("Arquivos\\Cosmetico.dat"))
                 {
-                    string cbarras = line.Substring(0, 12);
-                    string nome = line.Substring(12, 20).Trim();
-                    string vvendas = line.Substring(32, 5);
-                    DateTime uvenda = DateTime.Parse(line.Substring(37, 10));
-                    DateTime dcadastro = DateTime.Parse(line.Substring(47, 10));
-                    Situacao situacao = (Situacao)char.Parse(line.Substring(57, 1));
-                    produtos.Add(new Produto(cbarras, nome, vvendas, uvenda, dcadastro, situacao));
+                    sr = new StreamReader("Arquivos\\Cosmetico.dat");
                     line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        string cbarras = line.Substring(0, 12);
+                        string nome = line.Substring(12, 20).Trim();
+                        string vvendas = line.Substring(32, 5);
+                        DateTime uvenda = DateTime.Parse(line.Substring(37, 10));
+                        DateTime dcadastro = DateTime.Parse(line.Substring(47, 10));
+                        Situacao situacao = (Situacao)char.Parse(line.Substring(57, 1));
+                        produtos.Add(new Produto(cbarras, nome, vvendas, uvenda, dcadastro, situacao));
+                        line = sr.ReadLine();
+                    }
+                    sr.Close();
                 }
-                sr.Close();
 
                 //LISTA MATERIA PRIMA
-                sr = new StreamReader("Arquivos\\Materia.dat");
-                line = sr.ReadLine();
-                while (line != null)
+                if (File.Exists("Arquivos\\Materia.dat"))
                 {
-                    string cod = line.Substring(0, 6);
-                    string nome = line.Substring(6, 20).Trim();
-                    DateTime ucompra = DateTime.Parse(line.Substring(26, 10));
-                    DateTime dcadastro = DateTime.Parse(line.Substring(36, 10));
-                    Situacao situacao = (Situacao)char.Parse(line.Substring(46, 1));
-                    materiasprimas.Add(new MPrima(cod, nome, ucompra, dcadastro, situacao));
+                    sr = new StreamReader("Arquivos\\Materia.dat");
                     line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        string cod = line.Substring(0, 6);
+                        string nome = line.Substring(6, 20).Trim();
+                        DateTime ucompra = DateTime.Parse(line.Substring(26, 10));
+                        DateTime dcadastro = DateTime.Parse(line.Substring(36, 10));
+                        Situacao situacao = (Situacao)char.Parse(line.Substring(46, 1));
+                        materiasprimas.Add(new MPrima(cod, nome, ucompra, dcadastro, situacao));
+                        line = sr.ReadLine();
+                    }
+                    sr.Close();
                 }
-                sr.Close();
 
                 //LISTA INADIMPLENTES
-                sr = new StreamReader("Arquivos\\Risco.dat");//le o arquivo controle
-                line = sr.ReadLine();
-                while (line != null)
+                if (File.Exists("Arquivos\\Risco.dat"))
                 {
-                    inadimplentes.Add(line);//adicionando na minha lista codigo linha por linha
+                    sr = new StreamReader("Arquivos\\Risco.dat");//le o arquivo controle
                     line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        inadimplentes.Add(line);//adicionando na minha lista codigo linha por linha
+                        line = sr.ReadLine();
+                    }
+                    sr.Close();
                 }
-                sr.Close();
 
                 //LISTA BLOQUEADOS
-                sr = new StreamReader("Arquivos\\Bloqueado.dat");//le o arquivo controle
-                line = sr.ReadLine();
-                while (line != null)
+                if (File.Exists("Arquivos\\Bloqueado.dat"))
                 {
-                    bloqueados.Add(line);//adicionando na minha lista codigo linha por linha
+                    sr = new StreamReader("Arquivos\\Bloqueado.dat");//le o arquivo controle
                     line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        bloqueados.Add(line);//adicionando na minha lista codigo linha por linha
+                        line = sr.ReadLine();
+                    }
+                    sr.Close();
                 }
-                sr.Close();
             }
             catch (Exception e)
             {
@@ -157,8 +194,8 @@ namespace BILTIFUL.Core.Controles
         }
         public Controle(Fornecedor fornecedor)
         {
-                       
-            
+
+
             if (fornecedor != null)
             {
                 try//envia cliente para arquivo como novo cliente]try
@@ -241,7 +278,7 @@ namespace BILTIFUL.Core.Controles
                 }
             }
         }
-        public Controle(long chave,string funcao)
+        public Controle(long chave, string funcao)
         {
             string schave = "" + chave;
             if (CadastroService.ValidaCpf(schave))
@@ -249,7 +286,7 @@ namespace BILTIFUL.Core.Controles
 
             }
             if (CadastroService.ValidaCnpj(schave))
-            { 
+            {
 
             }
         }

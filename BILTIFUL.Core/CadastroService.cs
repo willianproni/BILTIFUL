@@ -28,13 +28,12 @@ namespace BILTIFUL.Core
                         break;
                     case "2":
                         Controle produto = new Controle(CadastroProduto());
-                        cadastros.codigos.ForEach(p => Console.WriteLine(p));
-
                         break;
                     case "3":
                         Controle fornecedor = new Controle(CadastroFornecedor());
                         break;
                     case "4":
+                        Controle materiaprima = new Controle(CadastroMateriaPrima());
                         break;
                     case "5":
                         break;
@@ -244,6 +243,19 @@ namespace BILTIFUL.Core
             { 
                 Console.WriteLine(ex.Message);
             }
+        }
+        public MPrima CadastroMateriaPrima()
+        {
+            Console.Clear();
+            Console.WriteLine("===========CADASTRO MATERIA PRIMA===========");
+            Console.WriteLine("Digite o nome do Produto");
+            string nome = Console.ReadLine().Trim();
+
+            cadastros.codigos[1]++;
+            SalvarCodigos();
+            string cod = "" + cadastros.codigos[1];
+            cadastros.materiasprimas.Add(new MPrima(cod, nome));
+            return new MPrima(cod,nome);
         }
     }
 }

@@ -15,6 +15,12 @@ namespace BILTIFUL.Core.Controles
         public List<Cliente> clientes { get; set; }
         public List<Produto> produtos  { get; set; }
         public List<Fornecedor> fornecedores { get; set; }
+        public List<MPrima> materiasprimas { get; set; }
+        public List<Compra> compras { get; set; }
+        public List<ItemCompra> itemcompra { get; set; }
+        public List<Venda> vendas { get; set; }
+        public List<ItemVenda> itensvenda { get; set; }
+
         public Controle()//esse construtora instanciará todas as listas qnd feito
         {
             //instancia cada lista qnd o programa é iniciado
@@ -22,6 +28,7 @@ namespace BILTIFUL.Core.Controles
             clientes = new List<Cliente>();
             produtos = new List<Produto>();
             fornecedores = new List<Fornecedor>();
+            materiasprimas = new List<MPrima>();
 
             try
             {
@@ -82,7 +89,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter sw = new StreamWriter("Arquivos\\Cosmetico.dat", append: true);
                     sw.WriteLine(produto.ConverterParaEDI());
                     sw.Close();
-                    Console.WriteLine("Fornecedor cadastrado com sucesso!");
+                    Console.WriteLine("Produto cadastrado com sucesso!");
                 }
                 catch (Exception e)
                 {
@@ -90,6 +97,23 @@ namespace BILTIFUL.Core.Controles
                 }
             }
 
+        }
+        public Controle(MPrima materiaprima)
+        {
+            if (materiaprima != null)
+            {
+                try//envia cliente para arquivo como novo cliente]try
+                {
+                    StreamWriter sw = new StreamWriter("Arquivos\\Materia.dat", append: true);
+                    sw.WriteLine(materiaprima.ConverterParaEDI());
+                    sw.Close();
+                    Console.WriteLine("Materia prima cadastrado com sucesso!");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+            }
         }
     }
     

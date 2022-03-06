@@ -51,6 +51,9 @@ namespace BILTIFUL.Core
                     case "8":
                         RemoverBloqueio();
                         break;
+                    case "9":
+                        MostrarRegistro();
+                        break;
                     case "0":
                         break;
                     default:
@@ -74,6 +77,7 @@ namespace BILTIFUL.Core
             Console.WriteLine("\t|6| - ADICIONAR FORNECEDOR A LISTA DE BLOQUEADO|");
             Console.WriteLine("\t|7| - REMOVER CLIENTE DA LISTA DE INADIMPLENTE |");
             Console.WriteLine("\t|8| - REMOVER FORNECEDOR DA LISTA DE BLOQUEADO |");
+            Console.WriteLine("\t|9| - MOSTRAR REGISTROS                        |");
             Console.WriteLine("\t|0| - VOLTAR PARA O MENU PRINCIPAL             |");
                 Console.Write("\t|______________________________________________|\n" +
                               "\t|Opção: ");
@@ -354,7 +358,6 @@ namespace BILTIFUL.Core
             return 0;
         }
 
-
         public void RemoverInadimplencia()
         {
             string inadimplente;
@@ -434,6 +437,11 @@ namespace BILTIFUL.Core
                     Console.WriteLine("Exception: " + e.Message);
                 }
             }
+        }
+
+        public void MostrarRegistro()
+        {
+            
         }
     }
 }

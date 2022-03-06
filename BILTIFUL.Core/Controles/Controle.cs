@@ -11,14 +11,14 @@ namespace BILTIFUL.Core.Controles
     public class Controle
     {
         //uma lista para cada arquivos que eu tiver
-        public List<string> codigos { get; set; }
+        public List<int> codigos { get; set; }
         public List<Cliente> clientes { get; set; }
         public List<Produto> produtos  { get; set; }
         public List<Fornecedor> fornecedores { get; set; }
         public Controle()//esse construtora instanciará todas as listas qnd feito
         {
             //instancia cada lista qnd o programa é iniciado
-            codigos = new List<string>();
+            codigos = new List<int>();
             clientes = new List<Cliente>();
             produtos = new List<Produto>();
             fornecedores = new List<Fornecedor>();
@@ -29,7 +29,7 @@ namespace BILTIFUL.Core.Controles
                 string line = sr.ReadLine();
                 while(line != null)
                 {
-                    codigos.Add(line);//adicionando na minha lista codigo linha por linha
+                    codigos.Add(int.Parse(line));//adicionando na minha lista codigo linha por linha
                     line = sr.ReadLine();
                 }
                 sr.Close();
@@ -75,8 +75,21 @@ namespace BILTIFUL.Core.Controles
         }
         public Controle(Produto produto)
         {
-            //List<MPrima> mprima = new List<MPrima>();
-            //mprima = ler arquivo mprima
+            if (produto != null)
+            {
+                try//envia cliente para arquivo como novo cliente]try
+                {
+                    StreamWriter sw = new StreamWriter("Arquivos\\Cosmetico.dat", append: true);
+                    sw.WriteLine(produto.ConverterParaEDI());
+                    sw.Close();
+                    Console.WriteLine("Fornecedor cadastrado com sucesso!");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+            }
+
         }
     }
     

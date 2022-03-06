@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace BILTIFUL.Core
     public class CadastroService
     {
 
-
+        public Controle cadastros = new Controle();
         public void SubMenu()
         {
             string opc;
@@ -26,7 +27,9 @@ namespace BILTIFUL.Core
                         Controle cliente = new Controle(CadastroCliente());
                         break;
                     case "2":
-                       // Controle produto = new Controle(CadastroProduto());
+                        Controle produto = new Controle(CadastroProduto());
+                        cadastros.codigos.ForEach(p => Console.WriteLine(p));
+
                         break;
                     case "3":
                         Controle fornecedor = new Controle(CadastroFornecedor());
@@ -65,8 +68,8 @@ namespace BILTIFUL.Core
             Console.WriteLine("\t|7| - REMOVER CLIENTE DA LISTA DE INADIMPLENTE |");
             Console.WriteLine("\t|8| - REMOVER FORNECEDOR DA LISTA DE BLOQUEADO |");
             Console.WriteLine("\t|0| - VOLTAR PARA O MENU PRINCIPAL             |");
-                Console.Write("\t|______________________________________________|\n" +
-                              "\t|Opção: ");
+            Console.Write("\t|______________________________________________|\n" +
+                          "\t|Opção: ");
             opc = Console.ReadLine();
             return opc;
         }
@@ -95,7 +98,7 @@ namespace BILTIFUL.Core
                 if (!DateTime.TryParse(datanascimento, out dnascimento))
                     Console.WriteLine("Data invalida!");
             } while (!DateTime.TryParse(datanascimento, out dnascimento));
-            if ((DateTime.Now - dnascimento).Days/365 < 18)
+            if ((DateTime.Now - dnascimento).Days / 365 < 18)
             {
                 Console.WriteLine("Deve ter pelomenos 18 anos para ser cliente!");
                 return null;
@@ -154,7 +157,7 @@ namespace BILTIFUL.Core
                 cnpj = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");//tira o ponto e o traço caso digitado
                 if (!ValidaCnpj(cnpj))//valida cpf
                     Console.WriteLine("Cpf invalido!\nDigite novamente");
-                
+
             } while (!ValidaCnpj(cnpj));//enquanto cpf nao for valido digitar denovo
 
             Console.Write("Razão Social: ");
@@ -172,7 +175,7 @@ namespace BILTIFUL.Core
                 Console.WriteLine("Deve ter se passado pelo menos 6 meses desde a abertura!");
                 return null;
             }
-            return new Fornecedor(long.Parse(cnpj),rsocial,dabertura);
+            return new Fornecedor(long.Parse(cnpj), rsocial, dabertura);
         }
         public static bool ValidaCnpj(string cnpj)
         {
@@ -216,13 +219,31 @@ namespace BILTIFUL.Core
             string nome = Console.ReadLine().Trim();
             do
             {
-                Console.Write("Valor(precisa ser <1000): ");
+                Console.Write("Valor($$$,$$)(valor precisa ser menor que 1000,00): ");
                 svalor = Console.ReadLine().Trim().Replace(".", "").Replace(",", "");
-                if (!int.TryParse(svalor, out valor))
-                    Console.WriteLine("Data invalida!");
-            } while (!int.TryParse(svalor,out valor) || (valor>999.99) || (valor<=0));
+                if (!int.TryParse(svalor, out valor) || (valor > 99999) || (valor <= 0))
+                    Console.WriteLine("Valor invalido!");
+            } while (!int.TryParse(svalor, out valor) || (valor > 99999) || (valor <= 0));
 
-            return new Produto();
+            cadastros.codigos[0]++;
+            SalvarCodigos();
+            string cod = "" + cadastros.codigos[0];
+            cadastros.produtos.Add(new Produto(cod, nome, svalor));
+            return new Produto(cod, nome, svalor);
+        }
+        public void SalvarCodigos()
+        {
+            try
+            {
+                StreamWriter sw = new StreamWriter("Arquivos\\Controle.dat");
+                sw.WriteLine(cadastros.codigos[0]);
+                sw.WriteLine(cadastros.codigos[1]);
+                sw.Close();
+            }
+            catch (Exception ex)
+            { 
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

@@ -13,7 +13,6 @@ namespace BILTIFUL
         static VendaService vendaService = new VendaService();
         static CompraService compraService = new CompraService();
         static CadastroService cadastroService = new CadastroService();
-        public Controle listas = new Controle();
         static void Main(string[] args)
         {
             

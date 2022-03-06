@@ -6,14 +6,35 @@ namespace BILTIFUL.Core.Entidades
 {
     public class MPrima : EntidadeBase
     {
-        public string nome { get; set; }
-        public DateTime ucompra { get; set; }
-        public DateTime dcadastro { get; set; }
-        public Situacao situacao { get; set; }
+        public string Nome { get; set; }
+        public DateTime UltimaCompra { get; set; } = DateTime.Now;
+        public DateTime DataCadastro { get; set; } = DateTime.Now;
+        public Situacao Situacao { get; set; } = Situacao.Ativo;
 
         public MPrima()
         {
+        }
 
+        public MPrima(string idcod,string nome)
+        {
+            Id = "MP" + idcod.PadLeft(4, '0');
+            this.Nome = nome;
+        }
+
+        public MPrima(string id, string nome, DateTime ucompra, DateTime dcadastro, Situacao situacao)
+        {
+            this.Id = id;
+            this.Nome = nome;
+            this.UltimaCompra = ucompra;
+            this.DataCadastro = dcadastro;
+            this.Situacao = situacao;
+        }
+
+
+
+        public string ConverterParaEDI()
+        {
+            return $"{Id}{Nome.PadRight(20)}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
         }
     }
 }

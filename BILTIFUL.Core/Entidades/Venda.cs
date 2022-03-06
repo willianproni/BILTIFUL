@@ -5,13 +5,18 @@ namespace BILTIFUL.Core.Entidades
 {
     public class Venda : EntidadeBase
     {
-        public DateTime dvenda { get; set; }
+        public DateTime DataVenda { get; set; }
         //CPF
-        public long cliente { get; set; }
-        public int vtotal { get; set; }
+        public long Cliente { get; set; }
+        public int ValorTotal { get; set; }
         public Venda()
         {
 
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }

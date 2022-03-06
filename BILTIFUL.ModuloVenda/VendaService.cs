@@ -6,7 +6,6 @@ namespace BILTIFUL.ModuloVenda
 {
     public class VendaService
     {
-        int cont = 0;
         List<Venda> vendas = new List<Venda>();
         List<Produto> produtos = new List<Produto>();
         List<Cliente> clientes = new List<Cliente>();
@@ -77,6 +76,7 @@ namespace BILTIFUL.ModuloVenda
         public ItemVenda ItemVenda()
         {
             AdicionandoProduto();
+            int cont = 0;
             do
             {
                 Console.WriteLine("Digite o Código do Produto: ");
@@ -85,10 +85,12 @@ namespace BILTIFUL.ModuloVenda
 
                 Console.WriteLine("Digite a Quantidade do Produto: ");
                 int quantidade = int.Parse(Console.ReadLine());
-                int valorTotal = quantidade * aux.vvenda;
+                int conversao = int.Parse(aux.vvenda);
+                int valorTotal = quantidade * conversao;
                 Console.WriteLine(valorTotal);
+                cont++;
                 return new ItemVenda();
-            } while (cont != 3);
+            } while (cont > 3);
         }
 
         public void ExibirVendas(List<Venda> list)

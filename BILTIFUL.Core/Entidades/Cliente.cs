@@ -12,13 +12,13 @@ namespace BILTIFUL.Core.Entidades
         public Sexo sexo { get; set; }
         public DateTime ucompra { get; set; } = DateTime.Now;
         public DateTime dcadastro { get; set; } = DateTime.Now;
-        public Situacao situacao { get; set; }
+        public Situacao situacao { get; set; } = Situacao.Ativo;
 
         public Cliente()
         {
         }
 
-        public Cliente(long cpf, string nome, DateTime dnascimento, Sexo sexo, Situacao situacao)
+        public Cliente(long cpf, string nome, DateTime dnascimento, Sexo sexo)
         {
             this.cpf = cpf;
             this.nome = nome;

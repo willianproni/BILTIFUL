@@ -1,4 +1,4 @@
-﻿using BILTIFUL.Core.Entidades.Enums;
+using BILTIFUL.Core.Entidades.Enums;
 using System;
 
 namespace BILTIFUL.Core.Entidades

@@ -22,6 +22,28 @@ namespace BILTIFUL.Core.Entidades
             this.rsocial = rsocial;
             this.dabertura = dabertura;
         }
+        public Fornecedor(long cnpj, string rsocial)
+        {
+            this.cnpj = cnpj;
+            this.rsocial = rsocial;
+            
+        }
+
+        public override string ToString()
+        {
+            return "Fornecedor:\t" + rsocial + "\nCnpj:\t" + cnpj;
+        }
+
+        public Fornecedor(long cnpj, string rsocial, DateTime dabertura, DateTime ucompra, DateTime dcadastro, Situacao situacao)
+        {
+
+            this.cnpj = cnpj;
+            this.rsocial = rsocial;
+            this.dabertura = dabertura;
+            this.ucompra = ucompra;
+            this.dcadastro = dcadastro;
+            this.situacao = situacao;
+        }
 
         public string ConverterParaEDI()
         {

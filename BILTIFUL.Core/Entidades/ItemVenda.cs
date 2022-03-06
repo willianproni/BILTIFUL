@@ -12,7 +12,6 @@ namespace BILTIFUL.Core.Entidades
         public int titem => qtd * vunitario;
         public ItemVenda()
         {
-
         }
 
         public ItemVenda(string produto, int qtd, int vunitario)

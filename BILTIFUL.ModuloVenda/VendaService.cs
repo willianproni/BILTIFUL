@@ -85,8 +85,7 @@ namespace BILTIFUL.ModuloVenda
 
                 Console.WriteLine("Digite a Quantidade do Produto: ");
                 int quantidade = int.Parse(Console.ReadLine());
-                int conversao = int.Parse(aux.vvenda);
-                int valorTotal = quantidade * conversao;
+                int valorTotal = quantidade * aux.vvenda;
                 Console.WriteLine(valorTotal);
                 cont++;
                 return new ItemVenda();
@@ -100,7 +99,7 @@ namespace BILTIFUL.ModuloVenda
 
         public Cliente BuscarCpf(long ccpf, List<Cliente> cliente)
         {
-            Cliente clientecompra = cliente.Find(delegate (Cliente c) { return c.cpf == ccpf; });
+            Cliente clientecompra = cliente.Find(delegate (Cliente c) { return c.CPF == ccpf; });
             return clientecompra;
         }
     }

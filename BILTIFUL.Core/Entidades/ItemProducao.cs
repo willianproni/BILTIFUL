@@ -5,10 +5,10 @@ namespace BILTIFUL.Core.Entidades
 {
     public class ItemProducao : EntidadeBase
     {
-        public DateTime dproducao { get; set; } = DateTime.Now;
+        public DateTime DataProducao { get; set; } = DateTime.Now;
         //ID Materia Prima
-        public string mprima { get; set; }
-        public int qtdmp { get; set; }
+        public string MateriaPrima { get; set; }
+        public int QuantidadeMateriaPrima { get; set; }
 
         public ItemProducao()
         {

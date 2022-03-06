@@ -282,7 +282,7 @@ namespace BILTIFUL.Core
 
             long cpf = long.Parse(inadimplente);
 
-            if (cadastros.clientes.Find(p => p.cpf == cpf) != null)
+            if (cadastros.clientes.Find(p => p.CPF == cpf) != null)
                 return cpf;
             return 0;
         }
@@ -301,7 +301,7 @@ namespace BILTIFUL.Core
 
             long cnpj = long.Parse(bloqueado);
 
-            if(cadastros.fornecedores.Find(p => p.cnpj==cnpj)!=null)
+            if(cadastros.fornecedores.Find(p => p.CNPJ==cnpj)!=null)
                 return cnpj;
             return 0;
         }

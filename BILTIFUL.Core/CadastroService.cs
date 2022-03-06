@@ -44,10 +44,13 @@ namespace BILTIFUL.Core
                         Controle inadimplente = new Controle(CadastroInadimplente());
                         break;
                     case "6":
+                        Controle bloqueado = new Controle(CadastroBloqueado());
                         break;
                     case "7":
+                        Controle removerInadimplencia = new Controle(RemoverInadimplencia(),"remover");
                         break;
                     case "8":
+                        Controle removerBloqueado = new Controle(CadastroBloqueado(), "remover");
                         break;
                     case "0":
                         break;
@@ -254,7 +257,7 @@ namespace BILTIFUL.Core
         {
             Console.Clear();
             Console.WriteLine("===========CADASTRO MATERIA PRIMA===========");
-            Console.WriteLine("Digite o nome do Produto");
+            Console.WriteLine("Digite o nome da Materia Prima");
             string nome = Console.ReadLine().Trim();
 
             cadastros.codigos[1]++;
@@ -262,8 +265,7 @@ namespace BILTIFUL.Core
             string cod = "" + cadastros.codigos[1];
             cadastros.materiasprimas.Add(new MPrima(cod, nome));
             return new MPrima(cod, nome);
-        }
-        bool flag = false; 
+        } 
         public long CadastroInadimplente()
         {
             string inadimplente;
@@ -279,20 +281,67 @@ namespace BILTIFUL.Core
 
             long cpf = long.Parse(inadimplente);
 
-            cadastros.clientes.ForEach(p => ExisteCliente(p, cpf));
-            if (flag==true)
-            return cpf;
+            if (cadastros.clientes.Find(p => p.cpf == cpf) != null)
+                return cpf;
             return 0;
         }
-        public bool ExisteCliente(Cliente p, long cpf)
+        public long CadastroBloqueado()
         {
-            if (p.cpf == cpf)
+            string bloqueado;
+            Console.Clear();
+            Console.WriteLine("===========CADASTRO DE BLOQUEADO===========");
+            do
             {
-                flag = true;
-                return true;
-            }
-            flag = false;
-            return false;
+                Console.WriteLine("Digite o cpf do fornecedor: ");
+                bloqueado = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
+                if (!ValidaCnpj(bloqueado))//valida cpf
+                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+            } while (!ValidaCnpj(bloqueado));
+
+            long cnpj = long.Parse(bloqueado);
+
+            if(cadastros.fornecedores.Find(p => p.cnpj==cnpj)!=null)
+                return cnpj;
+            return 0;
         }
+        public long RemoverInadimplencia()
+        {
+            string inadimplente;
+            Console.Clear();
+            Console.WriteLine("===========REMOVER DE INADIMPLENTE===========");
+            do
+            {
+                Console.WriteLine("Digite o cpf do ex caloteiro: ");
+                inadimplente = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
+                if (!ValidaCpf(inadimplente))//valida cpf
+                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+            } while (!ValidaCpf(inadimplente));
+
+            long cpf = long.Parse(inadimplente);
+
+            if (cadastros.inadimplentes.Find(p => p == ""+cpf) != null)
+                return cpf;
+            return 0;
+        }
+        public long RemoverBloqueio()
+        {
+            string bloqueado;
+            Console.Clear();
+            Console.WriteLine("===========REMOVER DE BLOQUEADO===========");
+            do
+            {
+                Console.WriteLine("Digite o cnpj do fornecedor bloqueado: ");
+                bloqueado = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
+                if (!ValidaCnpj(bloqueado))//valida cpf
+                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+            } while (!ValidaCnpj(bloqueado));
+
+            long cnpj = long.Parse(bloqueado);
+
+            if (cadastros.bloqueados.Find(p => p == ""+cnpj) != null)
+                return cnpj;
+            return 0;
+        }
+
     }
 }

@@ -62,6 +62,7 @@ namespace BILTIFUL.Core.Controles
                     clientes.Add(new Cliente(cpf, nome, dnascimento, sexo, ucompra, dcadastro, situacao));
                     line = sr.ReadLine();
                 }
+                sr.Close();
 
                 //LISTA FORNECEDORES
                 sr = new StreamReader("Arquivos\\Fornecedor.dat");
@@ -77,6 +78,7 @@ namespace BILTIFUL.Core.Controles
                     fornecedores.Add(new Fornecedor(cnpj, rsocial, dabertura, ucompra, dcadastro, situacao));
                     line = sr.ReadLine();
                 }
+                sr.Close();
 
                 //LISTA PRODUTOS
                 sr = new StreamReader("Arquivos\\Cosmetico.dat");
@@ -92,6 +94,7 @@ namespace BILTIFUL.Core.Controles
                     produtos.Add(new Produto(cbarras, nome, vvendas, uvenda, dcadastro, situacao));
                     line = sr.ReadLine();
                 }
+                sr.Close();
 
                 //LISTA MATERIA PRIMA
                 sr = new StreamReader("Arquivos\\Materia.dat");
@@ -106,6 +109,7 @@ namespace BILTIFUL.Core.Controles
                     materiasprimas.Add(new MPrima(cod, nome, ucompra, dcadastro, situacao));
                     line = sr.ReadLine();
                 }
+                sr.Close();
 
                 //LISTA INADIMPLENTES
                 sr = new StreamReader("Arquivos\\Risco.dat");//le o arquivo controle
@@ -231,6 +235,18 @@ namespace BILTIFUL.Core.Controles
                 {
                     Console.WriteLine("Exception: " + e.Message);
                 }
+            }
+        }
+        public Controle(long chave,string funcao)
+        {
+            string schave = "" + chave;
+            if (CadastroService.ValidaCpf(schave))
+            {
+
+            }
+            if (CadastroService.ValidaCnpj(schave))
+            { 
+
             }
         }
     }

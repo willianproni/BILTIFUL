@@ -1,4 +1,5 @@
-﻿using BILTIFUL.Core.Entidades;
+﻿using BILTIFUL.Core;
+using BILTIFUL.Core.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,22 @@ namespace BILTIFUL.ModuloProducao
         List<MPrima> mPrimas = new List<MPrima>();
 
 
+        CadastroService cadastroService = new CadastroService();
+
+
+
+
         public void SubMenu()
         {
+
+            produtos.Add(new Produto("001", "baton", "9,99"));
+            produtos.Add(new Produto("002", "shampoo", "19,99"));
+            produtos.Add(new Produto("003", "esmalte", "11,99"));
+
+            mPrimas.Add(new MPrima("1", "detergente"));
+            mPrimas.Add(new MPrima("2", "aroma"));
+            mPrimas.Add(new MPrima("3", "fixador"));
+
             string opcao = "a";
             Console.WriteLine("1- Adicionar");
             Console.WriteLine("2- Remover");
@@ -48,6 +63,8 @@ namespace BILTIFUL.ModuloProducao
             }
 
 
+
+
         }
 
         void Cadastrar()
@@ -55,21 +72,46 @@ namespace BILTIFUL.ModuloProducao
             Producao producao = new Producao();
 
             Console.WriteLine("O produto a ser produzido existe?");
-            Console.WriteLine("Insira o nome do produto:");
-            Console.WriteLine("Preço:");
-            Console.WriteLine("Produto ativo ou inativo:");
+            bool existe = Console.ReadLine() == "s";
+            if (existe == false)
+            {
+                Produto produto = cadastroService.CadastroProduto();
+                if (produto != null) producao.produto = produto.cbarras;
+            }
+            else
+            {
+                Console.WriteLine("Insira o nome do produto a ser localizado:");
+                string nome = Console.ReadLine();
 
-            Console.WriteLine("Insira o nome do produto a ser localizado:");
+                Produto produto = produtos.Find(c => c.nome == nome);
+
+                if (produto != null) producao.produto = produto.cbarras;
+
+            }
+
             Console.WriteLine("Quantos produtos serão produzidos");
-            Console.WriteLine("Quais as materias primas utilizadas?");
-            Console.WriteLine("1- Detergente" +
-                "2- Corante");
-            Console.WriteLine("Quantidade Materia prima");
-            Console.WriteLine("Deseja adicionar mais alguma materia prima");
+            int qtdProduto = int.Parse(Console.ReadLine());
+
+            bool materiaprima;
+            do
+            {
+                Console.WriteLine("Quais as materias primas utilizadas?");
+                mPrimas.ForEach(c => Console.WriteLine(c.nome));
+                int materiasprimas = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Quantidade Materia prima");
+                int qtdmateriaprima = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Deseja adicionar mais alguma materia prima");
+                materiaprima = Console.ReadLine() == "s";
+
+                if (materiaprima)
+                    itemProducao.Add(new ItemProducao()
+                    { mprima = mPrimas[materiasprimas].id, qtdmp = qtdmateriaprima });
+
+            } while (materiaprima);
 
 
-
-            Console.WriteLine("");
 
 
 
@@ -78,16 +120,19 @@ namespace BILTIFUL.ModuloProducao
         void Remover()
         {
             Console.WriteLine("Excluir a produção. Digite o nome do produto para localizar a produção dele.");
+            string nome = Console.ReadLine();
         }
 
         void ImpressaoDoRegistro()
         {
-            Console.WriteLine("Primeira podução.Data, nome e quant.");
+            Console.WriteLine("Primeira produção.Data, nome e quant.");
+
         }
 
         void Localizar()
         {
             Console.WriteLine("Digite o nome do produto para localizar a produção dele.");
+            string nome = Console.ReadLine();
         }
 
 

@@ -7,7 +7,7 @@ namespace BILTIFUL.Core.Entidades
     {
         public DateTime dproducao { get; set; } = DateTime.Now;
         //ID produto
-        public int produto { get; set; }
+        public string produto { get; set; }
         public DateTime dproduto { get; set; }
         public int qtd { get; set; }
 

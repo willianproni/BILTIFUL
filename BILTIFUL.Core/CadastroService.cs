@@ -174,6 +174,7 @@ namespace BILTIFUL.Core
                 Console.WriteLine("Deve ter se passado pelo menos 6 meses desde a abertura!");
                 return null;
             }
+            
             return new Fornecedor(long.Parse(cnpj), rsocial, dabertura);
         }
         public static bool ValidaCnpj(string cnpj)

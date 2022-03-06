@@ -15,6 +15,11 @@ namespace BILTIFUL.Core
     {
 
         public Controle cadastros = new Controle();
+
+        public CadastroService()
+        {
+
+        }
         public void SubMenu()
         {
             string opc;
@@ -63,7 +68,7 @@ namespace BILTIFUL.Core
             Console.WriteLine("\t|3| - CADASTRAR FORNECEDOR                     |");
             Console.WriteLine("\t|4| - CADASTRAR MATERIA PRIMA                  |");
             Console.WriteLine("\t|5| - ADICIONAR CLIENTE COMO INADIMPLENTE      |");
-            Console.WriteLine("\t|6| - ADICIOANR FORNECEDOR A LISTA DE BLOQUEADO|");
+            Console.WriteLine("\t|6| - ADICIONAR FORNECEDOR A LISTA DE BLOQUEADO|");
             Console.WriteLine("\t|7| - REMOVER CLIENTE DA LISTA DE INADIMPLENTE |");
             Console.WriteLine("\t|8| - REMOVER FORNECEDOR DA LISTA DE BLOQUEADO |");
             Console.WriteLine("\t|0| - VOLTAR PARA O MENU PRINCIPAL             |");

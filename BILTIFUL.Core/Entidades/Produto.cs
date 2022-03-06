@@ -5,16 +5,26 @@ namespace BILTIFUL.Core.Entidades
 {
     public class Produto
     {
-        public int cbarras { get; set; }
+        public string cbarras { get; set; } = "7896617";
         public string nome { get; set; }
-        public int vvenda { get; set; }
-        public DateTime uvenda { get; set; }
-        public DateTime dcadastro { get; set; }
-        public Situacao situacao { get; set; }
+        public string vvenda { get; set; }
+        public DateTime uvenda { get; set; } = DateTime.Now;
+        public DateTime dcadastro { get; set; } = DateTime.Now;
+        public Situacao situacao { get; set; } = Situacao.Ativo;
 
         public Produto()
         {
-              
+        }
+
+        public Produto(string cbarras, string nome, string vvenda)
+        {
+            this.cbarras += cbarras.PadLeft(5,'0');
+            this.nome = nome;
+            this.vvenda = vvenda;
+        }
+        public string ConverterParaEDI()
+        {
+            return $"{cbarras}{nome.PadRight(20)}{vvenda.PadLeft(5,'0')}{uvenda.ToString("dd/MM/yyyy")}{dcadastro.ToString("dd/MM/yyyy")}{(char)situacao}";
         }
     }
 }

@@ -1,17 +1,21 @@
-﻿using BILTIFUL.ModuloCompra;
+﻿using BILTIFUL.Core.Controles;
+using BILTIFUL.ModuloCompra;
 using BILTIFUL.ModuloProducao;
 using BILTIFUL.ModuloVenda;
+using BILTIFUL.Core;
 using System;
 
 namespace BILTIFUL
 {
-    internal class Program
+    public class Program
     {
         static ProducaoService producaoService = new ProducaoService();
         static VendaService vendaService = new VendaService();
         static CompraService compraService = new CompraService();
+        static CadastroService cadastroService = new CadastroService();
         static void Main(string[] args)
         {
+            
             Menu();
         }
 
@@ -23,6 +27,7 @@ namespace BILTIFUL
                                 1) Producao
                                 2) Compra
                                 3) Venda
+                                4) Cadastro
                                 ------------------------------
                                 0) - Sair
 ");
@@ -48,6 +53,12 @@ namespace BILTIFUL
                 case "3":
                     Console.Clear();
                     vendaService.SubMenu();
+                    BackMenu();
+                    break;
+
+                case "4":
+                    Console.Clear();
+                    cadastroService.SubMenu();
                     BackMenu();
                     break;
 

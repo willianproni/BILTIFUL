@@ -89,7 +89,7 @@ namespace BILTIFUL.ModuloCompra
 
         public Fornecedor BuscarCnpj(long fcnpj, List<Fornecedor> fornecedor)
         {
-            Fornecedor fornecedorcompra = fornecedor.Find(delegate (Fornecedor f) { return f.cnpj == fcnpj; });
+            Fornecedor fornecedorcompra = fornecedor.Find(delegate (Fornecedor f) { return f.CNPJ == fcnpj; });
 
             return fornecedorcompra;
 
@@ -107,7 +107,7 @@ namespace BILTIFUL.ModuloCompra
 
         public MPrima BuscaMPrima(string idMPrima, List<MPrima> mPrima)
         {
-            MPrima mPrimaCompra = mPrima.Find(delegate (MPrima mP) { return mP.id == idMPrima; });
+            MPrima mPrimaCompra = mPrima.Find(delegate (MPrima mP) { return mP.Id == idMPrima; });
 
             return mPrimaCompra;
         }

@@ -5,12 +5,12 @@ namespace BILTIFUL.Core.Entidades
 {
     public class ItemCompra : EntidadeBase
     {
-        public DateTime dcompra { get; set; }
+        public DateTime DataCompra { get; set; }
         //ID materia prima
-        public int mprima { get; set; }
-        public int qtd { get; set; }
-        public int vunitario { get; set; }
-        public int titem => qtd * vunitario;
+        public int MateriaPrima { get; set; }
+        public int Quantidade { get; set; }
+        public int ValorUnitario { get; set; }
+        public int TotalItem => Quantidade * ValorUnitario;
 
         public ItemCompra()
         {

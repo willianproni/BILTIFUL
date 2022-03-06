@@ -76,16 +76,16 @@ namespace BILTIFUL.ModuloProducao
             if (existe == false)
             {
                 Produto produto = cadastroService.CadastroProduto();
-                if (produto != null) producao.produto = produto.cbarras;
+                if (produto != null) producao.Produto = produto.CodigoBarras;
             }
             else
             {
                 Console.WriteLine("Insira o nome do produto a ser localizado:");
                 string nome = Console.ReadLine();
 
-                Produto produto = produtos.Find(c => c.nome == nome);
+                Produto produto = produtos.Find(c => c.Nome == nome);
 
-                if (produto != null) producao.produto = produto.cbarras;
+                if (produto != null) producao.Produto = produto.CodigoBarras;
 
             }
 
@@ -96,7 +96,7 @@ namespace BILTIFUL.ModuloProducao
             do
             {
                 Console.WriteLine("Quais as materias primas utilizadas?");
-                mPrimas.ForEach(c => Console.WriteLine(c.nome));
+                mPrimas.ForEach(c => Console.WriteLine(c.Nome));
                 int materiasprimas = int.Parse(Console.ReadLine());
 
                 Console.WriteLine("Quantidade Materia prima");
@@ -107,7 +107,7 @@ namespace BILTIFUL.ModuloProducao
 
                 if (materiaprima)
                     itemProducao.Add(new ItemProducao()
-                    { mprima = mPrimas[materiasprimas].id, qtdmp = qtdmateriaprima });
+                    { MateriaPrima = mPrimas[materiasprimas].Id, QuantidadeMateriaPrima = qtdmateriaprima });
 
             } while (materiaprima);
 

@@ -6,24 +6,24 @@ namespace BILTIFUL.Core.Entidades
     public class ItemVenda : EntidadeBase
     {
         //ID produto
-        public string produto { get; set; }
-        public int qtd { get; set; }
-        public int vunitario { get; set; }
-        public int titem => qtd * vunitario;
+        public string Produto { get; set; }
+        public int Quantidade { get; set; }
+        public int ValorUnitario { get; set; }
+        public int TotalItem => Quantidade * ValorUnitario;
         public ItemVenda()
         {
         }
 
         public ItemVenda(string produto, int qtd, int vunitario)
         {
-            this.produto = produto;
-            this.qtd = qtd;
-            this.vunitario = vunitario;
+            this.Produto = produto;
+            this.Quantidade = qtd;
+            this.ValorUnitario = vunitario;
         }
 
         public Produto CodigoProdutoValido(string codproduto, List<Produto> list)
         {
-            Produto aux = list.Find(i => i.cbarras == codproduto);
+            Produto aux = list.Find(i => i.CodigoBarras == codproduto);
             
        /*     foreach (var lista in list)
             {

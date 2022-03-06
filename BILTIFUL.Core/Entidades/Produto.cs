@@ -22,6 +22,14 @@ namespace BILTIFUL.Core.Entidades
             this.nome = nome;
             this.vvenda = vvenda;
         }
+
+        public string ExibirProd()
+        {
+            return $"Cod. Barra: {cbarras}" +
+                   $"\nNome: {nome}" +
+                   $"\nValor Unitário: {vvenda}";
+        }
+
         public string ConverterParaEDI()
         {
             return $"{cbarras}{nome.PadRight(20)}{vvenda.PadLeft(5,'0')}{uvenda.ToString("dd/MM/yyyy")}{dcadastro.ToString("dd/MM/yyyy")}{(char)situacao}";

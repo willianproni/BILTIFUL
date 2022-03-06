@@ -13,5 +13,10 @@ namespace BILTIFUL.Core.Entidades
         {
 
         }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

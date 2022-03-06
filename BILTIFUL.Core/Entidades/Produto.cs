@@ -1,4 +1,4 @@
-﻿using BILTIFUL.Core.Entidades.Enums;
+using BILTIFUL.Core.Entidades.Enums;
 using System;
 
 namespace BILTIFUL.Core.Entidades
@@ -23,19 +23,16 @@ namespace BILTIFUL.Core.Entidades
             this.vvenda = vvenda;
         }
 
-        public Produto(string cbarras, string nome, string vvenda, DateTime uvenda, DateTime dcadastro, Situacao situacao)
+        public string ExibirProd()
         {
-            this.cbarras = cbarras;
-            this.nome = nome;
-            this.vvenda = vvenda;
-            this.uvenda = uvenda;
-            this.dcadastro = dcadastro;
-            this.situacao = situacao;
+            return $"Cod. Barra: {cbarras}" +
+                   $"\nNome: {nome}" +
+                   $"\nValor Unitário: {vvenda}";
         }
 
         public string ConverterParaEDI()
         {
-            return $"{cbarras}{nome.PadRight(20,' ')}{vvenda.PadLeft(5,'0')}{uvenda.ToString("dd/MM/yyyy")}{dcadastro.ToString("dd/MM/yyyy")}{(char)situacao}";
+            return $"{cbarras}{nome.PadRight(20)}{vvenda.PadLeft(5,'0')}{uvenda.ToString("dd/MM/yyyy")}{dcadastro.ToString("dd/MM/yyyy")}{(char)situacao}";
         }
     }
 }

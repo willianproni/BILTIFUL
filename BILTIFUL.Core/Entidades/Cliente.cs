@@ -29,7 +29,7 @@ namespace BILTIFUL.Core.Entidades
 
         public string ConverterParaEDI()
         {
-            return $"{cpf}{nome.PadRight(50, ' ')}{dnascimento.ToString("dd/MM/yyyy")}{(char)sexo}{ucompra.ToString("dd/MM/yyyy")}{dcadastro.ToString("dd/MM/yyyy")}{(char)situacao}";
+            return $"{cpf}{nome.PadRight(50)}{dnascimento.ToString("dd/MM/yyyy")}{(char)sexo}{ucompra.ToString("dd/MM/yyyy")}{dcadastro.ToString("dd/MM/yyyy")}{(char)situacao}";
         }
 
     }

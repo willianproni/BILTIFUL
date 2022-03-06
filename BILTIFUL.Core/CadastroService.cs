@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BILTIFUL.Core.Controle;
+using BILTIFUL;
+using BILTIFUL.Core.Controles;
 using BILTIFUL.Core.Entidades;
 using BILTIFUL.Core.Entidades.Enums;
 
-namespace BILTIFUL
+namespace BILTIFUL.Core
 {
-    internal class CadastroService
+    public class CadastroService
     {
 
 
@@ -41,7 +42,6 @@ namespace BILTIFUL
                     case "8":
                         break;
                     case "0":
-                        Program.BackMenu();
                         break;
                     default:
                         Console.WriteLine("Opção invalida!");
@@ -70,7 +70,7 @@ namespace BILTIFUL
             opc = Console.ReadLine();
             return opc;
         }
-        private Cliente CadastroCliente()
+        public Cliente CadastroCliente()
         {
             string cpf;
             string datanascimento;
@@ -108,7 +108,7 @@ namespace BILTIFUL
             Sexo sexo = (Sexo)char.Parse(csexo);
             return new Cliente(long.Parse(cpf), nome, dnascimento, sexo);
         }
-        private bool ValidaCpf(string cpf)
+        public bool ValidaCpf(string cpf)
         {
             int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -141,7 +141,7 @@ namespace BILTIFUL
             digito = digito + resto.ToString();
             return cpf.EndsWith(digito);
         }
-        private Fornecedor CadastroFornecedor()
+        public Fornecedor CadastroFornecedor()
         {
             string dataabertura;
             DateTime dabertura;
@@ -174,7 +174,7 @@ namespace BILTIFUL
             }
             return new Fornecedor(long.Parse(cnpj),rsocial,dabertura);
         }
-        private static bool ValidaCnpj(string cnpj)
+        public static bool ValidaCnpj(string cnpj)
         {
             int[] multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -206,7 +206,7 @@ namespace BILTIFUL
             digito = digito + resto.ToString();
             return cnpj.EndsWith(digito);
         }
-        private Produto CadastroProduto()
+        public Produto CadastroProduto()
         {
             string svalor;
             int valor;

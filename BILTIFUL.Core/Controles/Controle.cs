@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BILTIFUL.Core.Entidades;
 
-namespace BILTIFUL.Core.Controle
+namespace BILTIFUL.Core.Controles
 {
     public class Controle
     {

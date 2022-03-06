@@ -5,7 +5,7 @@ namespace BILTIFUL.Core.Entidades
 {
     public class Produto
     {
-        public int cbarras { get; set; }
+        public string cbarras { get; set; } = "7896617";
         public string nome { get; set; }
         public int vvenda { get; set; }
         public DateTime uvenda { get; set; } = DateTime.Now;
@@ -16,9 +16,9 @@ namespace BILTIFUL.Core.Entidades
         {
         }
 
-        public Produto(int cbarras, string nome, int vvenda)
+        public Produto(string cbarras, string nome, int vvenda)
         {
-            this.cbarras = cbarras;
+            this.cbarras += cbarras.PadLeft(5,'0');
             this.nome = nome;
             this.vvenda = vvenda;
         }

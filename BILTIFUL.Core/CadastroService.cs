@@ -15,6 +15,11 @@ namespace BILTIFUL.Core
     {
 
         public Controle cadastros = new Controle();
+
+        public CadastroService()
+        {
+        }
+
         public void SubMenu()
         {
             string opc;
@@ -36,6 +41,7 @@ namespace BILTIFUL.Core
                         Controle materiaprima = new Controle(CadastroMateriaPrima());
                         break;
                     case "5":
+                        Controle inadimplente = new Controle(CadastroInadimplente());
                         break;
                     case "6":
                         break;
@@ -110,7 +116,7 @@ namespace BILTIFUL.Core
             Sexo sexo = (Sexo)char.Parse(csexo);
             return new Cliente(long.Parse(cpf), nome, dnascimento, sexo);
         }
-        public bool ValidaCpf(string cpf)
+        public static bool ValidaCpf(string cpf)
         {
             int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -240,7 +246,7 @@ namespace BILTIFUL.Core
                 sw.Close();
             }
             catch (Exception ex)
-            { 
+            {
                 Console.WriteLine(ex.Message);
             }
         }
@@ -255,7 +261,38 @@ namespace BILTIFUL.Core
             SalvarCodigos();
             string cod = "" + cadastros.codigos[1];
             cadastros.materiasprimas.Add(new MPrima(cod, nome));
-            return new MPrima(cod,nome);
+            return new MPrima(cod, nome);
+        }
+        bool flag = false; 
+        public long CadastroInadimplente()
+        {
+            string inadimplente;
+            Console.Clear();
+            Console.WriteLine("===========CADASTRO DE INADIMPLENTE===========");
+            do
+            {
+                Console.WriteLine("Digite o cpf do caloteiro: ");
+                inadimplente = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
+                if (!ValidaCpf(inadimplente))//valida cpf
+                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+            } while (!ValidaCpf(inadimplente));
+
+            long cpf = long.Parse(inadimplente);
+
+            cadastros.clientes.ForEach(p => ExisteCliente(p, cpf));
+            if (flag==true)
+            return cpf;
+            return 0;
+        }
+        public bool ExisteCliente(Cliente p, long cpf)
+        {
+            if (p.cpf == cpf)
+            {
+                flag = true;
+                return true;
+            }
+            flag = false;
+            return false;
         }
     }
 }

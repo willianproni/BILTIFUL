@@ -22,9 +22,20 @@ namespace BILTIFUL.Core.Entidades
             this.nome = nome;
             this.vvenda = vvenda;
         }
+
+        public Produto(string cbarras, string nome, string vvenda, DateTime uvenda, DateTime dcadastro, Situacao situacao)
+        {
+            this.cbarras = cbarras;
+            this.nome = nome;
+            this.vvenda = vvenda;
+            this.uvenda = uvenda;
+            this.dcadastro = dcadastro;
+            this.situacao = situacao;
+        }
+
         public string ConverterParaEDI()
         {
-            return $"{cbarras}{nome.PadRight(20)}{vvenda.PadLeft(5,'0')}{uvenda.ToString("dd/MM/yyyy")}{dcadastro.ToString("dd/MM/yyyy")}{(char)situacao}";
+            return $"{cbarras}{nome.PadRight(20,' ')}{vvenda.PadLeft(5,'0')}{uvenda.ToString("dd/MM/yyyy")}{dcadastro.ToString("dd/MM/yyyy")}{(char)situacao}";
         }
     }
 }

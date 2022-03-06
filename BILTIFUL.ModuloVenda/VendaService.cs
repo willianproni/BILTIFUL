@@ -85,7 +85,7 @@ namespace BILTIFUL.ModuloVenda
 
                 Console.WriteLine("Digite a Quantidade do Produto: ");
                 int quantidade = int.Parse(Console.ReadLine());
-                int valorTotal = quantidade * aux.vvenda;
+                int valorTotal = quantidade * int.Parse(aux.ValorVenda);
                 Console.WriteLine(valorTotal);
                 cont++;
                 return new ItemVenda();

@@ -21,7 +21,7 @@ namespace BILTIFUL.Core.Entidades
         {
             this.CodigoBarras += cbarras.PadLeft(5,'0');
             this.Nome = nome;
-            this.ValorVenda = vvenda;
+            this.ValorVenda = vvenda.PadLeft(5, '0');
         }
 
         public Produto(string cbarras, string nome, string vvenda, DateTime uvenda, DateTime dcadastro, Situacao situacao)
@@ -37,7 +37,7 @@ namespace BILTIFUL.Core.Entidades
         {
             return $"\n\t\tCod. Barra: {CodigoBarras}\n" +
                    $"\t\tNome: {Nome}\n" +
-                   $"\t\tValor Unitário: {ValorVenda}";
+                   $"\t\tValor Unitário: R$ {ValorVenda}";
         }
 
         public string ConverterParaEDI()
@@ -46,7 +46,7 @@ namespace BILTIFUL.Core.Entidades
         }
         public string DadosProduto()
         {
-            return "Codigo de barras: " + CodigoBarras + "\nNome: " + Nome + "\nValor venda: " + ValorVenda.Insert(3,",") + "\nData de ultima venda: " + UltimaVenda.ToString("dd/MM/yyyy") + "\nData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\nSituação: " + Situacao;
+            return "-------------------------------------------\nCodigo de barras: " + CodigoBarras + "\nNome: " + Nome + "\nValor venda: " + ValorVenda.Insert(3,",") + "\nData de ultima venda: " + UltimaVenda.ToString("dd/MM/yyyy") + "\nData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\nSituação: " + Situacao;
         }
     }
 }

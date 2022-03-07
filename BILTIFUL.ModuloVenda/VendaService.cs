@@ -69,8 +69,8 @@ namespace BILTIFUL.ModuloVenda
         {
             produtos.Add(new Produto("1234567", "batom", "12"));
             produtos.Add(new Produto("3245676", "Blush", "12"));
-            producao.Add(new Producao("batom", 12));
-            producao.Add(new Producao("Blush", 33));
+            producao.Add(new Producao("batom", "12"));
+            producao.Add(new Producao("Blush", "33"));
             vendas.Add(new Venda("1", 392489343, 88));
             vendas.Add(new Venda("2", 194832748, 434));
 

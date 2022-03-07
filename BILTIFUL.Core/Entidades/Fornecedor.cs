@@ -31,7 +31,7 @@ namespace BILTIFUL.Core.Entidades
 
         public override string ToString()
         {
-            return "Fornecedor:\t" + RazaoSocial + "\nCnpj:\t" + CNPJ+"\nData de Abertura:\t"+DataAbertura.ToString("dd/MM/yyyy");
+            return "Fornecedor:\t" + RazaoSocial + "\nCnpj:\t" + CNPJ;
         }
 
         public Fornecedor(long cnpj, string rsocial, DateTime dabertura, DateTime ucompra, DateTime dcadastro, Situacao situacao)

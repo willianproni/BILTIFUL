@@ -12,8 +12,15 @@ namespace BILTIFUL.Core.Entidades
 
         public Producao()
         {
-
         }
+
+        public Producao(string id, string produto, int quantidade)
+        {
+            Id = id.PadLeft(5, '0');
+            Produto = produto;
+            Quantidade = quantidade;
+        }
+
         public Producao(string produto, int quantidade)
         {
             Produto = produto;
@@ -27,6 +34,11 @@ namespace BILTIFUL.Core.Entidades
     Quantidade do Produto: {Quantidade}";
         }
 
+
+        public string ConverterParaEDI()
+        {
+            return $"{Id}{DataProducao.ToString("dd/MM/yyyy")}{Produto}{Quantidade.ToString().PadLeft(5, '0')}";
+        }
 
     }
 }

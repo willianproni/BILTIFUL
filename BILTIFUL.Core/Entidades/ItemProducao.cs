@@ -15,5 +15,18 @@ namespace BILTIFUL.Core.Entidades
 
         }
 
+        public ItemProducao(string id, DateTime dataProducao, string materiaPrima, int quantidadeMateriaPrima)
+        {
+            Id = id;
+            DataProducao = dataProducao;
+            MateriaPrima = materiaPrima;
+            QuantidadeMateriaPrima = quantidadeMateriaPrima;
+        }
+
+        public string ConverterParaEDI()
+        {
+            return $"{Id}{DataProducao.ToString("dd/MM/yyyy")}{MateriaPrima}{QuantidadeMateriaPrima.ToString().PadLeft(5, '0')}";
+        }
+
     }
 }

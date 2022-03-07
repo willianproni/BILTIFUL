@@ -18,9 +18,9 @@ namespace BILTIFUL.Core.Controles
         public List<Fornecedor> fornecedores { get; set; }
         public List<MPrima> materiasprimas { get; set; }
         public List<Compra> compras { get; set; }
-        public List<ItemCompra> itemcompra { get; set; }
+        public List<ItemCompra> itenscompra { get; set; }
         public List<Producao> producao { get; set; }
-        public List<ItemProducao> itemproducao { get; set;}
+        public List<ItemProducao> itensproducao { get; set;}
         public List<Venda> vendas { get; set; }
         public List<ItemVenda> itensvenda { get; set; }
         public List<string> inadimplentes { get; set; }
@@ -37,9 +37,9 @@ namespace BILTIFUL.Core.Controles
             fornecedores = new List<Fornecedor>();
             materiasprimas = new List<MPrima>();
             compras = new List<Compra>(); //
-            itemcompra = new List<ItemCompra>(); //adicionar arquivos
+            itenscompra = new List<ItemCompra>(); //adicionar arquivos
             producao = new List<Producao>(); //
-            itemproducao = new List<ItemProducao>();//
+            itensproducao = new List<ItemProducao>();//
             vendas = new List<Venda>();//
             itensvenda = new List<ItemVenda>();//
             inadimplentes = new List<string>();
@@ -196,6 +196,59 @@ namespace BILTIFUL.Core.Controles
                     }
                     sr.Close();
                 }
+
+                //ITEM COMPRA
+                if (File.Exists("Arquivos\\ItemCompra.dat"))
+                {
+                    sr = new StreamReader("Arquivos\\ItemCompra.dat");
+                    line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        string cod = line.Substring(0, 5);
+                        DateTime dcompra = DateTime.Parse(line.Substring(5, 10));
+                        string materiaprima = line.Substring(15, 6);
+                        string quantidade = line.Substring(21, 5);
+                        string valoruni = line.Substring(26, 5);
+                        string valortotal = line.Substring(31, 6);
+                        itenscompra.Add(new ItemCompra(cod,dcompra,materiaprima,quantidade,valoruni,valortotal));
+                        line = sr.ReadLine();
+                    }
+                    sr.Close();
+                }
+
+                //Producao
+                if (File.Exists("Arquivos\\Producao.dat"))
+                {
+                    sr = new StreamReader("Arquivos\\Producao.dat");
+                    line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        string cod = line.Substring(0, 5);
+                        DateTime dproducao = DateTime.Parse(line.Substring(5, 10));
+                        string produto = line.Substring(15,5);
+                        string quantidade = line.Substring(20, 5);
+                        producao.Add(new Producao(cod, dproducao, produto, quantidade));
+                        line = sr.ReadLine();
+                    }
+                    sr.Close();
+                }
+
+                //itens producao
+                if (File.Exists("Arquivos\\ItemProducao.dat"))
+                {
+                    sr = new StreamReader("Arquivos\\ItemProducao.dat");
+                    line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        string cod = line.Substring(0, 5);
+                        DateTime dproducao = DateTime.Parse(line.Substring(5, 10));
+                        string mprima = line.Substring(15, 6);
+                        string quantidadeMateriaPrima = line.Substring(21, 5);
+                        itensproducao.Add(new ItemProducao(cod, dproducao, mprima, quantidadeMateriaPrima));
+                        line = sr.ReadLine();
+                    }
+                    sr.Close();
+                }
             }
             catch (Exception e)
             {
@@ -290,7 +343,58 @@ namespace BILTIFUL.Core.Controles
                 }
             }
         }
+        public Controle(ItemCompra itemcompra)
+        {
+            if (itemcompra != null)
+            {
+                try//envia cliente para arquivo como novo cliente]try
+                {
+                    StreamWriter sw = new StreamWriter("Arquivos\\ItemCompra.dat", append: true);
+                    sw.WriteLine(itemcompra.ConverterParaEDI());
+                    sw.Close();
+                    Console.WriteLine("Item de Compra cadastrado cadastrado com sucesso!");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+            }
+        }
+        public Controle(Producao producao)
+        {
+            if (producao != null)
+            {
+                try//envia cliente para arquivo como novo cliente]try
+                {
+                    StreamWriter sw = new StreamWriter("Arquivos\\Producao.dat", append: true);
+                    sw.WriteLine(producao.ConverterParaEDI());
+                    sw.Close();
+                    Console.WriteLine("Produção cadastrada com sucesso!");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+            }
+        }
 
+        public Controle(ItemProducao itemproducao)
+        {
+            if (itemproducao != null)
+            {
+                try//envia cliente para arquivo como novo cliente]try
+                {
+                    StreamWriter sw = new StreamWriter("Arquivos\\ItemProducao.dat", append: true);
+                    sw.WriteLine(itemproducao.ConverterParaEDI());
+                    sw.Close();
+                    Console.WriteLine("Item de produção cadastrado com sucesso!");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+            }
+        }
         public Controle(long chave)
         {
             string schave = "" + chave;

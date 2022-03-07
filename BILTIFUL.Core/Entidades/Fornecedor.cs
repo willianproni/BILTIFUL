@@ -51,7 +51,7 @@ namespace BILTIFUL.Core.Entidades
         }
         public string DadosFornecedor()
         {
-            return "Razão social: " + RazaoSocial + "\nCNPJ: " + CNPJ + "\nData de abertura: " + DataAbertura.ToString("dd/MM/yyyy") + "Data de ultima compra" + UltimaCompra.ToString("dd/MM/yyyy") + "\nData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\nSituação: " + Situacao;
+            return "-------------------------------------------\nRazão social: " + RazaoSocial + "\nCNPJ: " + CNPJ + "\nData de abertura: " + DataAbertura.ToString("dd/MM/yyyy") + "\nData de ultima compra: " + UltimaCompra.ToString("dd/MM/yyyy") + "\nData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\nSituação: " + Situacao;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace BILTIFUL.Core.Entidades
             
         }
 
-        public override string ToString()
+        public  string DadosFornecedorCompra()
         {
             return "Fornecedor:\t" + RazaoSocial + "\nCnpj:\t" + CNPJ;
         }
@@ -48,6 +48,10 @@ namespace BILTIFUL.Core.Entidades
         public string ConverterParaEDI()
         {
             return $"{CNPJ}{RazaoSocial.PadRight(50, ' ')}{DataAbertura.ToString("dd/MM/yyyy")}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
+        }
+        public string DadosFornecedor()
+        {
+            return "-------------------------------------------\nRazão social: " + RazaoSocial + "\nCNPJ: " + CNPJ + "\nData de abertura: " + DataAbertura.ToString("dd/MM/yyyy") + "\nData de ultima compra: " + UltimaCompra.ToString("dd/MM/yyyy") + "\nData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\nSituação: " + Situacao;
         }
     }
 }

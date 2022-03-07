@@ -9,10 +9,7 @@ namespace BILTIFUL
 {
     public class Program
     {
-        static ProducaoService producaoService = new ProducaoService();
-        static VendaService vendaService = new VendaService();
-        static CompraService compraService = new CompraService();
-        static CadastroService cadastroService = new CadastroService();
+
         static void Main(string[] args)
         {
             
@@ -21,6 +18,10 @@ namespace BILTIFUL
 
         public static void Menu()
         {
+            ProducaoService producaoService = new ProducaoService();
+            VendaService vendaService = new VendaService();
+            CompraService compraService = new CompraService();
+            CadastroService cadastroService = new CadastroService();
 
             Console.WriteLine(@$"
 
@@ -72,7 +73,7 @@ namespace BILTIFUL
 
         public static void BackMenu()
         {
-            Console.WriteLine("\n Pressione qualquer tecla para voltar ao menu...");
+            Console.WriteLine("\n Pressione qualquer tecla para voltar ao menu principal...");
             Console.ReadKey();
             Console.Clear();
             Menu();

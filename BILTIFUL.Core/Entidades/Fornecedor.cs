@@ -49,5 +49,9 @@ namespace BILTIFUL.Core.Entidades
         {
             return $"{CNPJ}{RazaoSocial.PadRight(50, ' ')}{DataAbertura.ToString("dd/MM/yyyy")}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
         }
+        public string DadosFornecedor()
+        {
+            return "Razão social: " + RazaoSocial + "\nCNPJ: " + CNPJ + "\nData de abertura: " + DataAbertura.ToString("dd/MM/yyyy") + "Data de ultima compra" + UltimaCompra.ToString("dd/MM/yyyy") + "\nData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\nSituação: " + Situacao;
+        }
     }
 }

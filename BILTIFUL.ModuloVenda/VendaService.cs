@@ -45,7 +45,8 @@ namespace BILTIFUL.ModuloVenda
                 switch (opc)
                 {
                     case 1:
-                        ItemVenda();
+                        CadastrarVenda();
+                       
                         break;
                     case 2:
                         Localizar();
@@ -73,6 +74,9 @@ namespace BILTIFUL.ModuloVenda
             producao.Add(new Producao("Blush", 33));
             vendas.Add(new Venda("1", 392489343, 88));
             vendas.Add(new Venda("2", 194832748, 434));
+            clientes.Add(new Cliente(123456789, "Nayron Holuppi"));
+            clientes.Add(new Cliente(123456788, "Willian Proni"));
+
 
         }
         public void CadastrarVenda()
@@ -80,8 +84,19 @@ namespace BILTIFUL.ModuloVenda
             Console.Clear();
             Console.WriteLine("Digite o Cpf do cliente: ");
             long clientecpf = long.Parse(Console.ReadLine());
-            BuscarCpf(clientecpf, clientes);
-            Console.WriteLine("Digite o Cpf do cliente: ");
+            Cliente aux = BuscarCpf(clientecpf, clientes);
+            if (aux == null)
+            {
+                Console.WriteLine("Não Achou");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine(aux.VendasCliente());
+                Console.ReadKey();
+                ItemVenda();
+            }
+
             new Venda();
         }
         public void ItemVenda()

@@ -16,6 +16,7 @@ namespace BILTIFUL.Core.Entidades
 
         public ItemVenda(string produto, int qtd, int vunitario)
         {
+            Id = Id;
             this.Produto = produto;
             this.Quantidade = qtd;
             this.ValorUnitario = vunitario;

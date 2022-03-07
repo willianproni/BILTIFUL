@@ -44,5 +44,9 @@ namespace BILTIFUL.Core.Entidades
         {
             return $"{CodigoBarras}{Nome.PadRight(20)}{ValorVenda.PadLeft(5,'0')}{UltimaVenda.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
         }
+        public string DadosProduto()
+        {
+            return "Codigo de barras: " + CodigoBarras + "\nNome: " + Nome + "\nValor venda: " + ValorVenda.Insert(3,",") + "\nData de ultima venda: " + UltimaVenda.ToString("dd/MM/yyyy") + "\nData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\nSituação: " + Situacao;
+        }
     }
 }

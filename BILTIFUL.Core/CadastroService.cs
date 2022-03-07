@@ -91,6 +91,7 @@ namespace BILTIFUL.Core
             string datanascimento;
             string csexo;
             DateTime dnascimento;
+            string nome;
             Console.Clear();
             Console.WriteLine("===========CADASTRO CLIENTE===========");
             do
@@ -105,8 +106,13 @@ namespace BILTIFUL.Core
                 Console.WriteLine("Cliente com esse CPF ja existe");
                 return null;
             }
-            Console.Write("Nome: ");
-            string nome = Console.ReadLine().Trim();
+            do
+            {
+                Console.Write("Nome: ");
+                nome = Console.ReadLine().Trim();
+                if (nome == "")
+                    Console.WriteLine("Nome nao pode ser vazio");
+            } while (nome == "");
             do
             {
                 Console.Write("Data de nascimento(dd/mm/aaaa): ");
@@ -170,6 +176,7 @@ namespace BILTIFUL.Core
         {
             string dataabertura;
             DateTime dabertura;
+            string rsocial;
             string cnpj;
             Console.Clear();
             Console.WriteLine("===========CADASTRO FORNECEDOR===========");
@@ -186,10 +193,11 @@ namespace BILTIFUL.Core
                 Console.WriteLine("Cliente com esse CPF ja existe");
                 return null;
             }
-
-            Console.Write("Razão Social: ");
-            string rsocial = Console.ReadLine().Trim();
-
+            do
+            {
+                Console.Write("Razão Social: ");
+                rsocial = Console.ReadLine().Trim();
+            } while (rsocial == "");
             do
             {
                 Console.Write("Data de abertura(dd/mm/aaaa): ");
@@ -247,10 +255,14 @@ namespace BILTIFUL.Core
         {
             string svalor;
             int valor;
+            string nome;
             Console.Clear();
             Console.WriteLine("===========CADASTRO PRODUTO===========");
-            Console.Write("Nome: ");
-            string nome = Console.ReadLine().Trim();
+            do
+            {
+                Console.Write("Nome: ");
+                nome = Console.ReadLine().Trim();
+            } while (nome=="");
             do
             {
                 Console.Write("Valor($$$,$$)(valor precisa ser menor que 1000,00): ");
@@ -285,10 +297,13 @@ namespace BILTIFUL.Core
         }
         public MPrima CadastroMateriaPrima()
         {
+            string nome;
             Console.Clear();
             Console.WriteLine("===========CADASTRO MATERIA PRIMA===========");
-            Console.WriteLine("Digite o nome da Materia Prima");
-            string nome = Console.ReadLine().Trim();
+            do {
+                Console.WriteLine("Digite o nome da Materia Prima");
+                nome = Console.ReadLine().Trim();
+            } while (nome == "");
 
             cadastros.codigos[1]++;
             SalvarCodigos();
@@ -445,40 +460,61 @@ namespace BILTIFUL.Core
             string opc;
             do
             {
+                Console.Clear();
                 Console.WriteLine("\t________________________________________________");
                 Console.WriteLine("\t|+++++++++++++| MENU DE REGISTROS |++++++++++++|");
                 Console.WriteLine("\t|1| - REGISTROS DE CLIENTES                    |");
                 Console.WriteLine("\t|2| - REGISTROS DE FORNECEDORES                |");
                 Console.WriteLine("\t|3| - REGISTROS DE MATERIAS PRIMAS             |");
                 Console.WriteLine("\t|4| - REGISTROS DE PRODUTOS                    |");
+                Console.WriteLine("\t|5| - REGISTROS DE VENDAS                      |");
+                Console.WriteLine("\t|6| - REGISTROS DE ITENS DE VENDAS             |");
+                Console.WriteLine("\t|7| - REGISTROS DE COMPRAS                     |");
+                Console.WriteLine("\t|8| - REGISTROS DE ITENS DE COMPRAS            |");
                 Console.WriteLine("\t|0| - VOLTAR                                   |");
-                Console.Write("\t|______________________________________________|\n" +
-                              "\t|Opção: ");
+                    Console.Write("\t|______________________________________________|\n" +
+                                  "\t|Opção: ");
                 opc = Console.ReadLine();
                 switch (opc)
                 {
                     case "1":
-                        new Registros(cadastros.clientes);
+                        if(cadastros.clientes.Count()!=0)
+                            new Registros(cadastros.clientes);
+                        else
+                            Console.WriteLine("Nenhum cliente registrado");
                         break;
                     case "2":
-                        new Registros(cadastros.fornecedores);
+                        if (cadastros.fornecedores.Count() != 0)
+                            new Registros(cadastros.fornecedores);
+                        else
+                            Console.WriteLine("Nenhum fornecedor registrado");
                         break;
                     case "3":
-                        new Registros(cadastros.materiasprimas);
+                        if (cadastros.materiasprimas.Count() != 0)
+                            new Registros(cadastros.materiasprimas);
+                        else
+                            Console.WriteLine("Nenhuma materia prima registrada");
                         break;
                     case "4":
-                        new Registros(cadastros.produtos);
+                        if (cadastros.produtos.Count() != 0)
+                            new Registros(cadastros.produtos);
+                        else
+                            Console.WriteLine("Nenhum produto registrado");
+                        break;
+                    case "5":
+                        break;
+                    case "6":
+                        break;
+                    case "7":
+                        break;
+                    case "8":
                         break;
                     default:
+                        Console.WriteLine("Opção invalida");
                         break;
                 }
+                Console.ReadKey();
             } while (opc != "0");
-
-            /*void Opcoes(List<>)
-            {
-
-            }
-            cadastros.clientes.GetType();*/
         }
     }
 }

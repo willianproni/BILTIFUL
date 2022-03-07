@@ -20,16 +20,16 @@ namespace BILTIFUL.Core
                 Console.WriteLine(clientes[i].DadosCliente());
                 if (i > 0)
                 {
-                    Console.WriteLine("1-primeiro");
-                    Console.WriteLine("2-anterior");
+                    Console.WriteLine("|1-primeiro");
+                    Console.WriteLine("|2-anterior");
                 }
                 if (i < clientes.Count()-1)
                 {
-                    Console.WriteLine("3-proximo");
-                    Console.WriteLine("4-ultimo");
+                    Console.WriteLine("|3-proximo");
+                    Console.WriteLine("|4-ultimo");
                 }
-                Console.WriteLine("5-Sair");
-                Console.Write("Opção: ");
+                Console.WriteLine("|5-Sair");
+                Console.Write("|Opção: ");
                 opc = Console.ReadLine();
                 switch(opc)
                 {
@@ -37,10 +37,18 @@ namespace BILTIFUL.Core
                         i = 0;
                         break; ;
                     case "2":
-                        i--;
+                        if(i-1>=0)
+                            i--;
+                        else
+                            Console.WriteLine("Não existe registro antes deste");
+                            Console.ReadKey();
                         break;
                     case "3":
-                        i++;
+                        if (i+1<= clientes.Count() - 1)
+                            i++;
+                        else
+                            Console.WriteLine("Não existe registro depois deste");
+                            Console.ReadKey();
                         break;
                     case "4":
                         i = clientes.Count()-1;
@@ -80,10 +88,18 @@ namespace BILTIFUL.Core
                         i = 0;
                         break; ;
                     case "2":
-                        i--;
+                        if (i - 1 >= 0)
+                            i--;
+                        else
+                            Console.WriteLine("Não existe registro antes deste");
+                        Console.ReadKey();
                         break;
                     case "3":
-                        i++;
+                        if (i + 1 <= fornecedor.Count() - 1)
+                            i++;
+                        else
+                            Console.WriteLine("Não existe registro depois deste");
+                        Console.ReadKey();
                         break;
                     case "4":
                         i = fornecedor.Count()-1;
@@ -122,10 +138,18 @@ namespace BILTIFUL.Core
                         i = 0;
                         break; ;
                     case "2":
-                        i--;
+                        if (i - 1 >= 0)
+                            i--;
+                        else
+                            Console.WriteLine("Não existe registro antes deste");
+                        Console.ReadKey();
                         break;
                     case "3":
-                        i++;
+                        if (i + 1 <= materiaprima.Count() - 1)
+                            i++;
+                        else
+                            Console.WriteLine("Não existe registro depois deste");
+                        Console.ReadKey();
                         break;
                     case "4":
                         i = materiaprima.Count() - 1;
@@ -164,10 +188,18 @@ namespace BILTIFUL.Core
                         i = 0;
                         break; ;
                     case "2":
-                        i--;
+                        if (i - 1 >= 0)
+                            i--;
+                        else
+                            Console.WriteLine("Não existe registro antes deste");
+                        Console.ReadKey();
                         break;
                     case "3":
-                        i++;
+                        if (i + 1 <= produto.Count() - 1)
+                            i++;
+                        else
+                            Console.WriteLine("Não existe registro depois deste");
+                        Console.ReadKey();
                         break;
                     case "4":
                         i = produto.Count() - 1;

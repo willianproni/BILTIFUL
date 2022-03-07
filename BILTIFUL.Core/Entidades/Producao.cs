@@ -14,5 +14,10 @@ namespace BILTIFUL.Core.Entidades
         {
 
         }
+        public Producao(string produto, int quantidade)
+        {
+            Produto = produto;
+            Quantidade = quantidade;
+        }
     }
 }

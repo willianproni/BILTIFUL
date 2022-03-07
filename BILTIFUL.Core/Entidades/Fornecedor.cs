@@ -29,7 +29,7 @@ namespace BILTIFUL.Core.Entidades
             
         }
 
-        public override string ToString()
+        public  string DadosFornecedorCompra()
         {
             return "Fornecedor:\t" + RazaoSocial + "\nCnpj:\t" + CNPJ;
         }

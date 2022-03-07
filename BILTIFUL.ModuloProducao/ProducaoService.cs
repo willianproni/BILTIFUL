@@ -3,8 +3,6 @@ using BILTIFUL.Core.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BILTIFUL.ModuloProducao
 {
@@ -14,18 +12,11 @@ namespace BILTIFUL.ModuloProducao
         List<ItemProducao> itemProducao = new List<ItemProducao>();
         List<MPrima> mPrimas = new List<MPrima>();
 
-
         CadastroService cadastroService = new CadastroService();
-
-
 
 
         public void SubMenu()
         {
-
-            /*produtos.Add(new Produto("001", "baton", "9,99"));
-            produtos.Add(new Produto("002", "shampoo", "19,99"));
-            produtos.Add(new Produto("003", "esmalte", "11,99"));*/
 
             mPrimas.Add(new MPrima("1", "detergente"));
             mPrimas.Add(new MPrima("2", "aroma"));
@@ -83,20 +74,27 @@ namespace BILTIFUL.ModuloProducao
             }
             else
             {
-                Console.WriteLine("Insira o nome do produto a ser localizado:");
-                string nome = Console.ReadLine();
-
-                Produto produto = cadastroService.cadastros.produtos.Find(c => c.Nome == nome);
-
-                if (produto != null)
+                Produto produto = new Produto();
+                do
                 {
-                    producao.Produto = produto.CodigoBarras;
-                    Console.WriteLine(produto.ExibirProd());
-                }
-                else
-                {
-                    Console.WriteLine("Produto não localizado");
-                }
+                    Console.WriteLine("Insira o nome do produto a ser localizado:");
+                    string nome = Console.ReadLine();
+
+                    produto = cadastroService.cadastros.produtos.Find(c => c.Nome == nome);
+
+                    if (produto != null)
+                    {
+                        producao.Produto = produto.CodigoBarras;
+                        Console.WriteLine(produto.DadosProduto());
+                    }
+                    else
+                    {
+                        Console.WriteLine("Produto não localizado");
+                    }
+
+                } while (produto == null);
+
+     
 
             }
 
@@ -124,39 +122,97 @@ namespace BILTIFUL.ModuloProducao
             } while (materiaprima);
 
             producoes.Add(producao);
+        }
 
+        void DadosProducao(Producao producao, Produto produto)
+        {
+            Console.WriteLine(producao.Dados());
+            Console.WriteLine("Produto: ");
+            Console.WriteLine(produto.DadosProduto());
+            /*foreach (var materia in mPrimas)
+            {
+                Console.WriteLine(materia.DadosMateriaPrima()); ;
+            }*/
+        }
 
+        void DadosProducao(Producao producao)
+        {
+            Console.WriteLine(producao.Dados());
+            Console.WriteLine("Produto: ");
+            Console.WriteLine(cadastroService.cadastros.produtos.Find(c => c.CodigoBarras == producao.Produto).DadosProduto());
+            /*foreach (var materia in mPrimas)
+            {
+                Console.WriteLine(materia.DadosMateriaPrima()); ;
+            }*/
         }
 
         void ImpressaoDoRegistro()
         {
-            Console.WriteLine("Primeira produção.Data, nome e quant.");
+
+            int i = 0;
+            string opc = "-1";
+            while (opc != "5")
+            {
+                Console.Clear();
+                DadosProducao(producoes[i]);
+                Console.WriteLine();
+                if (i > 0)
+                {
+                    Console.WriteLine("1-primeiro");
+                    Console.WriteLine("2-anterior");
+                }
+                if (i < producoes.Count() - 1)
+                {
+                    Console.WriteLine("3-proximo");
+                    Console.WriteLine("4-ultimo");
+                }
+                Console.WriteLine("5-Sair");
+                Console.Write("Opção: ");
+                opc = Console.ReadLine();
+                switch (opc)
+                {
+                    case "1":
+                        i = 0;
+                        break; ;
+                    case "2":
+                        if (i - 1 >= 0)
+                            i--;
+                        else
+                            Console.WriteLine("Não existe registro antes deste");
+                        Console.ReadKey();
+                        break;
+                    case "3":
+                        if (i + 1 <= producoes.Count() - 1)
+                            i++;
+                        else
+                            Console.WriteLine("Não existe registro depois deste");
+                        Console.ReadKey();
+                        break;
+                    case "4":
+                        i = producoes.Count() - 1;
+                        break;
+                    case "5":
+                        break;
+                    default:
+                        break;
+                }
+
+            }
 
         }
 
         void Localizar()
         {
-            Console.WriteLine("Digite o nome do produto para localizar a produção dele.");
-            string nome = Console.ReadLine();
+            Console.WriteLine("Digite o nome ou código de barras do produto para localizar a produção dele.");
+            string busca = Console.ReadLine();
 
-            Produto produto = cadastroService.cadastros.produtos.Find(c => c.Nome == nome);
+            Produto produto = cadastroService.cadastros.produtos.FirstOrDefault(c => c.Nome == busca || c.CodigoBarras == busca);
+            Producao producao = producoes.Find(c => c.Produto == produto.CodigoBarras);
 
-            if (produto != null)
-            {
-                Producao producao = producoes.Find(c => c.Produto == produto.CodigoBarras);
-
-                if (producao != null) Console.WriteLine("Data: " + producao.DataProducao + "\n Quantidade: " + producao.Quantidade);
-                else Console.WriteLine("Nenhuma produção enontrada para esse produto");
-
-                Console.WriteLine(produto.ExibirProd());
-
-            }
+            if (producao != null) DadosProducao(producoes.Find(c => c.Produto == produto.CodigoBarras), cadastroService.cadastros.produtos.Find(c => c.Nome == busca));
+            else Console.WriteLine("Nenhuma produção enontrada para esse produto\n\n" +( produto != null ? produto.DadosProduto() : string.Empty));
 
             Console.ReadKey();
         }
-
-
-
-
     }
 }

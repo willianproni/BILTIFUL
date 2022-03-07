@@ -112,10 +112,10 @@ namespace BILTIFUL.ModuloProducao
             else Cadastrar();
 
             Console.WriteLine("Quantos produtos serão produzidos");
-            while (!int.TryParse(Console.ReadLine(), out int quantidade))
+            while (!double.TryParse(Console.ReadLine(), out double quantidade))
             {
                 Console.WriteLine("Quantos produtos serão produzidos");
-                producao.Quantidade = quantidade;
+                producao.Quantidade = quantidade.ToString().Remove(',').Remove('.');
             }
 
             bool materiaprima;

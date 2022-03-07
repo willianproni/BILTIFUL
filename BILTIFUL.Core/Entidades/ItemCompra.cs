@@ -7,14 +7,37 @@ namespace BILTIFUL.Core.Entidades
     {
         public DateTime DataCompra { get; set; }
         //ID materia prima
-        public int MateriaPrima { get; set; }
-        public int Quantidade { get; set; }
-        public int ValorUnitario { get; set; }
-        public int TotalItem => Quantidade * ValorUnitario;
+        public string MateriaPrima { get; set; }
+        public string Quantidade { get; set; }
+        public string ValorUnitario { get; set; }
+        public string TotalItem { get; set; }
 
         public ItemCompra()
         {
+        }
 
+        public ItemCompra(string id,string materiaPrima, string quantidade, string valorUnitario,string totalitem)
+        {
+            Id = id.PadLeft(5,'0');
+            MateriaPrima = materiaPrima;
+            Quantidade = quantidade.PadLeft(5,'0');
+            ValorUnitario = valorUnitario.PadLeft(5, '0');
+            TotalItem = totalitem.PadLeft(6,'0');
+        }
+
+        public ItemCompra(string id, DateTime dataCompra, string materiaPrima, string quantidade, string valorUnitario, string totalItem)
+        {
+            Id = id;
+            DataCompra = dataCompra;
+            MateriaPrima = materiaPrima;
+            Quantidade = quantidade;
+            ValorUnitario = valorUnitario;
+            TotalItem = totalItem;
+        }
+
+        public string ConverterParaEDI()
+        {
+            return $"{Id}{DataCompra.ToString("dd/MM/yyyy")}{MateriaPrima}{Quantidade}{ValorUnitario}{TotalItem}";
         }
     }
 }

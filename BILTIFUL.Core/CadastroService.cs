@@ -603,10 +603,6 @@ namespace BILTIFUL.Core
                             encontrado = true;
                             localizaProduto.ForEach(p => Console.WriteLine(p.DadosProduto()));
                         }
-                        else
-                        {
-                            Console.WriteLine("ne");
-                        }
                         break;
                     case "5":
                         break;

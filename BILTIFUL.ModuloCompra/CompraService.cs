@@ -33,6 +33,7 @@ namespace BILTIFUL.ModuloCompra
             {
                 case "1":
                     CadastrarCompra();
+
                     break;
                 case "2":
                     break;
@@ -83,6 +84,7 @@ namespace BILTIFUL.ModuloCompra
                 }
             } while (opc != "1");
             ItemCompra();
+
 
         }
         public void ItemCompra()

@@ -278,18 +278,6 @@ namespace BILTIFUL.Core.Controles
                 }
             }
         }
-        public Controle(long chave, string funcao)
-        {
-            string schave = "" + chave;
-            if (CadastroService.ValidaCpf(schave))
-            {
-
-            }
-            if (CadastroService.ValidaCnpj(schave))
-            {
-
-            }
-        }
     }
 
 }

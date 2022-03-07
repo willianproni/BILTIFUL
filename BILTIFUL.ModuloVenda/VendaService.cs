@@ -46,7 +46,7 @@ namespace BILTIFUL.ModuloVenda
                 {
                     case 1:
                         CadastrarVenda();
-                       
+
                         break;
                     case 2:
                         Localizar();
@@ -76,25 +76,41 @@ namespace BILTIFUL.ModuloVenda
             vendas.Add(new Venda("2", 194832748, 434));
             clientes.Add(new Cliente(123456789, "Nayron Holuppi"));
             clientes.Add(new Cliente(123456788, "Willian Proni"));
-
-
         }
         public void CadastrarVenda()
         {
             Console.Clear();
-            Console.WriteLine("Digite o Cpf do cliente: ");
+            Console.WriteLine("\t\t------------- Verificar CPF -------------\n");
+            Console.Write("\t\tDigite o Cpf do cliente: ");
             long clientecpf = long.Parse(Console.ReadLine());
             Cliente aux = BuscarCpf(clientecpf, clientes);
             if (aux == null)
             {
-                Console.WriteLine("Não Achou");
-                Console.ReadKey();
+                Console.WriteLine("\n\t\t-----------------------------------------" +
+                                  "\n\t\t\t   CPF não encontrado\n" +
+                                  "\t\t-----------------------------------------");
+                Console.Write("\t\tCadastrar um nome Cliente (S/N): ");
+                char cadNovoCliente = char.Parse(Console.ReadLine().ToUpper());
+                if (cadNovoCliente == 'S')
+                {
+                    Console.ReadKey();
+                }
+                else
+                {
+
+                }
+                Console.Clear();
             }
             else
             {
                 Console.WriteLine(aux.VendasCliente());
-                Console.ReadKey();
-                ItemVenda();
+                Console.Write("\n\t\tConfimar Pessoa (S/N): ");
+                char confirpessoa = char.Parse(Console.ReadLine().ToUpper());
+                if (confirpessoa == 'S')
+                {
+                    ItemVenda();
+                }
+                Console.Clear();
             }
 
             new Venda();
@@ -127,7 +143,7 @@ namespace BILTIFUL.ModuloVenda
                     }
                     else
                     {
-                        Console.WriteLine("Digite uma quantidade válida!!");
+                        Console.WriteLine("\t\t\tDigite uma quantidade válida!!");
                     }
                 }
             } while (cont != 3);
@@ -144,7 +160,7 @@ namespace BILTIFUL.ModuloVenda
             Console.ReadKey();
             Console.Clear();
         }
-        
+
         public Cliente BuscarCpf(long ccpf, List<Cliente> cliente)
         {
             Cliente clientecompra = cliente.Find(delegate (Cliente c) { return c.CPF == ccpf; });

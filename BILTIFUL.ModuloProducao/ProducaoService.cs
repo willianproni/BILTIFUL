@@ -133,7 +133,7 @@ namespace BILTIFUL.ModuloProducao
                 while (!int.TryParse(Console.ReadLine(), out int quantidadeMateriaPrima))
                 {
                     Console.WriteLine("Quantos produtos serão produzidos");
-                    itemProducao.QuantidadeMateriaPrima = quantidadeMateriaPrima;
+                    itemProducao.QuantidadeMateriaPrima = quantidadeMateriaPrima.ToString().Remove(',').Remove('.');
                 }                
 
                 Console.WriteLine("Deseja adicionar mais alguma materia prima");

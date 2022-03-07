@@ -1,5 +1,6 @@
 ﻿using BILTIFUL.Core;
 using BILTIFUL.Core.Entidades;
+using BILTIFUL.Core.Entidades.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,7 +94,7 @@ namespace BILTIFUL.ModuloProducao
 
                     if (nome == "0") break;
 
-                    produto = cadastroService.cadastros.produtos.Find(c => c.Nome == nome);
+                    produto = cadastroService.cadastros.produtos.Find(c => c.Nome == nome && c.Situacao == Situacao.Ativo);
 
                     if (produto != null)
                     {
@@ -134,13 +135,12 @@ namespace BILTIFUL.ModuloProducao
                 {
                     Console.WriteLine("Quantos produtos serão produzidos");
                     itemProducao.QuantidadeMateriaPrima = quantidadeMateriaPrima;
-                }                
+                }
 
                 Console.WriteLine("Deseja adicionar mais alguma materia prima");
                 materiaprima = Console.ReadLine() == "s";
 
-                if (materiaprima)
-                    itemProducoes.Add(itemProducao);
+                itemProducoes.Add(itemProducao);
 
             } while (materiaprima);
 

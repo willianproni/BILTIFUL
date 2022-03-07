@@ -19,6 +19,8 @@ namespace BILTIFUL.Core.Controles
         public List<MPrima> materiasprimas { get; set; }
         public List<Compra> compras { get; set; }
         public List<ItemCompra> itemcompra { get; set; }
+        public List<Producao> producao { get; set; }
+        public List<ItemProducao> itemproducao { get; set;}
         public List<Venda> vendas { get; set; }
         public List<ItemVenda> itensvenda { get; set; }
         public List<string> inadimplentes { get; set; }
@@ -34,9 +36,15 @@ namespace BILTIFUL.Core.Controles
             produtos = new List<Produto>();
             fornecedores = new List<Fornecedor>();
             materiasprimas = new List<MPrima>();
+            compras = new List<Compra>(); //
+            itemcompra = new List<ItemCompra>(); //adicionar arquivos
+            producao = new List<Producao>(); //
+            itemproducao = new List<ItemProducao>();//
+            vendas = new List<Venda>();//
+            itensvenda = new List<ItemVenda>();//
             inadimplentes = new List<string>();
             bloqueados = new List<string>();
-
+            
             try
             {
                 StreamReader sr;

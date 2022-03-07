@@ -64,6 +64,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter streamWriter = new StreamWriter("Arquivos\\Controle.dat");
                     streamWriter.WriteLine("0");
                     streamWriter.WriteLine("0");
+                    streamWriter.WriteLine("0");
                     streamWriter.Close();
 
                 }

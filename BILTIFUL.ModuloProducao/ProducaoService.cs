@@ -12,7 +12,6 @@ namespace BILTIFUL.ModuloProducao
     {
         List<Producao> producoes = new List<Producao>();
         List<ItemProducao> itemProducao = new List<ItemProducao>();
-        List<Produto> produtos = new List<Produto>();
         List<MPrima> mPrimas = new List<MPrima>();
 
 
@@ -24,9 +23,9 @@ namespace BILTIFUL.ModuloProducao
         public void SubMenu()
         {
 
-            produtos.Add(new Produto("001", "baton", "9,99"));
+            /*produtos.Add(new Produto("001", "baton", "9,99"));
             produtos.Add(new Produto("002", "shampoo", "19,99"));
-            produtos.Add(new Produto("003", "esmalte", "11,99"));
+            produtos.Add(new Produto("003", "esmalte", "11,99"));*/
 
             mPrimas.Add(new MPrima("1", "detergente"));
             mPrimas.Add(new MPrima("2", "aroma"));
@@ -38,9 +37,8 @@ namespace BILTIFUL.ModuloProducao
                 Console.Clear();
 
                 Console.WriteLine("1- Adicionar");
-                Console.WriteLine("2- Remover");
-                Console.WriteLine("3- Localizar");
-                Console.WriteLine("4- Imprimir por registro");
+                Console.WriteLine("2- Localizar");
+                Console.WriteLine("3- Imprimir por registro");
                 Console.WriteLine("0- Voltar para menu principal");
                 opcao = Console.ReadLine();
 
@@ -48,25 +46,24 @@ namespace BILTIFUL.ModuloProducao
                 Console.Clear();
                 switch (opcao)
                 {
+                    case "0":
+                        break;
+
                     case "1":
                         Cadastrar();
                         break;
 
                     case "2":
-                        Remover();
-                        break;
-
-                    case "3":
                         Localizar();
                         break;
 
-                    case "4":
-                        ImpressaoDoRegistro();
-                        break;
-                    case "0":
+                    case "3":
                         ImpressaoDoRegistro();
                         break;
                     default:
+                        Console.WriteLine("Opção inválida! ");
+                        Console.ReadKey();
+                        SubMenu();
                         break;
                 }
             } while (opcao != "0");
@@ -89,7 +86,7 @@ namespace BILTIFUL.ModuloProducao
                 Console.WriteLine("Insira o nome do produto a ser localizado:");
                 string nome = Console.ReadLine();
 
-                Produto produto = produtos.Find(c => c.Nome == nome);
+                Produto produto = cadastroService.cadastros.produtos.Find(c => c.Nome == nome);
 
                 if (produto != null)
                 {
@@ -131,12 +128,6 @@ namespace BILTIFUL.ModuloProducao
 
         }
 
-        void Remover()
-        {
-            Console.WriteLine("Excluir a produção. Digite o nome do produto para localizar a produção dele.");
-            string nome = Console.ReadLine();
-        }
-
         void ImpressaoDoRegistro()
         {
             Console.WriteLine("Primeira produção.Data, nome e quant.");
@@ -148,12 +139,15 @@ namespace BILTIFUL.ModuloProducao
             Console.WriteLine("Digite o nome do produto para localizar a produção dele.");
             string nome = Console.ReadLine();
 
-            Produto produto = produtos.Find(c => c.Nome == nome);
+            Produto produto = cadastroService.cadastros.produtos.Find(c => c.Nome == nome);
 
             if (produto != null)
             {
                 Producao producao = producoes.Find(c => c.Produto == produto.CodigoBarras);
-                Console.WriteLine("Data: " + producao.DataProducao + "\n Quantidade: " + producao.Quantidade);
+
+                if (producao != null) Console.WriteLine("Data: " + producao.DataProducao + "\n Quantidade: " + producao.Quantidade);
+                else Console.WriteLine("Nenhuma produção enontrada para esse produto");
+
                 Console.WriteLine(produto.ExibirProd());
 
             }

@@ -70,8 +70,10 @@ namespace BILTIFUL.Core.Controles
                 else
                 {
                     StreamWriter streamWriter = new StreamWriter("Arquivos\\Controle.dat");
-                    streamWriter.WriteLine("0");
-                    streamWriter.WriteLine("0");
+                    streamWriter.WriteLine("0");//produto
+                    streamWriter.WriteLine("0");//materia prima
+                    streamWriter.WriteLine("0");//venda
+                    streamWriter.WriteLine("0");//compra
                     streamWriter.Close();
 
                 }
@@ -177,6 +179,23 @@ namespace BILTIFUL.Core.Controles
                     }
                     sr.Close();
                 }
+
+                //COMPRA
+                if (File.Exists("Arquivos\\Compra.dat"))
+                {
+                    sr = new StreamReader("Arquivos\\Compra.dat");
+                    line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        string cod = line.Substring(0, 5);
+                        DateTime dcompra = DateTime.Parse(line.Substring(5, 10));
+                        long cnpj = long.Parse(line.Substring(15, 14));
+                        string valor = line.Substring(29, 7);
+                        compras.Add(new Compra(cod,dcompra,cnpj,valor));
+                        line = sr.ReadLine();
+                    }
+                    sr.Close();
+                }
             }
             catch (Exception e)
             {
@@ -254,6 +273,24 @@ namespace BILTIFUL.Core.Controles
                 }
             }
         }
+        public Controle(Compra compra)
+        {
+            if (compra != null)
+            {
+                try//envia cliente para arquivo como novo cliente]try
+                {
+                    StreamWriter sw = new StreamWriter("Arquivos\\Compra.dat", append: true);
+                    sw.WriteLine(compra.ConverterParaEDI());
+                    sw.Close();
+                    Console.WriteLine("Compra cadastrada cadastrado com sucesso!");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+            }
+        }
+
         public Controle(long chave)
         {
             string schave = "" + chave;

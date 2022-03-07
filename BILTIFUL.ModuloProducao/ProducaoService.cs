@@ -10,7 +10,7 @@ namespace BILTIFUL.ModuloProducao
 {
     public class ProducaoService
     {
-        List<Producao> producao = new List<Producao>();
+        List<Producao> producoes = new List<Producao>();
         List<ItemProducao> itemProducao = new List<ItemProducao>();
         List<Produto> produtos = new List<Produto>();
         List<MPrima> mPrimas = new List<MPrima>();
@@ -32,38 +32,44 @@ namespace BILTIFUL.ModuloProducao
             mPrimas.Add(new MPrima("2", "aroma"));
             mPrimas.Add(new MPrima("3", "fixador"));
 
-            string opcao = "a";
-            Console.WriteLine("1- Adicionar");
-            Console.WriteLine("2- Remover");
-            Console.WriteLine("3- Localizar");
-            Console.WriteLine("4- Imprimir por registro");
-            opcao = Console.ReadLine();
-
-
-            Console.Clear();
-            switch (opcao)
+            string opcao = "";
+            do
             {
-                case "1":
-                    Cadastrar();
-                    break;
+                Console.Clear();
 
-                case "2":
-                    Remover();
-                    break;
-
-                case "3":
-                    Localizar();
-                    break;
-
-                case "4":
-                    ImpressaoDoRegistro();
-                    break;
-                default:
-                    break;
-            }
+                Console.WriteLine("1- Adicionar");
+                Console.WriteLine("2- Remover");
+                Console.WriteLine("3- Localizar");
+                Console.WriteLine("4- Imprimir por registro");
+                Console.WriteLine("0- Voltar para menu principal");
+                opcao = Console.ReadLine();
 
 
+                Console.Clear();
+                switch (opcao)
+                {
+                    case "1":
+                        Cadastrar();
+                        break;
 
+                    case "2":
+                        Remover();
+                        break;
+
+                    case "3":
+                        Localizar();
+                        break;
+
+                    case "4":
+                        ImpressaoDoRegistro();
+                        break;
+                    case "0":
+                        ImpressaoDoRegistro();
+                        break;
+                    default:
+                        break;
+                }
+            } while (opcao != "0");
 
         }
 
@@ -85,18 +91,27 @@ namespace BILTIFUL.ModuloProducao
 
                 Produto produto = produtos.Find(c => c.Nome == nome);
 
-                if (produto != null) producao.Produto = produto.CodigoBarras;
+                if (produto != null)
+                {
+                    producao.Produto = produto.CodigoBarras;
+                    Console.WriteLine(produto.ExibirProd());
+                }
+                else
+                {
+                    Console.WriteLine("Produto não localizado");
+                }
 
             }
 
             Console.WriteLine("Quantos produtos serão produzidos");
-            int qtdProduto = int.Parse(Console.ReadLine());
+            producao.Quantidade = int.Parse(Console.ReadLine());
 
             bool materiaprima;
             do
             {
+                int posicao = 0;
                 Console.WriteLine("Quais as materias primas utilizadas?");
-                mPrimas.ForEach(c => Console.WriteLine(c.Nome));
+                mPrimas.ForEach(c => Console.WriteLine(++posicao + "- " + c.Nome));
                 int materiasprimas = int.Parse(Console.ReadLine());
 
                 Console.WriteLine("Quantidade Materia prima");
@@ -107,12 +122,11 @@ namespace BILTIFUL.ModuloProducao
 
                 if (materiaprima)
                     itemProducao.Add(new ItemProducao()
-                    { MateriaPrima = mPrimas[materiasprimas].Id, QuantidadeMateriaPrima = qtdmateriaprima });
+                    { MateriaPrima = mPrimas[materiasprimas + 1].Id, QuantidadeMateriaPrima = qtdmateriaprima });
 
             } while (materiaprima);
 
-
-
+            producoes.Add(producao);
 
 
         }
@@ -133,6 +147,18 @@ namespace BILTIFUL.ModuloProducao
         {
             Console.WriteLine("Digite o nome do produto para localizar a produção dele.");
             string nome = Console.ReadLine();
+
+            Produto produto = produtos.Find(c => c.Nome == nome);
+
+            if (produto != null)
+            {
+                Producao producao = producoes.Find(c => c.Produto == produto.CodigoBarras);
+                Console.WriteLine("Data: " + producao.DataProducao + "\n Quantidade: " + producao.Quantidade);
+                Console.WriteLine(produto.ExibirProd());
+
+            }
+
+            Console.ReadKey();
         }
 
 

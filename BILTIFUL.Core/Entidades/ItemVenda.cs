@@ -21,22 +21,18 @@ namespace BILTIFUL.Core.Entidades
             this.ValorUnitario = vunitario;
         }
 
+        public override string ToString()
+        {
+            return $"Código produto: {Produto}"; 
+        }
+
         public Produto CodigoProdutoValido(string codproduto, List<Produto> list)
         {
             Produto aux = list.Find(i => i.CodigoBarras == codproduto);
-            
-       /*     foreach (var lista in list)
-            {
-                if (codproduto.CompareTo(lista.cbarras) == 0)
-                {
-                    System.Console.WriteLine(lista.ExibirProd());
-                    check = true;
-                }
-            }*/
 
             if (aux == null)
             {
-                System.Console.WriteLine("Nenhum Produto encontrado!!");
+                System.Console.WriteLine("\t\t\tNenhum Produto encontrado!!");
             }
             else
             {

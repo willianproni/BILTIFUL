@@ -29,28 +29,28 @@ namespace BILTIFUL.Core
                 switch (opc)
                 {
                     case "1":
-                        Controle cliente = new Controle(CadastroCliente());
+                        CadastroCliente();
                         break;
                     case "2":
-                        Controle produto = new Controle(CadastroProduto());
+                        CadastroProduto();
                         break;
                     case "3":
-                        Controle fornecedor = new Controle(CadastroFornecedor());
+                        CadastroFornecedor();
                         break;
                     case "4":
-                        Controle materiaprima = new Controle(CadastroMateriaPrima());
+                        CadastroMateriaPrima();
                         break;
                     case "5":
-                        Controle inadimplente = new Controle(CadastroInadimplente());
+                        CadastroInadimplente();
                         break;
                     case "6":
-                        Controle bloqueado = new Controle(CadastroBloqueado());
+                        CadastroBloqueado();
                         break;
                     case "7":
-                        Controle removerInadimplencia = new Controle(RemoverInadimplencia(),"remover");
+                        RemoverInadimplencia();
                         break;
                     case "8":
-                        Controle removerBloqueado = new Controle(CadastroBloqueado(), "remover");
+                        CadastroBloqueado();
                         break;
                     case "0":
                         break;
@@ -72,7 +72,7 @@ namespace BILTIFUL.Core
             Console.WriteLine("\t|3| - CADASTRAR FORNECEDOR                     |");
             Console.WriteLine("\t|4| - CADASTRAR MATERIA PRIMA                  |");
             Console.WriteLine("\t|5| - ADICIONAR CLIENTE COMO INADIMPLENTE      |");
-            Console.WriteLine("\t|6| - ADICIOANR FORNECEDOR A LISTA DE BLOQUEADO|");
+            Console.WriteLine("\t|6| - ADICIONAR FORNECEDOR A LISTA DE BLOQUEADO|");
             Console.WriteLine("\t|7| - REMOVER CLIENTE DA LISTA DE INADIMPLENTE |");
             Console.WriteLine("\t|8| - REMOVER FORNECEDOR DA LISTA DE BLOQUEADO |");
             Console.WriteLine("\t|0| - VOLTAR PARA O MENU PRINCIPAL             |");
@@ -117,7 +117,12 @@ namespace BILTIFUL.Core
                 csexo = Console.ReadLine().ToUpper();
             } while ((csexo != "M") && (csexo != "F"));
             Sexo sexo = (Sexo)char.Parse(csexo);
-            return new Cliente(long.Parse(cpf), nome, dnascimento, sexo);
+
+            Cliente cliente = new Cliente(long.Parse(cpf), nome, dnascimento, sexo);
+
+            new Controle(cliente);
+
+            return cliente;
         }
         public static bool ValidaCpf(string cpf)
         {
@@ -183,8 +188,13 @@ namespace BILTIFUL.Core
                 Console.WriteLine("Deve ter se passado pelo menos 6 meses desde a abertura!");
                 return null;
             }
-            
-            return new Fornecedor(long.Parse(cnpj), rsocial, dabertura);
+
+
+            Fornecedor fornecedor = new Fornecedor(long.Parse(cnpj), rsocial, dabertura);
+
+            new Controle(fornecedor);
+
+            return fornecedor;
         }
         public static bool ValidaCnpj(string cnpj)
         {
@@ -238,7 +248,10 @@ namespace BILTIFUL.Core
             SalvarCodigos();
             string cod = "" + cadastros.codigos[0];
             cadastros.produtos.Add(new Produto(cod, nome, svalor));
-            return new Produto(cod, nome, svalor);
+
+            Produto produto = new Produto(cod, nome, svalor);
+            new Controle(produto);
+            return produto;
         }
         public void SalvarCodigos()
         {
@@ -265,8 +278,14 @@ namespace BILTIFUL.Core
             SalvarCodigos();
             string cod = "" + cadastros.codigos[1];
             cadastros.materiasprimas.Add(new MPrima(cod, nome));
-            return new MPrima(cod, nome);
-        } 
+
+            MPrima mPrima = new MPrima(cod, nome);
+
+            new Controle(mPrima);
+
+            return mPrima;
+
+        }
         public long CadastroInadimplente()
         {
             string inadimplente;
@@ -283,7 +302,10 @@ namespace BILTIFUL.Core
             long cpf = long.Parse(inadimplente);
 
             if (cadastros.clientes.Find(p => p.CPF == cpf) != null)
+            {
+                new Controle(cpf);
                 return cpf;
+            }
             return 0;
         }
         public long CadastroBloqueado()
@@ -301,8 +323,11 @@ namespace BILTIFUL.Core
 
             long cnpj = long.Parse(bloqueado);
 
-            if(cadastros.fornecedores.Find(p => p.CNPJ==cnpj)!=null)
+            if (cadastros.fornecedores.Find(p => p.CNPJ == cnpj) != null)
+            {
+                new Controle(cnpj, "remover");
                 return cnpj;
+            }
             return 0;
         }
         public long RemoverInadimplencia()
@@ -320,8 +345,11 @@ namespace BILTIFUL.Core
 
             long cpf = long.Parse(inadimplente);
 
-            if (cadastros.inadimplentes.Find(p => p == ""+cpf) != null)
+            if (cadastros.inadimplentes.Find(p => p == "" + cpf) != null)
+            {
                 return cpf;
+                new Controle(cpf, "remover");
+            }
             return 0;
         }
         public long RemoverBloqueio()
@@ -339,7 +367,7 @@ namespace BILTIFUL.Core
 
             long cnpj = long.Parse(bloqueado);
 
-            if (cadastros.bloqueados.Find(p => p == ""+cnpj) != null)
+            if (cadastros.bloqueados.Find(p => p == "" + cnpj) != null)
                 return cnpj;
             return 0;
         }

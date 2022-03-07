@@ -55,6 +55,9 @@ namespace BILTIFUL.Core
                     case "9":
                         MostrarRegistro();
                         break;
+                    case "10":
+                        LocalizarRegistro();
+                        break;
                     case "0":
                         break;
                     default:
@@ -79,6 +82,7 @@ namespace BILTIFUL.Core
             Console.WriteLine("\t|7| - REMOVER CLIENTE DA LISTA DE INADIMPLENTE |");
             Console.WriteLine("\t|8| - REMOVER FORNECEDOR DA LISTA DE BLOQUEADO |");
             Console.WriteLine("\t|9| - MOSTRAR REGISTROS                        |");
+            Console.WriteLine("\t|10| - LOCALIZAR REGISTROS                     |");
             Console.WriteLine("\t|0| - VOLTAR PARA O MENU PRINCIPAL             |");
             Console.Write("\t|______________________________________________|\n" +
                           "\t|Opção: ");
@@ -262,7 +266,7 @@ namespace BILTIFUL.Core
             {
                 Console.Write("Nome: ");
                 nome = Console.ReadLine().Trim();
-            } while (nome=="");
+            } while (nome == "");
             do
             {
                 Console.Write("Valor($$$,$$)(valor precisa ser menor que 1000,00): ");
@@ -274,7 +278,6 @@ namespace BILTIFUL.Core
             cadastros.codigos[0]++;
             SalvarCodigos();
             string cod = "" + cadastros.codigos[0];
-            cadastros.produtos.Add(new Produto(cod, nome, svalor));
 
             Produto produto = new Produto(cod, nome, svalor);
             new Controle(produto);
@@ -300,7 +303,8 @@ namespace BILTIFUL.Core
             string nome;
             Console.Clear();
             Console.WriteLine("===========CADASTRO MATERIA PRIMA===========");
-            do {
+            do
+            {
                 Console.WriteLine("Digite o nome da Materia Prima");
                 nome = Console.ReadLine().Trim();
             } while (nome == "");
@@ -308,7 +312,6 @@ namespace BILTIFUL.Core
             cadastros.codigos[1]++;
             SalvarCodigos();
             string cod = "" + cadastros.codigos[1];
-            cadastros.materiasprimas.Add(new MPrima(cod, nome));
 
             MPrima mPrima = new MPrima(cod, nome);
 
@@ -472,13 +475,13 @@ namespace BILTIFUL.Core
                 Console.WriteLine("\t|7| - REGISTROS DE COMPRAS                     |");
                 Console.WriteLine("\t|8| - REGISTROS DE ITENS DE COMPRAS            |");
                 Console.WriteLine("\t|0| - VOLTAR                                   |");
-                    Console.Write("\t|______________________________________________|\n" +
-                                  "\t|Opção: ");
+                Console.Write("\t|______________________________________________|\n" +
+                              "\t|Opção: ");
                 opc = Console.ReadLine();
                 switch (opc)
                 {
                     case "1":
-                        if(cadastros.clientes.Count()!=0)
+                        if (cadastros.clientes.Count() != 0)
                             new Registros(cadastros.clientes);
                         else
                             Console.WriteLine("Nenhum cliente registrado");
@@ -513,6 +516,112 @@ namespace BILTIFUL.Core
                         Console.WriteLine("Opção invalida");
                         break;
                 }
+                Console.ReadKey();
+            } while (opc != "0");
+        }
+        public void LocalizarRegistro()
+        {
+            string opc;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("\t________________________________________________");
+                Console.WriteLine("\t|++++++++++++| MENU DE LOCALIZAÇÃO |+++++++++++|");
+                Console.WriteLine("\t|1| - LOCALIZAR CLIENTES                       |");
+                Console.WriteLine("\t|2| - LOCALIZAR FORNECEDORES                   |");
+                Console.WriteLine("\t|3| - LOCALIZAR MATERIAS PRIMAS                |");
+                Console.WriteLine("\t|4| - LOCALIZAR PRODUTOS                       |");
+                Console.WriteLine("\t|5| - LOCALIZAR VENDAS                         |");
+                Console.WriteLine("\t|6| - LOCALIZAR ITENS DE VENDAS                |");
+                Console.WriteLine("\t|7| - LOCALIZAR COMPRAS                        |");
+                Console.WriteLine("\t|8| - LOCALIZAR ITENS DE COMPRAS               |");
+                Console.WriteLine("\t|0| - VOLTAR                                   |");
+                Console.Write("\t|______________________________________________|\n" +
+                              "\t|Opção: ");
+                opc = Console.ReadLine();
+                bool encontrado = false;
+                Console.Clear();
+                switch (opc)
+                {
+
+                    case "1":
+                        string cpf;
+                        do 
+                        {
+                            Console.Write("Digite o cpf que deseja localizar: ");
+                            cpf = Console.ReadLine();
+                            if (!ValidaCpf(cpf))
+                            {
+                                Console.WriteLine("CPF INVÁLIDO, TENTE NOVAMENTE!");
+                            }
+                        } while (ValidaCpf(cpf) != true);
+                        Console.Clear();
+
+                        Cliente localizarcliente = cadastros.clientes.Find(p => p.CPF == long.Parse(cpf));
+                        if (localizarcliente != null)
+                        {
+                            encontrado = true;
+                            Console.WriteLine(localizarcliente.DadosCliente());
+                        }
+                        break;
+                    case "2":
+                        string cnpj;
+                        do
+                        {
+                            Console.Write("Digite o cnpj que deseja localizar: ");
+                            cnpj = Console.ReadLine();
+                            if (!ValidaCnpj(cnpj))
+                            {
+                                Console.WriteLine("CNPJ INVÁLIDO, TENTE NOVAMENTE!");
+                            }
+                        } while (ValidaCnpj(cnpj) != true);
+                        Console.Clear();
+                        
+                        Fornecedor localizarfornecedor = cadastros.fornecedores.Find(p => p.CNPJ == long.Parse(cnpj));
+                        if (localizarfornecedor != null)
+                        {
+                            encontrado = true;
+                            Console.WriteLine(localizarfornecedor.DadosFornecedor());
+                        }
+                        break;
+                    case "3":
+                        Console.Write("Digite o nome que deseja localizar: ");
+                        string nomeMateriaPrima = Console.ReadLine().Trim().ToLower();
+                        List<MPrima> localizarmprima = cadastros.materiasprimas.FindAll(p => p.Nome.ToLower() == nomeMateriaPrima);
+                        if (localizarmprima != null)
+                        {
+                            encontrado = true;
+                            localizarmprima.ForEach(p => Console.WriteLine(p.DadosMateriaPrima()));
+                        }
+                        break;
+                    case "4":
+                        Console.Write("Digite o nome do produto que deseja localizar: ");
+                        string nomeProduto = Console.ReadLine().Trim().ToLower();
+                        List<Produto> localizaProduto = cadastros.produtos.FindAll(p => p.Nome.ToLower() == nomeProduto);
+                        if (localizaProduto != null)
+                        {
+                            encontrado = true;
+                            localizaProduto.ForEach(p => Console.WriteLine(p.DadosProduto()));
+                        }
+                        else
+                        {
+                            Console.WriteLine("ne");
+                        }
+                        break;
+                    case "5":
+                        break;
+                    case "6":
+                        break;
+                    case "7":
+                        break;
+                    case "8":
+                        break;
+                    default:
+                        Console.WriteLine("Opção invalida");
+                        break;
+                }
+                if(encontrado==false)
+                    Console.WriteLine("Registro não encontrado");
                 Console.ReadKey();
             } while (opc != "0");
         }

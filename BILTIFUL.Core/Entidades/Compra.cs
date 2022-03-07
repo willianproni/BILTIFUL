@@ -5,13 +5,28 @@ namespace BILTIFUL.Core.Entidades
 {
     public class Compra : EntidadeBase
     {
-        public DateTime DataCompra { get; set; }
+        public DateTime DataCompra { get; set; } = DateTime.Now;
         //CNPJ
         public long Fornecedor { get; set; }
-        public int ValorTotal { get; set; }
+        public string ValorTotal { get; set; }
         public Compra()
         {
 
+        }
+
+        public Compra( string id , long fornecedor, string valorTotal)//criação
+        {
+            Id = id.PadLeft(5,'0');
+            Fornecedor = fornecedor;
+            ValorTotal = valorTotal.PadLeft(7,'0');
+        }
+
+        public Compra(string id,DateTime dataCompra, long fornecedor, string valorTotal)//leitura
+        {
+            Id = id;
+            DataCompra = dataCompra;
+            Fornecedor = fornecedor;
+            ValorTotal = valorTotal;
         }
 
         public string ConverterParaEDI()

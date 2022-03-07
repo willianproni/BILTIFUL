@@ -122,10 +122,10 @@ namespace BILTIFUL.ModuloProducao
             else Cadastrar();
 
             Console.WriteLine("Quantos produtos serão produzidos");
-            while (!int.TryParse(Console.ReadLine(), out int quantidade))
+            while (!double.TryParse(Console.ReadLine(), out double quantidade))
             {
                 Console.WriteLine("Quantos produtos serão produzidos");
-                producao.Quantidade = quantidade;
+                producao.Quantidade = quantidade.ToString().Remove(',').Remove('.');
             }
 
             bool materiaprima;
@@ -149,10 +149,10 @@ namespace BILTIFUL.ModuloProducao
                 itemProducao.MateriaPrima = mPrimas[materiasprimas - 1].Id;
 
                 Console.WriteLine("Quantidade Materia prima");
-                while (!int.TryParse(Console.ReadLine(), out int quantidadeMateriaPrima))
+                while (!double.TryParse(Console.ReadLine(), out double quantidadeMateriaPrima))
                 {
                     Console.WriteLine("Quantos produtos serão produzidos");
-                    itemProducao.QuantidadeMateriaPrima = quantidadeMateriaPrima;
+                    itemProducao.QuantidadeMateriaPrima = quantidadeMateriaPrima.ToString();
                 }
 
                 Console.WriteLine("Deseja adicionar mais alguma materia prima? Sim/Não");

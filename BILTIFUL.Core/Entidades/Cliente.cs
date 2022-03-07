@@ -44,7 +44,7 @@ namespace BILTIFUL.Core.Entidades
         }
         public string DadosCliente()
         {
-            return "|Nome: "+Nome+ "\n|CPF: " + CPF+ "\n|Data de nascimento: " + DataNascimento.ToString("dd/MM/yyyy") + "\n|Sexo: " + (char)Sexo+ "\n|Ultima compra: " + UltimaCompra.ToString("dd/MM/yyyy") + "\n|Data de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\n|Situação: " + Situacao;
+            return "-------------------------------------------\n|Nome: " + Nome+ "\n|CPF: " + CPF+ "\n|Data de nascimento: " + DataNascimento.ToString("dd/MM/yyyy") + "\n|Sexo: " + Sexo+ "\n|Ultima compra: " + UltimaCompra.ToString("dd/MM/yyyy") + "\n|Data de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\n|Situação: " + Situacao;
         }
     }
 

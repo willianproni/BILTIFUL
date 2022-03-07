@@ -8,17 +8,24 @@ namespace BILTIFUL.Core.Entidades
         public DateTime DataProducao { get; set; } = DateTime.Now;
         //ID Materia Prima
         public string MateriaPrima { get; set; }
-        public int QuantidadeMateriaPrima { get; set; }
+        public string QuantidadeMateriaPrima { get; set; }
 
         public ItemProducao()
         {
 
         }
 
-        public ItemProducao(string id, DateTime dataProducao, string materiaPrima, int quantidadeMateriaPrima)
+        public ItemProducao(string id, DateTime dataProducao, string materiaPrima, string quantidadeMateriaPrima)
         {
             Id = id;
             DataProducao = dataProducao;
+            MateriaPrima = materiaPrima;
+            QuantidadeMateriaPrima = quantidadeMateriaPrima;
+        }
+
+        public ItemProducao(string id,string materiaPrima, string quantidadeMateriaPrima)
+        {
+            Id = id;
             MateriaPrima = materiaPrima;
             QuantidadeMateriaPrima = quantidadeMateriaPrima;
         }

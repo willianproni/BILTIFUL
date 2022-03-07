@@ -65,14 +65,14 @@ namespace BILTIFUL.ModuloProducao
         {
             Producao producao = new Producao();
 
-            Console.WriteLine("O produto a ser produzido existe?");
-            bool existe = Console.ReadLine() == "s";
-            if (existe == false)
+            Console.WriteLine("O produto a ser produzido existe? Sim/Não");
+            string existe = Console.ReadLine();
+            if (existe == "s" || existe == "Sim")
             {
                 Produto produto = cadastroService.CadastroProduto();
                 if (produto != null) producao.Produto = produto.CodigoBarras;
             }
-            else
+            else if (existe == "n" || existe == "Nao" || existe == "Nao")
             {
                 Produto produto = new Produto();
                 do
@@ -94,12 +94,16 @@ namespace BILTIFUL.ModuloProducao
 
                 } while (produto == null);
 
-     
 
             }
+            else Cadastrar();
 
             Console.WriteLine("Quantos produtos serão produzidos");
-            producao.Quantidade = int.Parse(Console.ReadLine());
+            while (!int.TryParse(Console.ReadLine(), out int quantidade))
+            {
+                Console.WriteLine("Quantos produtos serão produzidos");
+                producao.Quantidade = quantidade;
+            }
 
             bool materiaprima;
             do
@@ -123,6 +127,7 @@ namespace BILTIFUL.ModuloProducao
 
             producoes.Add(producao);
         }
+
 
         void DadosProducao(Producao producao, Produto produto)
         {
@@ -210,7 +215,7 @@ namespace BILTIFUL.ModuloProducao
             Producao producao = producoes.Find(c => c.Produto == produto.CodigoBarras);
 
             if (producao != null) DadosProducao(producoes.Find(c => c.Produto == produto.CodigoBarras), cadastroService.cadastros.produtos.Find(c => c.Nome == busca));
-            else Console.WriteLine("Nenhuma produção enontrada para esse produto\n\n" +( produto != null ? produto.DadosProduto() : string.Empty));
+            else Console.WriteLine("Nenhuma produção enontrada para esse produto\n\n" + (produto != null ? produto.DadosProduto() : string.Empty));
 
             Console.ReadKey();
         }

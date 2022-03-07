@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,12 +14,11 @@ namespace BILTIFUL.Core
 {
     public class CadastroService
     {
-
-        public Controle cadastros = new Controle();
-
         public CadastroService()
         {
         }
+
+        public Controle cadastros = new Controle();
 
         public void SubMenu()
         {
@@ -50,7 +50,7 @@ namespace BILTIFUL.Core
                         RemoverInadimplencia();
                         break;
                     case "8":
-                        CadastroBloqueado();
+                        RemoverBloqueio();
                         break;
                     case "9":
                         MostrarRegistro();
@@ -95,6 +95,7 @@ namespace BILTIFUL.Core
             string datanascimento;
             string csexo;
             DateTime dnascimento;
+            string nome;
             Console.Clear();
             Console.WriteLine("===========CADASTRO CLIENTE===========");
             do
@@ -104,9 +105,18 @@ namespace BILTIFUL.Core
                 if (!ValidaCpf(cpf))//valida cpf
                     Console.WriteLine("Cpf invalido!\nDigite novamente");
             } while (!ValidaCpf(cpf));//enquanto cpf nao for valido digitar denovo
-
-            Console.Write("Nome: ");
-            string nome = Console.ReadLine().Trim();
+            if (cadastros.clientes.Find(p => p.CPF == long.Parse(cpf)) != null)
+            {
+                Console.WriteLine("Cliente com esse CPF ja existe");
+                return null;
+            }
+            do
+            {
+                Console.Write("Nome: ");
+                nome = Console.ReadLine().Trim();
+                if (nome == "")
+                    Console.WriteLine("Nome nao pode ser vazio");
+            } while (nome == "");
             do
             {
                 Console.Write("Data de nascimento(dd/mm/aaaa): ");
@@ -129,6 +139,7 @@ namespace BILTIFUL.Core
             Cliente cliente = new Cliente(long.Parse(cpf), nome, dnascimento, sexo);
 
             new Controle(cliente);
+            cadastros.clientes.Add(cliente);
 
             return cliente;
         }
@@ -169,6 +180,7 @@ namespace BILTIFUL.Core
         {
             string dataabertura;
             DateTime dabertura;
+            string rsocial;
             string cnpj;
             Console.Clear();
             Console.WriteLine("===========CADASTRO FORNECEDOR===========");
@@ -180,10 +192,16 @@ namespace BILTIFUL.Core
                     Console.WriteLine("Cpf invalido!\nDigite novamente");
 
             } while (!ValidaCnpj(cnpj));//enquanto cpf nao for valido digitar denovo
-
-            Console.Write("Razão Social: ");
-            string rsocial = Console.ReadLine().Trim();
-
+            if (cadastros.fornecedores.Find(p => p.CNPJ == long.Parse(cnpj)) != null)
+            {
+                Console.WriteLine("Cliente com esse CPF ja existe");
+                return null;
+            }
+            do
+            {
+                Console.Write("Razão Social: ");
+                rsocial = Console.ReadLine().Trim();
+            } while (rsocial == "");
             do
             {
                 Console.Write("Data de abertura(dd/mm/aaaa): ");
@@ -201,6 +219,7 @@ namespace BILTIFUL.Core
             Fornecedor fornecedor = new Fornecedor(long.Parse(cnpj), rsocial, dabertura);
 
             new Controle(fornecedor);
+            cadastros.fornecedores.Add(fornecedor);
 
             return fornecedor;
         }
@@ -240,6 +259,7 @@ namespace BILTIFUL.Core
         {
             string svalor;
             int valor;
+            string nome;
             Console.Clear();
             Console.WriteLine("===========CADASTRO PRODUTO===========");
             do
@@ -261,6 +281,7 @@ namespace BILTIFUL.Core
 
             Produto produto = new Produto(cod, nome, svalor);
             new Controle(produto);
+            cadastros.produtos.Add(produto);
             return produto;
         }
         public void SalvarCodigos()
@@ -279,6 +300,7 @@ namespace BILTIFUL.Core
         }
         public MPrima CadastroMateriaPrima()
         {
+            string nome;
             Console.Clear();
             Console.WriteLine("===========CADASTRO MATERIA PRIMA===========");
             do
@@ -294,6 +316,7 @@ namespace BILTIFUL.Core
             MPrima mPrima = new MPrima(cod, nome);
 
             new Controle(mPrima);
+            cadastros.materiasprimas.Add(mPrima);
 
             return mPrima;
 
@@ -305,17 +328,22 @@ namespace BILTIFUL.Core
             Console.WriteLine("===========CADASTRO DE INADIMPLENTE===========");
             do
             {
-                Console.WriteLine("Digite o cpf do caloteiro: ");
+                Console.WriteLine("Digite o cpf do inadimplente: ");
                 inadimplente = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
                 if (!ValidaCpf(inadimplente))//valida cpf
                     Console.WriteLine("Cpf invalido!\nDigite novamente");
             } while (!ValidaCpf(inadimplente));
-
+            if (cadastros.inadimplentes.Find(p => p == "" + inadimplente) != null)
+            {
+                Console.WriteLine("Inadimplente com esse CPF ja existe");
+                return 0;
+            }
             long cpf = long.Parse(inadimplente);
 
             if (cadastros.clientes.Find(p => p.CPF == cpf) != null)
             {
                 new Controle(cpf);
+                cadastros.inadimplentes.Add("" + cpf);
                 return cpf;
             }
             return 0;
@@ -327,22 +355,29 @@ namespace BILTIFUL.Core
             Console.WriteLine("===========CADASTRO DE BLOQUEADO===========");
             do
             {
-                Console.WriteLine("Digite o cpf do fornecedor: ");
-                bloqueado = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
+                Console.WriteLine("Digite o CNPJ do fornecedor: ");
+                bloqueado = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");
                 if (!ValidaCnpj(bloqueado))//valida cpf
-                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+                    Console.WriteLine("Cnpj invalido!\nDigite novamente");
             } while (!ValidaCnpj(bloqueado));
+            if (cadastros.bloqueados.Find(p => p == bloqueado) != null)
+            {
+                Console.WriteLine("Fornecedor com esse cnpj ja existe");
+                return 0;
+            }
 
             long cnpj = long.Parse(bloqueado);
 
             if (cadastros.fornecedores.Find(p => p.CNPJ == cnpj) != null)
             {
-                new Controle(cnpj, "remover");
+                new Controle(cnpj);
+                cadastros.bloqueados.Add("" + cnpj);
                 return cnpj;
             }
             return 0;
         }
-        public long RemoverInadimplencia()
+
+        public void RemoverInadimplencia()
         {
             string inadimplente;
             Console.Clear();
@@ -350,7 +385,7 @@ namespace BILTIFUL.Core
             do
             {
                 Console.WriteLine("Digite o cpf do ex caloteiro: ");
-                inadimplente = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
+                inadimplente = Console.ReadLine().Trim().Replace(".", "").Replace("-", "");
                 if (!ValidaCpf(inadimplente))//valida cpf
                     Console.WriteLine("Cpf invalido!\nDigite novamente");
             } while (!ValidaCpf(inadimplente));
@@ -358,13 +393,9 @@ namespace BILTIFUL.Core
             long cpf = long.Parse(inadimplente);
 
             if (cadastros.inadimplentes.Find(p => p == "" + cpf) != null)
-            {
-                return cpf;
-                new Controle(cpf, "remover");
-            }
-            return 0;
+                Remover(cpf);
         }
-        public long RemoverBloqueio()
+        public void RemoverBloqueio()
         {
             string bloqueado;
             Console.Clear();
@@ -372,7 +403,7 @@ namespace BILTIFUL.Core
             do
             {
                 Console.WriteLine("Digite o cnpj do fornecedor bloqueado: ");
-                bloqueado = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
+                bloqueado = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");
                 if (!ValidaCnpj(bloqueado))//valida cpf
                     Console.WriteLine("Cpf invalido!\nDigite novamente");
             } while (!ValidaCnpj(bloqueado));
@@ -380,8 +411,51 @@ namespace BILTIFUL.Core
             long cnpj = long.Parse(bloqueado);
 
             if (cadastros.bloqueados.Find(p => p == "" + cnpj) != null)
-                return cnpj;
-            return 0;
+                Remover(cnpj);
+        }
+        public void Remover(long chave)
+        {
+            string schave = "" + chave;
+            if (CadastroService.ValidaCpf(schave))
+            {
+                cadastros.inadimplentes.Remove(schave);
+                try//envia cliente para arquivo como novo cliente]try
+                {
+                    int i = 0;
+                    StreamWriter sw = new StreamWriter("Arquivos\\Risco.dat");
+                    while (i != cadastros.inadimplentes.Count)
+                    {
+                        sw.WriteLine(cadastros.inadimplentes[i]);
+                        i++;
+                    }
+                    sw.Close();
+                    Console.WriteLine("Cliente removido dos inadimplentes!");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+            }
+            if (CadastroService.ValidaCnpj(schave))
+            {
+                cadastros.bloqueados.Remove(schave);
+                try//envia cliente para arquivo como novo cliente]try
+                {
+                    int i = 0;
+                    StreamWriter sw = new StreamWriter("Arquivos\\Bloqueado.dat");
+                    while (i != cadastros.bloqueados.Count)
+                    {
+                        sw.WriteLine(cadastros.bloqueados[i]);
+                        i++;
+                    }
+                    sw.Close();
+                    Console.WriteLine("Fornecedor desbloqueado!!");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+            }
         }
 
         public void MostrarRegistro()

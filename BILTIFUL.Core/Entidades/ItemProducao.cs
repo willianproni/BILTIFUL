@@ -14,5 +14,6 @@ namespace BILTIFUL.Core.Entidades
         {
 
         }
+
     }
 }

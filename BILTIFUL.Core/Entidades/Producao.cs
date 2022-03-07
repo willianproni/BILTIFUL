@@ -14,5 +14,19 @@ namespace BILTIFUL.Core.Entidades
         {
 
         }
+        public Producao(string produto, int quantidade)
+        {
+            Produto = produto;
+            Quantidade = quantidade;
+        }
+
+        public string Dados()
+        {
+            return @$"
+    Data: {DataProducao.ToString("dd/MM/yyyy")}
+    Quantidade do Produto: {Quantidade}";
+        }
+
+
     }
 }

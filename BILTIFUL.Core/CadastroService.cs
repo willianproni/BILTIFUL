@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -79,8 +80,8 @@ namespace BILTIFUL.Core
             Console.WriteLine("\t|8| - REMOVER FORNECEDOR DA LISTA DE BLOQUEADO |");
             Console.WriteLine("\t|9| - MOSTRAR REGISTROS                        |");
             Console.WriteLine("\t|0| - VOLTAR PARA O MENU PRINCIPAL             |");
-                Console.Write("\t|______________________________________________|\n" +
-                              "\t|Opção: ");
+            Console.Write("\t|______________________________________________|\n" +
+                          "\t|Opção: ");
             opc = Console.ReadLine();
             return opc;
         }
@@ -104,7 +105,7 @@ namespace BILTIFUL.Core
                 Console.WriteLine("Cliente com esse CPF ja existe");
                 return null;
             }
-                Console.Write("Nome: ");
+            Console.Write("Nome: ");
             string nome = Console.ReadLine().Trim();
             do
             {
@@ -314,7 +315,7 @@ namespace BILTIFUL.Core
                 if (!ValidaCpf(inadimplente))//valida cpf
                     Console.WriteLine("Cpf invalido!\nDigite novamente");
             } while (!ValidaCpf(inadimplente));
-            if (cadastros.inadimplentes.Find(p => p == ""+inadimplente) != null)
+            if (cadastros.inadimplentes.Find(p => p == "" + inadimplente) != null)
             {
                 Console.WriteLine("Inadimplente com esse CPF ja existe");
                 return 0;
@@ -324,7 +325,7 @@ namespace BILTIFUL.Core
             if (cadastros.clientes.Find(p => p.CPF == cpf) != null)
             {
                 new Controle(cpf);
-                cadastros.inadimplentes.Add(""+cpf);
+                cadastros.inadimplentes.Add("" + cpf);
                 return cpf;
             }
             return 0;
@@ -441,7 +442,43 @@ namespace BILTIFUL.Core
 
         public void MostrarRegistro()
         {
-            
+            string opc;
+            do
+            {
+                Console.WriteLine("\t________________________________________________");
+                Console.WriteLine("\t|+++++++++++++| MENU DE REGISTROS |++++++++++++|");
+                Console.WriteLine("\t|1| - REGISTROS DE CLIENTES                    |");
+                Console.WriteLine("\t|2| - REGISTROS DE FORNECEDORES                |");
+                Console.WriteLine("\t|3| - REGISTROS DE MATERIAS PRIMAS             |");
+                Console.WriteLine("\t|4| - REGISTROS DE PRODUTOS                    |");
+                Console.WriteLine("\t|0| - VOLTAR                                   |");
+                Console.Write("\t|______________________________________________|\n" +
+                              "\t|Opção: ");
+                opc = Console.ReadLine();
+                switch (opc)
+                {
+                    case "1":
+                        new Registros(cadastros.clientes);
+                        break;
+                    case "2":
+                        new Registros(cadastros.fornecedores);
+                        break;
+                    case "3":
+                        new Registros(cadastros.materiasprimas);
+                        break;
+                    case "4":
+                        new Registros(cadastros.produtos);
+                        break;
+                    default:
+                        break;
+                }
+            } while (opc != "0");
+
+            /*void Opcoes(List<>)
+            {
+
+            }
+            cadastros.clientes.GetType();*/
         }
     }
 }

@@ -36,5 +36,9 @@ namespace BILTIFUL.Core.Entidades
         {
             return $"{Id}{Nome.PadRight(20)}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
         }
+        public string DadosMateriaPrima()
+        {
+            return "Nome: " + Nome + "Data de ultima compra" + UltimaCompra.ToString("dd/MM/yyyy") + "\nData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\nSituação: " + Situacao;
+        }
     }
 }

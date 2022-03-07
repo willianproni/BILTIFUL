@@ -29,9 +29,9 @@ namespace BILTIFUL.Core.Entidades
             
         }
 
-        public override string ToString()
+        public  string DadosFornecedor()
         {
-            return "Fornecedor:\t" + rsocial + "\nCnpj:\t" + cnpj;
+            return "Fornecedor:\t" + RazaoSocial + "\nCnpj:\t" + CNPJ;
         }
 
         public Fornecedor(long cnpj, string rsocial, DateTime dabertura, DateTime ucompra, DateTime dcadastro, Situacao situacao)

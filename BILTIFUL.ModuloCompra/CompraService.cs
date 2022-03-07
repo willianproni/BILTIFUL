@@ -30,7 +30,7 @@ namespace BILTIFUL.ModuloCompra
             switch (opc)
             {
                 case "1":
-                    Cadastrar();
+                    CadastrarCompra();
                     break;
                 case "2":
                     break;
@@ -43,16 +43,13 @@ namespace BILTIFUL.ModuloCompra
             }
         }
 
-        public void Cadastrar()
+        public void CadastrarCompra()
         {
-            //AdicionarFornecedor();
-            int cont = 0;
-            string saida = "a";
+           
+            
             string opc = "a";
-            string opcp = "a";
-            do
-            {
-                Console.Clear();
+            
+            Console.Clear();
                 do
                 {
                     Console.WriteLine("Informe o CNPJ do forncedor");
@@ -60,22 +57,32 @@ namespace BILTIFUL.ModuloCompra
                     Fornecedor fornecedorCompra = BuscarCnpj(cnpj, controle.fornecedores);
                     if (fornecedorCompra == null)
                     {
-                        Console.WriteLine("Fornecedor nao encontrado. Favor informar outro cnpj");
+                        Console.WriteLine("Fornecedor nao encontrado.");
                     }
                     else
                     {
-                        Console.WriteLine(fornecedorCompra.ToString());
+                        Console.WriteLine(fornecedorCompra.DadosFornecedor());
                         Console.WriteLine("[1]SIM [0]NAO");
                         Console.WriteLine("Confirma dados do Fornecedor?");
                         opc = Console.ReadLine();
                         if (opc == "0")
                         {
-                            Console.WriteLine("Informe o CNPJ do fornecedor correto");
-                            
+                            Console.WriteLine("");                           
 
                         }
                     }
                 } while (opc != "1");
+            ItemCompra();
+
+        }
+        public void ItemCompra()
+        {
+            int cont = 0;
+            string saida = "a";
+            string opcp = "a";
+            do
+            {
+
                 do
                 {
                     Console.WriteLine("Informe o ID da Materia-Prima");
@@ -83,7 +90,7 @@ namespace BILTIFUL.ModuloCompra
                     MPrima mPrimaCompra = BuscaMPrima(idMPrima, controle.materiasprimas);
                     if (mPrimaCompra == null)
                     {
-                        Console.WriteLine("Materia-Prima nao encontrada. Favor informar outro ID");
+                        Console.WriteLine("Materia-Prima nao encontrada.");
                     }
                     else
                     {
@@ -93,7 +100,7 @@ namespace BILTIFUL.ModuloCompra
                         opcp = Console.ReadLine();
                         if (opcp == "0")
                         {
-                            Console.WriteLine("Informe o ID da Materia-Prima correta");                           
+                            Console.WriteLine("");
 
                         }
                         else
@@ -102,7 +109,7 @@ namespace BILTIFUL.ModuloCompra
                             int valor = int.Parse(Console.ReadLine());
                             Console.WriteLine("Informe a quantiade");
                             int quat = int.Parse(Console.ReadLine());
-                            
+
                         }
                     }
 
@@ -110,9 +117,15 @@ namespace BILTIFUL.ModuloCompra
                 Console.WriteLine("Deseja adicionar mais materia-prima\n[1]SIM [0]NAO");
                 saida = Console.ReadLine();
                 cont++;
-                Console.WriteLine("{0}{1}", saida, cont);
-            } while ((saida != "0") & (cont != 3));
+                if(cont == 3)
+                {
+                    Console.WriteLine("Limite de Materia-Prima atingido por compra");
+                    Console.ReadKey();
+                }
+                
+            } while ((saida != "0") & (cont != 3)) ;
         }
+
 
         public Fornecedor BuscarCnpj(long fcnpj, List<Fornecedor> fornecedor)
         {
@@ -130,12 +143,6 @@ namespace BILTIFUL.ModuloCompra
 
 
 
-        public void ImprimirForncedor()
-        {
-
-
-        }
-
-
+       
     }
 }

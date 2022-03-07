@@ -35,9 +35,9 @@ namespace BILTIFUL.Core.Entidades
         }
         public string ExibirProd()
         {
-            return $"Cod. Barra: {CodigoBarras}" +
-                   $"\nNome: {Nome}" +
-                   $"\nValor Unitário: {ValorVenda}";
+            return $"\n\t\tCod. Barra: {CodigoBarras}\n" +
+                   $"\t\tNome: {Nome}\n" +
+                   $"\t\tValor Unitário: {ValorVenda}";
         }
 
         public string ConverterParaEDI()

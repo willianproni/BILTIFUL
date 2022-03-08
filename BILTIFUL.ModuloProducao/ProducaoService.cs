@@ -105,10 +105,8 @@ namespace BILTIFUL.ModuloProducao
             {
                 do
                 {
-                    Console.WriteLine("Insira o nome do produto a ser localizado ou digite 0 para sair:");
+                    Console.WriteLine("Insira o nome do produto a ser localizado:");
                     string nome = Console.ReadLine();
-
-                    if (nome == "0") BackMenu();
 
                     produto = cadastroService.cadastros.produtos.Find(c => c.Nome == nome && c.Situacao == Situacao.Ativo);
 
@@ -144,15 +142,15 @@ namespace BILTIFUL.ModuloProducao
             {
                 itemProducoes.Add(EntradaDadosItemProducao(new ItemProducao()));
                 Console.WriteLine("Deseja adicionar mais alguma materia prima? Sim/Não");
-                materiaprima = Console.ReadLine() == "s";
+                string confirmar = Console.ReadLine().ToLower();
+                materiaprima = confirmar == "s" || confirmar == "sim";
 
             } while (materiaprima);
-
 
             DadosProducao(producao);
 
             Console.WriteLine("Deseja cadastrar a produção? Sim/Não");
-            string confirma = Console.ReadLine();
+            string confirma = Console.ReadLine().ToLower();
 
             if (confirma == "s" || confirma == "sim")
             {
@@ -240,7 +238,7 @@ namespace BILTIFUL.ModuloProducao
 
             int i = 0;
             string opc = "-1";
-            while (opc != "5")
+            while (opc != "0")
             {
                 Console.Clear();
                 DadosProducao(cadastroService.cadastros.producao[i]);

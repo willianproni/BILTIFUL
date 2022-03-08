@@ -44,18 +44,19 @@ namespace BILTIFUL.Core.Entidades
             this.Situacao = situacao;
         }
 
+
         public string ConverterParaEDI()
         {
-            return $"{CPF}{Nome.PadRight(50).Substring(0, 50)}{DataNascimento.ToString("dd/MM/yyyy")}{(char)Sexo}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
+            return $"{CPF.ToString().PadLeft(11, '0')}{Nome.PadRight(50).Substring(0, 50)}{DataNascimento.ToString("dd/MM/yyyy")}{(char)Sexo}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
         }
         public string DadosCliente()
         {
-            return "-------------------------------------------\n|Nome: " + Nome+ "\n|CPF: " + CPF+ "\n|Data de nascimento: " + DataNascimento.ToString("dd/MM/yyyy") + "\n|Sexo: " + Sexo+ "\n|Ultima compra: " + UltimaCompra.ToString("dd/MM/yyyy") + "\n|Data de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\n|Situação: " + Situacao;
+            return "-------------------------------------------\n|Nome: " + Nome + "\n|CPF: " + CPF + "\n|Data de nascimento: " + DataNascimento.ToString("dd/MM/yyyy") + "\n|Sexo: " + Sexo + "\n|Ultima compra: " + UltimaCompra.ToString("dd/MM/yyyy") + "\n|Data de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\n|Situação: " + Situacao;
         }
 
         public string VendasCliente()
         {
-            return  $"\n\t\t-------------- Informações --------------" +
+            return $"\n\t\t-------------- Informações --------------" +
                     $"\n\t\tCpf: {CPF}" +
                     $"\n\t\tNome: {Nome}" +
                     $"\n\t\tData Ultima Compra: {UltimaCompra.ToString("dd/MM/yyyy")}" +

@@ -29,7 +29,7 @@ namespace BILTIFUL.Core.Entidades
             Produto = produto;
             Quantidade = quantidade.PadLeft(3,'0');
             ValorUnitario = valorUnitario.PadLeft(5,'0');
-            TotalItem = (float.Parse(Quantidade) * float.Parse(ValorUnitario)).ToString();
+            TotalItem = (float.Parse(Quantidade) * float.Parse(ValorUnitario)).ToString().PadLeft(6,'0');
         }
 
         public override string ToString()

@@ -19,10 +19,10 @@ namespace BILTIFUL.ModuloVenda
         Controle controle = new Controle();
         ItemVenda vendaitem = new ItemVenda();
         CadastroService servicocadastro = new CadastroService();
-       Venda venda = new Venda();
+        Venda venda = new Venda();
 
         long clienteVenda;
-        int valorVenda = 0;
+        float valorVenda = 0;
         public void Menu()
         {
             Console.WriteLine("\t________________________________________________");
@@ -121,7 +121,7 @@ namespace BILTIFUL.ModuloVenda
                     string cadNovoCliente = Console.ReadLine().ToUpper();
                     if (cadNovoCliente == "S")
                     {
-                     servicocadastro.CadastroCliente();
+                        servicocadastro.CadastroCliente();
                         Console.ReadKey();
                     }
                     else
@@ -157,7 +157,7 @@ namespace BILTIFUL.ModuloVenda
             Console.Clear();
             Console.WriteLine("\t\t------------ Cadastro de Venda ------------");
             int cont = 0;
-            int quantidade = 1;
+            float quantidade = 1;
 
             string cod = CodIdIncremento();
             do
@@ -169,21 +169,21 @@ namespace BILTIFUL.ModuloVenda
                 {
                     Console.Write("\t\tDigite a Quantidade do Produto: ");
 
-                    if (int.TryParse(Console.ReadLine(), out int CanParse) && quantidade > 0)
+                    if (float.TryParse(Console.ReadLine(), out float CanParse) && quantidade > 0)
                     {
                         quantidade = CanParse;
-                        int valorUnitario = int.Parse(aux.ValorVenda);
-                        int valorTotal = quantidade * int.Parse(aux.ValorVenda);
-                       
-                       
+                        float valorUnitario = float.Parse(aux.ValorVenda);
+                        float valorTotal = quantidade * valorUnitario;
+
+
 
                         valorVenda = valorTotal + valorVenda;
 
                         Console.WriteLine($"\n\t\tValor Total: R${valorTotal}");
                         cont++;
 
-                       
-                        controle.itensvenda.Add(new ItemVenda(cod, codigoProd, quantidade.ToString().Remove(',').Remove('.'), valorUnitario.ToString().Remove(',').Remove('.')));
+
+                        controle.itensvenda.Add(new ItemVenda(cod, codigoProd, quantidade.ToString().Replace(",", "").Replace(".", ""), valorUnitario.ToString().Replace(",", "").Replace(".", "")));
 
                         Console.WriteLine($"\t\t{quantidade} {aux.Nome} adicionados na venda!!");
                         if (cont <= 2)
@@ -212,37 +212,69 @@ namespace BILTIFUL.ModuloVenda
             } while (cont != 3);
             Console.Write("\t\tDeseja finalizar essa venda se Sim digite S se não qualquer tecla : ");
             Console.WriteLine("\t\tConfirmar Compras [S]/[N]: ");
-            string confcompra = Console.ReadLine();
+            string confcompra = Console.ReadLine().ToUpper();
             if (confcompra == "S" || confcompra == "SIM")
             {
-                controle.vendas.Add(new Venda(cod, clienteVenda, valorVenda.ToString().Remove('.').Remove(',')));
-               
+                controle.vendas.Add(new Venda(cod, clienteVenda, valorVenda.ToString().Replace(",", "").Replace(".", "")));
+
             }
             else
             {
-                controle.itensvenda.ForEach(i =>
-               {
-                   if(cod == i.Id)
-                   {
-                       controle.itensvenda.Remove(i);
-                   }
+                RemoveItem(cod);
 
-               });
                 CodIdDecremento();
                 Console.WriteLine("\n\t\tVenda Cancelada!!");
                 Console.ReadKey();
             }
 
-          
+            /*  foreach(ItemVenda iv in controle.itensvenda)
+              {
+                  if(iv.Id == cod)
+                  {
+                      new Controle(iv);
+                  }
+              }*/
+
+            controle.itensvenda.FindAll(delegate (ItemVenda iv) {
             
-           
-          /*  foreach(ItemVenda iv in controle.itensvenda)
+                    Console.WriteLine(iv);
+                Console.WriteLine("DEu bom " +
+                    "");
+                return true;
+
+            });
+        }
+
+        public void RemoveItem(string cod )
+        {
+          
+                cod = cod.PadLeft(5, '0');
+            for (int i = 0; i < 3; i++)
             {
-                if(iv.Id == cod)
+                controle.itensvenda.FindAll(delegate (ItemVenda iv)
                 {
-                    new Controle(iv);
-                }
-            }*/
+
+
+                    if (iv.Id == cod)
+                    {
+                        Console.WriteLine(iv);
+                        controle.itensvenda.Remove(iv);
+                    }
+                    return true;
+
+                });
+            }
+                /*  foreach (ItemVenda iv in controle.itensvenda)
+                  {
+
+
+                      if (cod.CompareTo(iv.Id) == 0)
+                      {
+
+
+                      }
+                  }*/
+            
         }
         public string CodIdIncremento()
         {
@@ -255,7 +287,7 @@ namespace BILTIFUL.ModuloVenda
 
         public string CodIdDecremento()
         {
- 
+
 
             cadastros.codigos[2]--;
             SalvarCodigos();

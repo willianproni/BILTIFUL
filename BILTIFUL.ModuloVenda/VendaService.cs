@@ -177,7 +177,7 @@ namespace BILTIFUL.ModuloVenda
                         Console.WriteLine($"\n\t\tValor Total: R${valorTotal}");
                         cont++;
 
-                        controle.itensvenda.Add(new ItemVenda(cod, codigoProd, quantidade, valorUnitario));
+                        controle.itensvenda.Add(new ItemVenda(cod, codigoProd, quantidade.ToString().Remove(',').Remove('.'), valorUnitario.ToString().Remove(',').Remove('.')));
 
                         Console.WriteLine($"\t\t{quantidade} {aux.Nome} adicionados na venda!!");
                         if (cont <= 2)
@@ -206,7 +206,7 @@ namespace BILTIFUL.ModuloVenda
             } while (cont != 3);
 
 
-            controle.vendas.Add(new Venda(cod, clienteVenda, valorVenda));
+            controle.vendas.Add(new Venda(cod, clienteVenda, valorVenda.ToString().Remove(',').Remove(',')));
 
         }
         public string CodId()

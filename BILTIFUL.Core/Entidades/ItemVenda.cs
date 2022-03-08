@@ -7,20 +7,19 @@ namespace BILTIFUL.Core.Entidades
     {
         //ID produto
         public string Produto { get; set; }
-        public int Quantidade { get; set; }
-        public int ValorUnitario { get; set; }
-        public int TotalItem => Quantidade * ValorUnitario;
+        public string Quantidade { get; set; }
+        public string ValorUnitario { get; set; }
+        public string TotalItem { get; set; }
         public ItemVenda()
         {
         }
 
-    
-        public ItemVenda(string id,string produto, int qtd, int vunitario)
+        public ItemVenda(string id,string produto, string qtd, string totalitem)
         {
             Id = id;
             this.Produto = produto;
             this.Quantidade = qtd;
-            this.ValorUnitario = vunitario;
+            this.TotalItem = totalitem;
         }
 
 
@@ -45,6 +44,14 @@ namespace BILTIFUL.Core.Entidades
                 System.Console.WriteLine(aux.ExibirProd());
             }
             return aux;
+        }
+        public string ConverterParaEDI()
+        {
+            return $"{Produto}{Quantidade}{TotalItem}";
+        }
+        public string DadosItemVenda()
+        {
+            return $"-------------------------------------------\nProduto: {Produto}\nQuantidade: {Quantidade}\nValor total: {TotalItem}\n-------------------------------------------";
         }
     }
 }

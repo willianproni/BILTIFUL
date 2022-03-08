@@ -34,6 +34,9 @@ namespace BILTIFUL.Core.Entidades
         {
             return $"{Id.PadLeft(5, '0')}{DataProducao.ToString("dd/MM/yyyy")}{MateriaPrima}{QuantidadeMateriaPrima.ToString().PadLeft(5, '0')}";
         }
-
+        public string DadosItemProducao()
+        {
+            return $"-------------------------------------------\nMateria prima: {MateriaPrima}\nQuantidade de materia prima{QuantidadeMateriaPrima.Insert(3, ",")}\n-------------------------------------------";
+        }
     }
 }

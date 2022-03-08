@@ -217,7 +217,7 @@ namespace BILTIFUL.Core.Controles
                     sr.Close();
                 }
 
-                //Producao
+                //PRODUCAO
                 if (File.Exists("Arquivos\\Producao.dat"))
                 {
                     sr = new StreamReader("Arquivos\\Producao.dat");
@@ -234,7 +234,7 @@ namespace BILTIFUL.Core.Controles
                     sr.Close();
                 }
 
-                //itens producao
+                //ITENS PRODUCAO
                 if (File.Exists("Arquivos\\ItemProducao.dat"))
                 {
                     sr = new StreamReader("Arquivos\\ItemProducao.dat");

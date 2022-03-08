@@ -39,5 +39,9 @@ namespace BILTIFUL.Core.Entidades
         {
             return $"{Id}{DataCompra.ToString("dd/MM/yyyy")}{MateriaPrima}{Quantidade}{ValorUnitario}{TotalItem}";
         }
+        public string DadosItemCompra()
+        {
+            return $"-------------------------------------------\nMateria prima: {MateriaPrima}\nQuantidade{Quantidade.Insert(3, ",")}\nValor unitario: {ValorUnitario.Insert(3, ",")}\nTotal: {TotalItem.Insert(4, ",")}\n-------------------------------------------";
+        }
     }
 }

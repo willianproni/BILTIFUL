@@ -250,6 +250,41 @@ namespace BILTIFUL.Core.Controles
                     }
                     sr.Close();
                 }
+
+                //VENDAS
+                if (File.Exists("Arquivos\\Venda.dat"))
+                {
+                    sr = new StreamReader("Arquivos\\Venda.dat");
+                    line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        string id = line.Substring(0, 5);
+                        DateTime dvenda = DateTime.Parse(line.Substring(5, 10));
+                        string cliente = line.Substring(15, 11);
+                        string vtotal = line.Substring(26, 7);
+                        vendas.Add(new Venda(id, dvenda, long.Parse(cliente), vtotal));
+                        line = sr.ReadLine();
+                    }
+                    sr.Close();
+                }
+
+                //ITENS VENDAS
+                if (File.Exists("Arquivos\\ItemVenda.dat"))
+                {
+                    sr = new StreamReader("Arquivos\\ItemVenda.dat");
+                    line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        string id = line.Substring(0, 5);
+                        string produto = (line.Substring(5, 7));
+                        string quantidade = line.Substring(15, 3);
+                        string vunit = line.Substring(18, 5);
+                        string total = line.Substring(23, 6);
+                        itensvenda.Add(new ItemVenda(id, produto, quantidade, vunit, total));
+                        line = sr.ReadLine();
+                    }
+                    sr.Close();
+                }
             }
             catch (Exception e)
             {
@@ -275,8 +310,6 @@ namespace BILTIFUL.Core.Controles
         }
         public Controle(Fornecedor fornecedor)
         {
-
-
             if (fornecedor != null)
             {
                 try//envia cliente para arquivo como novo cliente]try
@@ -378,7 +411,6 @@ namespace BILTIFUL.Core.Controles
                 }
             }
         }
-
         public Controle(ItemProducao itemproducao)
         {
             if (itemproducao != null)
@@ -396,6 +428,42 @@ namespace BILTIFUL.Core.Controles
                 }
             }
         }
+        public Controle(Venda venda)
+        {
+            if (venda != null)
+            {
+                try//envia cliente para arquivo como novo cliente]try
+                {
+                    StreamWriter sw = new StreamWriter("Arquivos\\ItemVenda.dat", append: true);
+                    sw.WriteLine(venda.ConverterParaEDI());
+                    sw.Close();
+                    Console.WriteLine("Item de produção cadastrado com sucesso!");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+            }
+        }
+        public Controle(ItemVenda itemvenda)
+        {
+            if (itemvenda != null)
+            {
+                try//envia cliente para arquivo como novo cliente]try
+                {
+                    StreamWriter sw = new StreamWriter("Arquivos\\ItemVenda.dat", append: true);
+                    sw.WriteLine(itemvenda.ConverterParaEDI());
+                    sw.Close();
+                    Console.WriteLine("Item de produção cadastrado com sucesso!");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+            }
+        }
+
+
         public Controle(long chave)
         {
             string schave = "" + chave;

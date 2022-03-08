@@ -519,7 +519,7 @@ namespace BILTIFUL.Core
                             Console.WriteLine("Nenhum produto registrado");
                         break;
                     case "0":
-                        
+
                         break;
                     default:
                         Console.WriteLine("Opção invalida");
@@ -554,7 +554,7 @@ namespace BILTIFUL.Core
 
                     case "1":
                         string cpf;
-                        do 
+                        do
                         {
                             Console.Write("Digite o cpf que deseja localizar: ");
                             cpf = Console.ReadLine();
@@ -584,7 +584,7 @@ namespace BILTIFUL.Core
                             }
                         } while (ValidaCnpj(cnpj) != true);
                         Console.Clear();
-                        
+
                         Fornecedor localizarfornecedor = cadastros.fornecedores.Find(p => p.CNPJ == long.Parse(cnpj));
                         if (localizarfornecedor != null)
                         {
@@ -623,7 +623,7 @@ namespace BILTIFUL.Core
                             {
                                 Console.WriteLine(p.DadosVenda());
                                 Console.WriteLine("Itens: ");
-                                foreach(ItemVenda i in cadastros.itensvenda)
+                                foreach (ItemVenda i in cadastros.itensvenda)
                                 {
                                     if (i.Id == p.Id)
                                         Console.WriteLine(i.DadosItemVenda());
@@ -675,7 +675,186 @@ namespace BILTIFUL.Core
                         Console.WriteLine("Opção invalida");
                         break;
                 }
-                if(encontrado==false && opc!="0")
+                if (encontrado == false && opc != "0")
+                    Console.WriteLine("Registro não encontrado");
+                Console.ReadKey();
+            } while (opc != "0");
+        }
+
+        public void EditarRegistros()
+        {
+            string opc;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("\t________________________________________________");
+                Console.WriteLine("\t|++++++++++++++| MENU DE EDIÇÃO |++++++++++++++|");
+                Console.WriteLine("\t|1| - EDITAR CLIENTES                          |");
+                Console.WriteLine("\t|2| - EDITAR FORNECEDORES                      |");
+                Console.WriteLine("\t|3| - EDITAR MATERIAS PRIMAS                   |");
+                Console.WriteLine("\t|4| - EDITAR PRODUTOS                          |");
+                Console.WriteLine("\t|0| - VOLTAR                                   |");
+                Console.Write("\t|_________________________________________________|\n" +
+                              "\t|Opção: ");
+                opc = Console.ReadLine();
+                bool encontrado = false;
+                Console.Clear();
+                switch (opc)
+                {
+
+                    case "1":
+                        string cpf;
+                        do
+                        {
+                            Console.Write("Digite o CPF do cliente que deseja alterar: ");
+                            cpf = Console.ReadLine();
+                            if (!ValidaCpf(cpf))
+                            {
+                                Console.WriteLine("CPF INVÁLIDO, TENTE NOVAMENTE!");
+                            }
+                        } while (ValidaCpf(cpf) != true);
+                        Console.Clear();
+
+                        Cliente localizarcliente = cadastros.clientes.Find(p => p.CPF == long.Parse(cpf));
+                        if (localizarcliente != null)
+                        {
+                            string opcao;
+                            encontrado = true;
+                            Console.WriteLine(localizarcliente.DadosCliente());
+                            do
+                            {
+                                Console.WriteLine("\n\nSOMENTE O NOME É POSSÍVEL ALTERAR!");
+                                Console.WriteLine("Deseja alterar o nome? [S - Sim] [N - Não] ");
+                                opcao = Console.ReadLine().ToUpper();
+                                if (opcao == "S")
+                                {
+                                    Console.Write("\nInforme o novo Nome: ");
+                                    string novoNome = Console.ReadLine();
+                                    localizarcliente.Nome = novoNome;
+                                    Console.WriteLine(localizarcliente.DadosCliente());
+                                    Console.WriteLine("NOVO NOME ALTERADO COM SUCESSO!");
+                                    Console.ReadLine();//////////
+                                    new Controle(localizarcliente);
+
+                                    Console.ReadLine();
+                                    break;
+                                }
+                                else if (opcao == "N")
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("ALTERAÇÃO CANCELADA");
+                                    break;
+                                }
+                            } while (opcao != "S" || opcao != "N");
+
+
+
+                        }
+                        break;
+                    case "2":
+                        string cnpj;
+                        do
+                        {
+                            Console.Write("Digite o cnpj que deseja localizar: ");
+                            cnpj = Console.ReadLine();
+                            if (!ValidaCnpj(cnpj))
+                            {
+                                Console.WriteLine("CNPJ INVÁLIDO, TENTE NOVAMENTE!");
+                            }
+                        } while (ValidaCnpj(cnpj) != true);
+                        Console.Clear();
+
+                        Fornecedor localizarfornecedor = cadastros.fornecedores.Find(p => p.CNPJ == long.Parse(cnpj));
+                        if (localizarfornecedor != null)
+                        {
+                            encontrado = true;
+                            Console.WriteLine(localizarfornecedor.DadosFornecedor());
+                        }
+                        break;
+                    case "3":
+                        Console.Write("Digite o nome que deseja localizar: ");
+                        string nomeMateriaPrima = Console.ReadLine().Trim().ToLower();
+                        List<MPrima> localizarmprima = cadastros.materiasprimas.FindAll(p => p.Nome.ToLower() == nomeMateriaPrima);
+                        if (localizarmprima != null)
+                        {
+                            encontrado = true;
+                            localizarmprima.ForEach(p => Console.WriteLine(p.DadosMateriaPrima()));
+                        }
+                        break;
+                    case "4":
+                        Console.Write("Digite o nome do produto que deseja localizar: ");
+                        string nomeProduto = Console.ReadLine().Trim().ToLower();
+                        List<Produto> localizaProduto = cadastros.produtos.FindAll(p => p.Nome.ToLower() == nomeProduto);
+                        if (localizaProduto != null)
+                        {
+                            encontrado = true;
+                            localizaProduto.ForEach(p => Console.WriteLine(p.DadosProduto()));
+                        }
+                        break;
+                    case "5":
+                        Console.Write("Digite a data de venda que deseja localizar(dd/mm/aaaa): ");
+                        DateTime dvenda = DateTime.Parse(Console.ReadLine());
+                        List<Venda> localizavenda = cadastros.vendas.FindAll(p => p.DataVenda == dvenda);
+                        if (localizavenda != null)
+                        {
+                            encontrado = true;
+                            foreach (Venda p in localizavenda)
+                            {
+                                Console.WriteLine(p.DadosVenda());
+                                Console.WriteLine("Itens: ");
+                                foreach (ItemVenda i in cadastros.itensvenda)
+                                {
+                                    if (i.Id == p.Id)
+                                        Console.WriteLine(i.DadosItemVenda());
+                                }
+                            }
+                        }
+                        break;
+                    case "6":
+                        Console.Write("Digite o data de compra que deseja localizar(dd/mm/aaaa): ");
+                        DateTime dcompra = DateTime.Parse(Console.ReadLine());
+                        List<Compra> localizacompra = cadastros.compras.FindAll(p => p.DataCompra == dcompra);
+                        if (localizacompra != null)
+                        {
+                            encontrado = true;
+                            foreach (Compra p in localizacompra)
+                            {
+                                Console.WriteLine(p.DadosCompra());
+                                Console.WriteLine("Itens: ");
+                                foreach (ItemCompra i in cadastros.itenscompra)
+                                {
+                                    if (i.Id == p.Id)
+                                        Console.WriteLine(i.DadosItemCompra());
+                                }
+                            }
+                        }
+                        break;
+                    case "7":
+                        Console.Write("Digite o data de produção que deseja localizar(dd/mm/aaaa): ");
+                        DateTime dproducao = DateTime.Parse(Console.ReadLine());
+                        List<Producao> localizaproducao = cadastros.producao.FindAll(p => p.DataProducao == dproducao);
+                        if (localizaproducao != null)
+                        {
+                            encontrado = true;
+                            foreach (Producao p in localizaproducao)
+                            {
+                                Console.WriteLine(p.DadosProducao());
+                                Console.WriteLine("Itens: ");
+                                foreach (ItemProducao i in cadastros.itensproducao)
+                                {
+                                    if (i.Id == p.Id)
+                                        Console.WriteLine(i.DadosItemProducao());
+                                }
+                            }
+                        }
+                        break;
+                    case "0":
+                        break;
+                    default:
+                        Console.WriteLine("Opção invalida");
+                        break;
+                }
+                if (encontrado == false && opc != "0")
                     Console.WriteLine("Registro não encontrado");
                 Console.ReadKey();
             } while (opc != "0");

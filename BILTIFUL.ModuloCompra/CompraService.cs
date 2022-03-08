@@ -3,6 +3,7 @@ using BILTIFUL.Core.Controles;
 using BILTIFUL.Core.Entidades;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,12 +22,14 @@ namespace BILTIFUL.ModuloCompra
         //    testes.Add(new Fornecedor(1, "fornecedor1"));
         //    testes.Add(new Fornecedor(2, "fornecedor2"));
         //}
-
+        long cnpj;
         public void SubMenu()
         {
+            Console.Clear();
             Console.WriteLine("1 - Cadastrar");
             Console.WriteLine("2 - Localizar");
             Console.WriteLine("3 - Imprimir Compras");
+            Console.WriteLine("0 - Sair");
             string opc = Console.ReadLine();
             switch (opc)
             {
@@ -52,24 +55,24 @@ namespace BILTIFUL.ModuloCompra
             string opc = "a";
 
             Console.Clear();
-                do
+            do
+            {
+                Console.WriteLine("Informe o CNPJ do forncedor");
+                 cnpj = long.Parse(Console.ReadLine());
+                Fornecedor fornecedorCompra = BuscarCnpj(cnpj, controle.fornecedores);
+                if (fornecedorCompra == null)
                 {
-                    Console.WriteLine("Informe o CNPJ do forncedor");
-                    long cnpj = long.Parse(Console.ReadLine());
-                    Fornecedor fornecedorCompra = BuscarCnpj(cnpj, controle.fornecedores);
-                    if (fornecedorCompra == null)
+                    Console.WriteLine("Fornecedor nao encontrado.");
+                }
+                else
+                {
+                    Console.WriteLine(fornecedorCompra.DadosFornecedorCompra());
+                    Console.WriteLine("[1]SIM [0]NAO");
+                    Console.WriteLine("Confirma dados do Fornecedor?");
+                    opc = Console.ReadLine();
+                    if (opc == "0")
                     {
-                        Console.WriteLine("Fornecedor nao encontrado.");
-                    }
-                    else
-                    {
-                        Console.WriteLine(fornecedorCompra.DadosFornecedor());
-                        Console.WriteLine("[1]SIM [0]NAO");
-                        Console.WriteLine("Confirma dados do Fornecedor?");
-                        opc = Console.ReadLine();
-                        if (opc == "0")
-                        {
-                            Console.WriteLine("");                           
+                        Console.WriteLine("");
 
                     }
                 }
@@ -88,7 +91,7 @@ namespace BILTIFUL.ModuloCompra
             int[] quantidade = new int[4];
             int[] totalItem = new int[4];
             string[] idMPrima = new string[4];
-
+            int valorTotal = 0;
 
             do
             {
@@ -119,7 +122,7 @@ namespace BILTIFUL.ModuloCompra
                         }
                         else
                         {
-                            
+
                             do
                             {
                                 Console.WriteLine("-----------------------------------------");
@@ -134,6 +137,7 @@ namespace BILTIFUL.ModuloCompra
                                 Console.Write("Informe a quantiade: ");
                                 quantidade[cont] = int.Parse(Console.ReadLine());
                                 totalItem[cont] = quantidade[cont] * int.Parse(stringValor[cont]);
+                                valorTotal = valorTotal + totalItem[cont];
                             } while (TotalItem(int.Parse(stringValor[cont]), quantidade[cont]) != true);
                         }
                     }
@@ -141,40 +145,77 @@ namespace BILTIFUL.ModuloCompra
                 } while (opcp != "1");
                 Console.WriteLine("Materia-Prima:\t{0} Valor Unitario:\t{1} Quantidade:\t{2} Total Item:\t{3}", idMPrima[cont], stringValor[cont], quantidade[cont], totalItem[cont]);
                 Console.ReadKey();
-               
+
                 cont++;
                 if (cont == 3)
                 {
                     Console.WriteLine("Limite de Materia-Prima atingido por compra");
                     Console.ReadKey();
-                }else
+                }
+                else
                 {
                     Console.WriteLine("Deseja adicionar mais materia-prima\n[1]SIM [0]NAO");
                     saida = Console.ReadLine();
                 }
 
-            } while ((saida != "0") & (cont != 3)) ;
-            for(int i = 0; i <cont; i++)
+            } while ((saida != "0") & (cont != 3));
+            for (int i = 0; i < cont; i++)
             {
                 Console.WriteLine("Materia-Prima:\t{0} Valor Unitario:\t{1} Quantidade:\t{2} Total Item:\t{3}", idMPrima[i], stringValor[i], quantidade[i], totalItem[i]);
             }
             Console.Write("Confirmar a compra?[1]SIM [0]NAO :");
             string confirmar = Console.ReadLine();
-            if(confirmar == "1")
+            if (confirmar == "1")
             {
-
+                SalvarCodigos();
+                string cod = "" + controle.codigos[0];
+                string valorTotalString = Convert.ToString(valorTotal);
+                valorTotalString = valorTotalString.Trim().Replace(".", "").Replace(",", "");
+                string[] quantidadeString = new string[4];
+                string[] totalItemString = new string[4];
+                
+                Compra compra = new Compra(cod, DateTime.Now, cnpj, valorTotalString);
+                controle.compras.Add(compra);
+                new Controle(compra);
+                for (int i = 0; i < cont; i++)
+                {
+                    quantidadeString[cont] = Convert.ToString(quantidade[cont]);
+                    quantidadeString[cont] = quantidadeString[cont].Trim().Replace(".", "").Replace(",", "");
+                    totalItemString[cont] = Convert.ToString(totalItem[cont]);
+                    totalItemString[cont] = totalItemString[cont].Trim().Replace(".", "").Replace(",", "");
+                    ItemCompra itemCompra = new ItemCompra(cod, idMPrima[cont], quantidadeString[cont], stringValor[cont], totalItemString[cont]);
+                    new Controle(itemCompra);
+                    controle.itenscompra.Add(itemCompra);
+                }
+            }
+            else
+            {
+                SubMenu();
             }
         }
 
+        public void SalvarCodigos()
+        {
+            try
+            {
+                StreamWriter sw = new StreamWriter("Arquivos\\Controle.dat");
+                sw.WriteLine(controle.codigos[3]);                
+                sw.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
         public bool TotalItem(int valor, int quantidade)
         {
-            
+
             int totalCompra = valor * quantidade;
             if (totalCompra >= 10000)
             {
                 Console.WriteLine("Valor ultrapasssou o valor total permetido por compra");
                 Console.WriteLine("Favor informar outra quantidade e outro valor de Materia-Prima");
-                Console.WriteLine("Quantidade disponivel para compra: {0}",9999/valor);
+                Console.WriteLine("Quantidade disponivel para compra: {0}", 9999 / valor);
                 return false;
             }
             else

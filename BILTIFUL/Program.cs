@@ -73,7 +73,7 @@ namespace BILTIFUL
 
         public static void BackMenu()
         {
-            Console.WriteLine("\n Pressione qualquer tecla para voltar ao menu...");
+            Console.WriteLine("\n Pressione qualquer tecla para voltar ao menu principal...");
             Console.ReadKey();
             Console.Clear();
             Menu();

@@ -16,7 +16,7 @@ namespace BILTIFUL.Core.Entidades
 
         public Producao(string id, string produto, string quantidade)
         {
-            Id = id.PadLeft(5, '0');
+            Id = id;
             Produto = produto;
             Quantidade = quantidade;
         }

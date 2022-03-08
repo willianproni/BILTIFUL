@@ -177,16 +177,16 @@ namespace BILTIFUL.ModuloCompra
             if (confirmar == "1")
             {
                 SalvarCodigos();
-                string cod = "" + controle.codigos[0];
+                string cod = "" + controle.codigos[3];
                 string valorTotalString = Convert.ToString(valorTotal);
                 valorTotalString = valorTotalString.Trim().Replace(".", "").Replace(",", "");
                 string[] quantidadeString = new string[4];
                 string[] totalItemString = new string[4];
                 
-                Compra compra = new Compra(cod, DateTime.Now, cnpj, valorTotalString);
+                Compra compra = new Compra(cod, cnpj, valorTotalString);
                 controle.compras.Add(compra);
                 new Controle(compra);
-                for (int i = 0; i <= cont; i++)
+                for (int i = 0; i < cont; i++)
                 {
                     quantidadeString[i] = Convert.ToString(quantidade[i]);
                     quantidadeString[i] = quantidadeString[i].Trim().Replace(".", "").Replace(",", "");
@@ -210,7 +210,11 @@ namespace BILTIFUL.ModuloCompra
             try
             {
                 StreamWriter sw = new StreamWriter("Arquivos\\Controle.dat");
-                sw.WriteLine(controle.codigos[3]);                
+                sw.WriteLine(controle.codigos[0]);
+                sw.WriteLine(controle.codigos[1]);
+                sw.WriteLine(controle.codigos[2]);
+                sw.WriteLine(controle.codigos[3]);
+                sw.WriteLine(controle.codigos[4]);
                 sw.Close();
             }
             catch (Exception ex)

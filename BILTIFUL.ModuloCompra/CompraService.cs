@@ -191,7 +191,7 @@ namespace BILTIFUL.ModuloCompra
             string saida = "a";
             string opcp = "a";
             string[] stringValor = new string[4];
-            double valor;
+            double valor,quantidadeTeste;
             double[] valorQuantidade = new double[4];
             double[] quantidade = new double[4];
             double[] totalItem = new double[4];
@@ -251,11 +251,17 @@ namespace BILTIFUL.ModuloCompra
                             } while (!double.TryParse(stringValor[cont], out valor) || (valor > 99999) || (valor <= 0));
                             do
                             {
-                                Console.Write("Informe a quantiade: ");
-                                quantidadeString[cont] = Console.ReadLine();
-                                quantidade[cont] = double.Parse(quantidadeString[cont]);
-
-                                totalItemString[cont] = Convert.ToString(quantidade[cont] * valorQuantidade[cont]);
+                                do
+                                {
+                                    Console.Write("Informe a quantidade: ");
+                                    quantidadeString[cont] = Console.ReadLine();
+                                    quantidade[cont] = double.Parse(quantidadeString[cont]);
+                                    quantidadeString[cont] = quantidadeString[cont].Trim().Replace(".", "").Replace(",", "");
+                                    totalItemString[cont] = (quantidade[cont] * valorQuantidade[cont]).ToString("F2");
+                                    totalItem[cont] = (quantidade[cont] * valorQuantidade[cont]);
+                                    if (!double.TryParse(quantidadeString[cont], out quantidadeTeste) || (quantidadeTeste > 99999) || (quantidadeTeste <= 0))
+                                        Console.WriteLine("Valor invalido!");
+                                } while (!double.TryParse(quantidadeString[cont], out quantidadeTeste) || (quantidadeTeste > 99999) || (quantidadeTeste <= 0));
                             } while (TotalItem(valorQuantidade[cont], quantidade[cont]) != true);
                         }
                     }
@@ -263,6 +269,7 @@ namespace BILTIFUL.ModuloCompra
                 } while (opcp != "1");
                 Console.WriteLine("Materia-Prima:\t{0} Valor Unitario:\t{1} Quantidade:\t{2} Total Item:\t{3}", idMPrima[cont], valorQuantidade[cont], quantidade[cont], totalItemString[cont]);
                 Console.ReadKey();
+
                 valorTotal = valorTotal + totalItem[cont];
                 cont++;
                 if (cont == 3)
@@ -287,7 +294,7 @@ namespace BILTIFUL.ModuloCompra
             {
                 string cod = "" + (++cadastroService.cadastros.codigos[3]);
                 cadastroService.SalvarCodigos();
-                string valorTotalString = Convert.ToString(valorTotal);
+                string valorTotalString = (valorTotal.ToString("F2"));
                 valorTotalString = valorTotalString.Trim().Replace(".", "").Replace(",", "");
                 
                 

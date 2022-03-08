@@ -41,7 +41,7 @@ namespace BILTIFUL.Core.Entidades
         }
         public string DadosItemCompra()
         {
-            return $"Materia prima: {MateriaPrima}\nQuantidade: {float.Parse(Quantidade.Insert(3, ","))}\nValor unitario: {float.Parse(ValorUnitario.Insert(3, ","))}\nTotal: {float.Parse(TotalItem.Insert(5, ","))}\n-------------------------------------------";
+            return $"Materia prima: {MateriaPrima}\nQuantidade: {float.Parse(Quantidade.Insert(3, ","))}\nValor unitario: {float.Parse(ValorUnitario.Insert(3, ","))}\nTotal: {float.Parse(TotalItem.Insert(4, ","))}\n-------------------------------------------";
         }
     }
 }

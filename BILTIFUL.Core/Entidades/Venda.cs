@@ -49,7 +49,7 @@ namespace BILTIFUL.Core.Entidades
         }
         public string ConverterParaEDI()
         {
-            return $"{Id}{DataVenda}{Cliente}{ValorTotal}";
+            return $"{Id}{DataVenda.ToString("dd/MM/yyyy")}{Cliente}{ValorTotal}";
         }
         public string MostrarItemVenda()
         {

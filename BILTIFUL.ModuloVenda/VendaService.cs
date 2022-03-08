@@ -84,9 +84,9 @@ namespace BILTIFUL.ModuloVenda
             Console.WriteLine("\t\t------------- Verificar CPF -------------\n");
             Console.Write("\t\tDigite o Cpf do cliente: ");
 
-            if (long.TryParse(Console.ReadLine(), out long confrimar))
+            if (long.TryParse(Console.ReadLine(), out long confimar))
             {
-                long cpfCliente = confrimar;
+                long cpfCliente = confimar;
 
                 if (BuscarInadimplentes(cpfCliente, controle.inadimplentes))
                 {
@@ -156,12 +156,68 @@ namespace BILTIFUL.ModuloVenda
                 if (aux != null)
                 {
                     Console.Write("\t\tDigite a Quantidade do Produto: ");
-
                     if (float.TryParse(Console.ReadLine(), out float CanParse) && quantidade > 0)
                     {
                         quantidade = CanParse;
+                        if (quantidade > 999)
+                        {
+                            do
+                            {
+                                Console.WriteLine("\t\tQuantidade máxima de produto por item é 999");
+                                Console.Write("\t\tDigite a Quantidade do Produto: ");
+                                if (float.TryParse(Console.ReadLine(), out float quantMax) && quantidade > 0)
+                                {
+                                    quantidade = quantMax;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\t\tDigite uma quantidade válida!");
+                                }
+                            } while (quantidade > 999);
+                        }
                         float valorUnitario = float.Parse(aux.ValorVenda);
                         float valorTotal = quantidade * valorUnitario;
+                        if (valorTotal > 9999)
+                        {
+                            do
+                            {
+                                Console.WriteLine("\n\t\tValor Total superior ao permitido, máximo valor por item é R$ 9.999");
+                                Console.Write("\t\tDigite a Quantidade do Produto: ");
+                                if (float.TryParse(Console.ReadLine(), out float quantUnidadeTotal) && quantidade > 0)
+                                {
+                                    quantidade = quantUnidadeTotal;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\t\tDigite uma quantidade válida!");
+                                }
+                                valorTotal = quantidade * valorUnitario;
+                            } while (valorTotal > 9999);
+                        }
+                        if (valorVenda + valorTotal == 99999)
+                        {
+                            Console.WriteLine("\n\t\tValor total de Compras atigindo, abrir novo cadastro de compras");
+                            cont = 3;
+                        }
+                        else if (valorVenda + valorTotal > 99999)
+                        {
+                            do
+                            {
+                                Console.WriteLine($"\t\tPreço máximo por compra atingido, escolha outra quantidade do produto até R$ {99999 - valorVenda}");
+                                Console.Write("\t\tDigite a Quantidade do Produto: ");
+                                if (float.TryParse(Console.ReadLine(), out float quantValorTotal) && quantidade > 0)
+                                {
+                                    quantidade = quantValorTotal;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\t\tDigite uma quantidade válida!");
+                                }
+                                valorTotal = quantidade * valorUnitario;
+                            } while (valorVenda + valorTotal > 99999);
+                        }
+
+
                         valorVenda = valorTotal + valorVenda;
 
                         Console.WriteLine($"\n\t\tValor Total: R${valorTotal}");
@@ -183,13 +239,15 @@ namespace BILTIFUL.ModuloVenda
                                 cont = 3;
                             }
                         }
+
+
                     }
                     else
                     {
                         Console.WriteLine("\t\t\tDigite uma quantidade válida!!");
                     }
                 }
-            } while (cont != 3);
+            } while (cont <= 2 || cont != 3);
 
             Console.Write("\t\tConfirmar Compras [S]/[N]: ");
             string confirmarCompras = Console.ReadLine().ToUpper();

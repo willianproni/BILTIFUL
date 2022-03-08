@@ -256,25 +256,25 @@ namespace BILTIFUL.ModuloVenda
         {
             Console.WriteLine("\t__________________________________________________________________");
             Console.WriteLine("\t|+++++++++++++++++++++| Registro de Vendas |+++++++++++++++++++++");
-            Console.WriteLine("\t|                                                                ");
+            Console.WriteLine("\t|");
             controle.vendas.ForEach((Action<Venda>)(v =>
             {
-                Console.WriteLine("\t| Id da Venda : " + v.Id + "          Data de venda : " + v.DataVenda + "  ");
-                Console.WriteLine("\t| Cpf do Cliente : " + v.Cliente + "                                     |");
-                Console.WriteLine("\t|                                                                ");
+                Console.WriteLine("\t| Id da Venda : " + v.Id + "          Data de venda : " + v.DataVenda + "");
+                Console.WriteLine("\t| Cpf do Cliente : " + v.Cliente + "");
+                Console.WriteLine("\t|");
                 controle.itensvenda.ForEach((Action<ItemVenda>)(i =>
                 {
                     if (v.Id == i.Id)
-                        Console.WriteLine("\t|                                                                ");
-                    Console.WriteLine("\t| Id do Item :" + i.Id + "                                                ");
-                    Console.WriteLine("\t| Codigo do Produto :" + i.Produto + "                              ");
-                    Console.WriteLine("\t| Quantidade :" + i.Quantidade + "                                                ");
-                    Console.WriteLine("\t| Valor Unitario :" + i.ValorUnitario + "                                           ");
-                    Console.WriteLine("\t| Total do valor por item :" + i.TotalItem + "                                   ");
-                    Console.WriteLine("\t|                                                                ");
+                        Console.WriteLine("\t|");
+                    Console.WriteLine("\t| Id do Item :" + i.Id + "");
+                    Console.WriteLine("\t| Codigo do Produto :" + i.Produto + "");
+                    Console.WriteLine("\t| Quantidade :" + i.Quantidade + "");
+                    Console.WriteLine("\t| Valor Unitario :" + i.ValorUnitario + "");
+                    Console.WriteLine("\t| Total do valor por item :" + i.TotalItem + "");
+                    Console.WriteLine("\t|");
                     Console.Write("\t|________________________________________________________________\n");
                 }));
-                Console.WriteLine("\t| Valor total da venda :" + v.ValorTotal + "                                      ");
+                Console.WriteLine("\t| Valor total da venda :" + v.ValorTotal + "");
             }));
 
             Console.Write("\t|________________________________________________________________\n");

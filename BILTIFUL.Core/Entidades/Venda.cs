@@ -6,7 +6,7 @@ namespace BILTIFUL.Core.Entidades
 {
     public class Venda : EntidadeBase
     {
-        public DateTime DataVenda { get; set; }
+        public DateTime DataVenda { get; set; }=DateTime.Now;
         //CPF
         public long Cliente { get; set; }
         public string ValorTotal { get; set; }
@@ -17,8 +17,15 @@ namespace BILTIFUL.Core.Entidades
         }
         public Venda(string id, long cliente, string valorTotal)
         {
+            Id = id.PadLeft(5,'0');
+            Cliente = cliente;
+            ValorTotal = valorTotal.PadLeft(7,'0');
+        }
+
+        public Venda(string id,DateTime dataVenda, long cliente, string valorTotal)
+        {
             Id = id;
-            DataVenda = DateTime.Now;
+            DataVenda = dataVenda;
             Cliente = cliente;
             ValorTotal = valorTotal;
         }
@@ -40,7 +47,10 @@ namespace BILTIFUL.Core.Entidades
         {
             return $"-------------------------------------------\nId: {Id}\nCliente: {Cliente}\nValor total: {ValorTotal}\n-------------------------------------------";
         }
-
+        public string ConverterParaEDI()
+        {
+            return $"{Id}{DataVenda}{Cliente}{ValorTotal}";
+        }
         public string MostrarItemVenda()
         {
             return $"\n\t\tId = {Id}" +

@@ -1,5 +1,6 @@
 using BILTIFUL.Core.Entidades.Enums;
 using System;
+using System.Globalization;
 
 namespace BILTIFUL.Core.Entidades
 {
@@ -42,11 +43,11 @@ namespace BILTIFUL.Core.Entidades
 
         public string ConverterParaEDI()
         {
-            return $"{CodigoBarras}{Nome.PadRight(20).Substring(19)}{ValorVenda.PadLeft(5,'0')}{UltimaVenda.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
+            return $"{CodigoBarras}{Nome.PadRight(20).Substring(0, 20)}{ValorVenda.PadLeft(5,'0')}{UltimaVenda.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
         }
         public string DadosProduto()
         {
-            return "-------------------------------------------\nCodigo de barras: " + CodigoBarras + "\nNome: " + Nome + "\nValor venda: " + ValorVenda.Insert(3,",") + "\nData de ultima venda: " + UltimaVenda.ToString("dd/MM/yyyy") + "\nData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\nSituação: " + Situacao;
+            return "-------------------------------------------\nCodigo de barras: " + CodigoBarras + "\nNome: " + Nome + "\nValor venda: " + string.Format(CultureInfo.GetCultureInfo("pt-BR"), "R$ {0:C}", ValorVenda.TrimStart('0')) + "\nData de ultima venda: " + UltimaVenda.ToString("dd/MM/yyyy") + "\nData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\nSituação: " + Situacao;
         }
     }
 }

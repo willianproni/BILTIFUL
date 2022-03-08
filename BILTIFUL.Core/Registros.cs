@@ -7,7 +7,7 @@ using BILTIFUL.Core.Entidades;
 
 namespace BILTIFUL.Core
 {
-    internal class Registros
+    public class Registros
     {
         public Registros(List<Cliente> clientes)
         {

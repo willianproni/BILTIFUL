@@ -70,10 +70,11 @@ namespace BILTIFUL.Core.Controles
                 else
                 {
                     StreamWriter streamWriter = new StreamWriter("Arquivos\\Controle.dat");
-                    streamWriter.WriteLine("0");//produto
-                    streamWriter.WriteLine("0");//materia prima
-                    streamWriter.WriteLine("0");//venda
-                    streamWriter.WriteLine("0");//compra
+                    streamWriter.WriteLine("0");//Produto
+                    streamWriter.WriteLine("0");//Materia Prima
+                    streamWriter.WriteLine("0");//Venda
+                    streamWriter.WriteLine("0");//Compra
+                    streamWriter.WriteLine("0");//Produção
                     streamWriter.Close();
 
                 }
@@ -216,7 +217,7 @@ namespace BILTIFUL.Core.Controles
                     sr.Close();
                 }
 
-                //Producao
+                //PRODUCAO
                 if (File.Exists("Arquivos\\Producao.dat"))
                 {
                     sr = new StreamReader("Arquivos\\Producao.dat");
@@ -233,7 +234,7 @@ namespace BILTIFUL.Core.Controles
                     sr.Close();
                 }
 
-                //itens producao
+                //ITENS PRODUCAO
                 if (File.Exists("Arquivos\\ItemProducao.dat"))
                 {
                     sr = new StreamReader("Arquivos\\ItemProducao.dat");

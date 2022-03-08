@@ -9,13 +9,13 @@ namespace BILTIFUL.Core.Entidades
         public DateTime DataVenda { get; set; }
         //CPF
         public long Cliente { get; set; }
-        public int ValorTotal { get; set; }
+        public string ValorTotal { get; set; }
 
         public Venda()
         {
 
         }
-        public Venda(string id, long cliente, int valorTotal)
+        public Venda(string id, long cliente, string valorTotal)
         {
             Id = id;
             DataVenda = DateTime.Now;
@@ -35,6 +35,10 @@ namespace BILTIFUL.Core.Entidades
             {
                 Console.WriteLine(aux.MostrarItemVenda());
             }
+        }
+        public string DadosVenda()
+        {
+            return $"-------------------------------------------\nId: {Id}\nCliente: {Cliente}\nValor total: {ValorTotal}\n-------------------------------------------";
         }
 
         public string MostrarItemVenda()

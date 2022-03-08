@@ -226,8 +226,8 @@ namespace BILTIFUL.Core.Controles
                     {
                         string cod = line.Substring(0, 5);
                         DateTime dproducao = DateTime.Parse(line.Substring(5, 10));
-                        string produto = line.Substring(15,5);
-                        string quantidade = line.Substring(20, 5);
+                        string produto = line.Substring(15, 12);
+                        string quantidade = line.Substring(27, 5);
                         producao.Add(new Producao(cod, dproducao, produto, quantidade));
                         line = sr.ReadLine();
                     }

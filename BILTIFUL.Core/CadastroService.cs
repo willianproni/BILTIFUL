@@ -505,6 +505,10 @@ namespace BILTIFUL.Core
                             Console.WriteLine("Nenhum produto registrado");
                         break;
                     case "5":
+                        if (cadastros.vendas.Count() != 0)
+                            new Registros(cadastros.vendas, cadastros.itensvenda);
+                        else
+                            Console.WriteLine("Nenhuma venda registrada");
                         break;
                     case "6":
                         if (cadastros.compras.Count() != 0)

@@ -93,7 +93,6 @@ namespace BILTIFUL.ModuloVenda
         }
         public void CadastrarVenda()
         {
-
             Console.Clear();
             Console.WriteLine("\t\t------------- Verificar CPF -------------\n");
             Console.Write("\t\tDigite o Cpf do cliente: ");
@@ -103,11 +102,9 @@ namespace BILTIFUL.ModuloVenda
             {
                 Console.WriteLine("\t\t-------------------------- Solicitar  ao cliente que se direcione a gerencia------------- ");
                 Console.ReadKey();
-
             }
             else
             {
-
                 long clientecpf = long.Parse(clientcpf);
                 clienteVenda = clientecpf;
                 Cliente aux = BuscarCpf(clientecpf, controle.clientes);
@@ -140,18 +137,12 @@ namespace BILTIFUL.ModuloVenda
                         {
                             ItemVenda();
                         }
-
                     }
-
                     Console.Clear();
                 }
-
             }
-
-
-
-
         }
+
         public void ItemVenda()
         {
             Console.Clear();
@@ -174,21 +165,16 @@ namespace BILTIFUL.ModuloVenda
                         quantidade = CanParse;
                         float valorUnitario = float.Parse(aux.ValorVenda);
                         float valorTotal = quantidade * valorUnitario;
-
-
-
                         valorVenda = valorTotal + valorVenda;
 
                         Console.WriteLine($"\n\t\tValor Total: R${valorTotal}");
                         cont++;
-
 
                         controle.itensvenda.Add(new ItemVenda(cod, codigoProd, quantidade.ToString().Replace(",", "").Replace(".", ""), valorUnitario.ToString().Replace(",", "").Replace(".", "")));
 
                         Console.WriteLine($"\t\t{quantidade} {aux.Nome} adicionados na venda!!");
                         if (cont <= 2)
                         {
-
                             Console.Write("\n\t\t Deseja adicionar outro item nessa comprar se sim digite S se não qualquer tecla : ");
                             string adicionarNovoItem = Console.ReadLine().ToUpper();
 
@@ -202,11 +188,9 @@ namespace BILTIFUL.ModuloVenda
                             }
                         }
                     }
-
                     else
                     {
                         Console.WriteLine("\t\t\tDigite uma quantidade válida!!");
-
                     }
                 }
             } while (cont != 3);
@@ -216,65 +200,40 @@ namespace BILTIFUL.ModuloVenda
             if (confcompra == "S" || confcompra == "SIM")
             {
                 controle.vendas.Add(new Venda(cod, clienteVenda, valorVenda.ToString().Replace(",", "").Replace(".", "")));
-
             }
             else
             {
                 RemoveItem(cod);
-
                 CodIdDecremento();
                 Console.WriteLine("\n\t\tVenda Cancelada!!");
                 Console.ReadKey();
             }
 
-            /*  foreach(ItemVenda iv in controle.itensvenda)
-              {
-                  if(iv.Id == cod)
-                  {
-                      new Controle(iv);
-                  }
-              }*/
-
-            controle.itensvenda.FindAll(delegate (ItemVenda iv) {
-            
-                    Console.WriteLine(iv);
-                Console.WriteLine("DEu bom " +
-                    "");
+            controle.itensvenda.FindAll(delegate (ItemVenda iv)
+            {
+                Console.WriteLine("Cancelando Vendas...");
+                Console.WriteLine("\t" + iv);
                 return true;
 
             });
         }
 
-        public void RemoveItem(string cod )
+        public void RemoveItem(string cod)
         {
-          
-                cod = cod.PadLeft(5, '0');
+            cod = cod.PadLeft(5, '0');
             for (int i = 0; i < 3; i++)
             {
                 controle.itensvenda.FindAll(delegate (ItemVenda iv)
                 {
-
-
                     if (iv.Id == cod)
                     {
                         Console.WriteLine(iv);
                         controle.itensvenda.Remove(iv);
                     }
                     return true;
-
                 });
             }
-                /*  foreach (ItemVenda iv in controle.itensvenda)
-                  {
 
-
-                      if (cod.CompareTo(iv.Id) == 0)
-                      {
-
-
-                      }
-                  }*/
-            
         }
         public string CodIdIncremento()
         {
@@ -287,8 +246,6 @@ namespace BILTIFUL.ModuloVenda
 
         public string CodIdDecremento()
         {
-
-
             cadastros.codigos[2]--;
             SalvarCodigos();
             string cod = "" + cadastros.codigos[2];
@@ -297,22 +254,14 @@ namespace BILTIFUL.ModuloVenda
         }
         public void RegistroVenda()
         {
-
-
             Console.WriteLine("\t__________________________________________________________________");
             Console.WriteLine("\t|+++++++++++++++++++++| Registro de Vendas |+++++++++++++++++++++");
             Console.WriteLine("\t|                                                                ");
             controle.vendas.ForEach((Action<Venda>)(v =>
             {
-
-
-
                 Console.WriteLine("\t| Id da Venda : " + v.Id + "          Data de venda : " + v.DataVenda + "  ");
                 Console.WriteLine("\t| Cpf do Cliente : " + v.Cliente + "                                     |");
                 Console.WriteLine("\t|                                                                ");
-
-
-
                 controle.itensvenda.ForEach((Action<ItemVenda>)(i =>
                 {
                     if (v.Id == i.Id)
@@ -326,8 +275,6 @@ namespace BILTIFUL.ModuloVenda
                     Console.Write("\t|________________________________________________________________\n");
                 }));
                 Console.WriteLine("\t| Valor total da venda :" + v.ValorTotal + "                                      ");
-
-
             }));
 
             Console.Write("\t|________________________________________________________________\n");
@@ -370,7 +317,6 @@ namespace BILTIFUL.ModuloVenda
             {
                 return true;
             }
-
         }
         public Cliente BuscarCpf(long ccpf, List<Cliente> cliente)
         {

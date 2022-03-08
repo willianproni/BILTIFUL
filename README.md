@@ -4,7 +4,10 @@ BILTIFUL é um projeto de controle de estoque, produção e vendas para uma empr
 # Como funciona?
 O programa possui um Menu Principal dividido em 4 partes 
 
-![image](https://user-images.githubusercontent.com/61014145/157263842-b65bf39b-924a-4848-bb49-b1421749a55b.png)
+
+![C__Users_José_source_repos_BILTIFUL_BILTIFUL_bin_Debug_net5 0_BILTIFUL exe-2022-03-08-15-43-29_Trim](https://user-images.githubusercontent.com/61014145/157305221-1312f812-6c50-4f4e-abf6-b7e3feaec36a.gif)
+
+
 
 Assim que o programa é iniciado seus arquivos .dat são gerados em na pasta Arquivos lá ficam salvos todos os registros do programa
 

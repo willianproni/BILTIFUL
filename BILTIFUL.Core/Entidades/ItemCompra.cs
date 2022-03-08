@@ -5,7 +5,7 @@ namespace BILTIFUL.Core.Entidades
 {
     public class ItemCompra : EntidadeBase
     {
-        public DateTime DataCompra { get; set; }
+        public DateTime DataCompra { get; set; } = DateTime.Now;
         //ID materia prima
         public string MateriaPrima { get; set; }
         public string Quantidade { get; set; }
@@ -41,7 +41,7 @@ namespace BILTIFUL.Core.Entidades
         }
         public string DadosItemCompra()
         {
-            return $"-------------------------------------------\nMateria prima: {MateriaPrima}\nQuantidade{Quantidade.Insert(3, ",")}\nValor unitario: {ValorUnitario.Insert(3, ",")}\nTotal: {TotalItem.Insert(4, ",")}\n-------------------------------------------";
+            return $"Materia prima: {MateriaPrima}\nQuantidade: {float.Parse(Quantidade.Insert(3, ","))}\nValor unitario: {float.Parse(ValorUnitario.Insert(3, ","))}\nTotal: {float.Parse(TotalItem.Insert(5, ","))}\n-------------------------------------------";
         }
     }
 }

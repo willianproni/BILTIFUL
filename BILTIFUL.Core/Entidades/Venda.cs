@@ -36,7 +36,7 @@ namespace BILTIFUL.Core.Entidades
                 Console.WriteLine(aux.MostrarItemVenda());
             }
         }
-
+        
         public string MostrarItemVenda()
         {
             return $"\n\t\tId = {Id}" +

@@ -19,7 +19,7 @@ namespace BILTIFUL.Core.Entidades
             Id = id;
             this.Produto = produto;
             this.Quantidade = qtd;
-            this.TotalItem = totalitem;
+            this.ValorUnitario = totalitem;
         }
 
 

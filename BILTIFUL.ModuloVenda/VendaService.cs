@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BILTIFUL.Core.Controles;
 using BILTIFUL.Core.Entidades;
 
 namespace BILTIFUL.ModuloVenda
@@ -13,6 +14,7 @@ namespace BILTIFUL.ModuloVenda
         List<Producao> producao = new List<Producao>();
         ItemVenda vendaitem = new ItemVenda();
         Venda venda = new Venda();
+        Controle controle = new Controle();
 
         public void Menu()
         {
@@ -71,8 +73,8 @@ namespace BILTIFUL.ModuloVenda
             produtos.Add(new Produto("3245676", "Blush", "12"));
            /* producao.Add(new Producao("batom", 12));
             producao.Add(new Producao("Blush", 33));*/
-            vendas.Add(new Venda("1", 392489343, 88));
-            vendas.Add(new Venda("2", 194832748, 434));
+           /* vendas.Add(new Venda("1", 392489343, 88));
+            vendas.Add(new Venda("2", 194832748, 434));*/
 
         }
         public void CadastrarVenda()
@@ -105,7 +107,7 @@ namespace BILTIFUL.ModuloVenda
                         int valorTotal = quantidade * int.Parse(aux.ValorVenda);
                         Console.WriteLine($"\n\t\tValor Total: {valorTotal}");
                         cont++;
-                        itemVenda.Add(new ItemVenda(codigoProd, quantidade, valorTotal));
+                        itemVenda.Add(new ItemVenda(codigoProd, quantidade.ToString().Remove(',').Remove('.').PadLeft(3,'0'), valorTotal.ToString().Remove(',').Remove('.').PadLeft(5,'0')));
 
                         Console.WriteLine($"\t\t{quantidade} {aux.Nome} Comprado!!");
 

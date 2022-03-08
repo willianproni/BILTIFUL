@@ -47,6 +47,9 @@ namespace BILTIFUL.Core.Entidades
         {
             return $"{Id}{DataProducao.ToString("dd/MM/yyyy")}{Produto}{Quantidade}";
         }
-
+        public string DadosProducao()
+        {
+            return $"-------------------------------------------\nId: {Id}\nData produção: {DataProducao}\n-------------------------------------------";
+        }
     }
 }

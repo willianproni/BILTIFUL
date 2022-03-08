@@ -471,9 +471,8 @@ namespace BILTIFUL.Core
                 Console.WriteLine("\t|3| - REGISTROS DE MATERIAS PRIMAS             |");
                 Console.WriteLine("\t|4| - REGISTROS DE PRODUTOS                    |");
                 Console.WriteLine("\t|5| - REGISTROS DE VENDAS                      |");
-                Console.WriteLine("\t|6| - REGISTROS DE ITENS DE VENDAS             |");
-                Console.WriteLine("\t|7| - REGISTROS DE COMPRAS                     |");
-                Console.WriteLine("\t|8| - REGISTROS DE ITENS DE COMPRAS            |");
+                Console.WriteLine("\t|6| - REGISTROS DE COMPRAS                     |");
+                Console.WriteLine("\t|7| - REGISTROS DE PRODUÇÃO                    |");
                 Console.WriteLine("\t|0| - VOLTAR                                   |");
                 Console.Write("\t|______________________________________________|\n" +
                               "\t|Opção: ");
@@ -507,10 +506,19 @@ namespace BILTIFUL.Core
                     case "5":
                         break;
                     case "6":
+                        if (cadastros.compras.Count() != 0)
+                            new Registros(cadastros.compras, cadastros.itenscompra);
+                        else
+                            Console.WriteLine("Nenhum produto registrado");
                         break;
                     case "7":
+                        if (cadastros.producao.Count() != 0)
+                            new Registros(cadastros.producao, cadastros.itensproducao);
+                        else
+                            Console.WriteLine("Nenhum produto registrado");
                         break;
-                    case "8":
+                    case "0":
+                        
                         break;
                     default:
                         Console.WriteLine("Opção invalida");
@@ -532,9 +540,8 @@ namespace BILTIFUL.Core
                 Console.WriteLine("\t|3| - LOCALIZAR MATERIAS PRIMAS                |");
                 Console.WriteLine("\t|4| - LOCALIZAR PRODUTOS                       |");
                 Console.WriteLine("\t|5| - LOCALIZAR VENDAS                         |");
-                Console.WriteLine("\t|6| - LOCALIZAR ITENS DE VENDAS                |");
-                Console.WriteLine("\t|7| - LOCALIZAR COMPRAS                        |");
-                Console.WriteLine("\t|8| - LOCALIZAR ITENS DE COMPRAS               |");
+                Console.WriteLine("\t|6| - LOCALIZAR COMPRAS                        |");
+                Console.WriteLine("\t|7| - LOCALIZAR PRODUÇÕES                      |");
                 Console.WriteLine("\t|0| - VOLTAR                                   |");
                 Console.Write("\t|______________________________________________|\n" +
                               "\t|Opção: ");
@@ -605,18 +612,69 @@ namespace BILTIFUL.Core
                         }
                         break;
                     case "5":
+                        Console.Write("Digite a data de venda que deseja localizar(dd/mm/aaaa): ");
+                        DateTime dvenda = DateTime.Parse(Console.ReadLine());
+                        List<Venda> localizavenda = cadastros.vendas.FindAll(p => p.DataVenda == dvenda);
+                        if (localizavenda != null)
+                        {
+                            encontrado = true;
+                            foreach (Venda p in localizavenda)
+                            {
+                                Console.WriteLine(p.DadosVenda());
+                                Console.WriteLine("Itens: ");
+                                foreach(ItemVenda i in cadastros.itensvenda)
+                                {
+                                    if (i.Id == p.Id)
+                                        Console.WriteLine(i.DadosItemVenda());
+                                }
+                            }
+                        }
                         break;
                     case "6":
+                        Console.Write("Digite o data de compra que deseja localizar(dd/mm/aaaa): ");
+                        DateTime dcompra = DateTime.Parse(Console.ReadLine());
+                        List<Compra> localizacompra = cadastros.compras.FindAll(p => p.DataCompra == dcompra);
+                        if (localizacompra != null)
+                        {
+                            encontrado = true;
+                            foreach (Compra p in localizacompra)
+                            {
+                                Console.WriteLine(p.DadosCompra());
+                                Console.WriteLine("Itens: ");
+                                foreach (ItemCompra i in cadastros.itenscompra)
+                                {
+                                    if (i.Id == p.Id)
+                                        Console.WriteLine(i.DadosItemCompra());
+                                }
+                            }
+                        }
                         break;
                     case "7":
+                        Console.Write("Digite o data de produção que deseja localizar(dd/mm/aaaa): ");
+                        DateTime dproducao = DateTime.Parse(Console.ReadLine());
+                        List<Producao> localizaproducao = cadastros.producao.FindAll(p => p.DataProducao == dproducao);
+                        if (localizaproducao != null)
+                        {
+                            encontrado = true;
+                            foreach (Producao p in localizaproducao)
+                            {
+                                Console.WriteLine(p.DadosProducao());
+                                Console.WriteLine("Itens: ");
+                                foreach (ItemProducao i in cadastros.itensproducao)
+                                {
+                                    if (i.Id == p.Id)
+                                        Console.WriteLine(i.DadosItemProducao());
+                                }
+                            }
+                        }
                         break;
-                    case "8":
+                    case "0":
                         break;
                     default:
                         Console.WriteLine("Opção invalida");
                         break;
                 }
-                if(encontrado==false)
+                if(encontrado==false && opc!="0")
                     Console.WriteLine("Registro não encontrado");
                 Console.ReadKey();
             } while (opc != "0");

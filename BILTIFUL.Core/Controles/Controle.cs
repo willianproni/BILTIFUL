@@ -276,10 +276,10 @@ namespace BILTIFUL.Core.Controles
                     while (line != null)
                     {
                         string id = line.Substring(0, 5);
-                        string produto = (line.Substring(5, 7));
-                        string quantidade = line.Substring(15, 3);
-                        string vunit = line.Substring(18, 5);
-                        string total = line.Substring(23, 6);
+                        string produto = (line.Substring(5, 12));
+                        string quantidade = line.Substring(17, 3);
+                        string vunit = line.Substring(20, 5);
+                        string total = line.Substring(25, 6);
                         itensvenda.Add(new ItemVenda(id, produto, quantidade, vunit, total));
                         line = sr.ReadLine();
                     }

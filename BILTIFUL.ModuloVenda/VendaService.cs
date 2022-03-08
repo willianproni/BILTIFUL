@@ -220,10 +220,10 @@ namespace BILTIFUL.ModuloVenda
 
                         valorVenda = valorTotal + valorVenda;
 
-                        Console.WriteLine($"\n\t\tValor Total: R${valorTotal}");
+                        Console.WriteLine($"\n\t\tValor Total: R${valorTotal.ToString("F2")}");
                         cont++;
 
-                        controle.itensvenda.Add(new ItemVenda(codigo, codProduto, quantidade.ToString().Replace(",", "").Replace(".", ""), valorUnitario.ToString().Replace(",", "").Replace(".", "")));
+                        controle.itensvenda.Add(new ItemVenda(codigo, codProduto, quantidade.ToString().Replace(",", "").Replace(".", ""), valorUnitario.ToString("F2").Replace(",", "").Replace(".", "")));
 
                         Console.WriteLine($"\t\t{quantidade} {aux.Nome} adicionados na venda!!");
                         if (cont <= 2)
@@ -254,8 +254,8 @@ namespace BILTIFUL.ModuloVenda
             if (confirmarCompras == "S" || confirmarCompras == "SIM")
             {
                 SalvarItemVenda(codigo);
-                controle.vendas.Add(new Venda(codigo, clienteVenda, valorVenda.ToString().Replace(",", "").Replace(".", "")));
-                new Controle(new Venda(codigo, clienteVenda, valorVenda.ToString().Replace(",", "").Replace(".", "")));
+                controle.vendas.Add(new Venda(codigo, clienteVenda, valorVenda.ToString("F2").Replace(",", "").Replace(".", "")));
+                new Controle(new Venda(codigo, clienteVenda, valorVenda.ToString("F2").Replace(",", "").Replace(".", "")));
 
             }
             else

@@ -188,13 +188,13 @@ namespace BILTIFUL.Core
             {
                 Console.Write("CNPJ: ");
                 cnpj = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");//tira o ponto e o traço caso digitado
-                if (!ValidaCnpj(cnpj))//valida cpf
-                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+                if (!ValidaCnpj(cnpj))//valida c
+                    Console.WriteLine("Cnpj invalido!\nDigite novamente");
 
             } while (!ValidaCnpj(cnpj));//enquanto cpf nao for valido digitar denovo
             if (cadastros.fornecedores.Find(p => p.CNPJ == long.Parse(cnpj)) != null)
             {
-                Console.WriteLine("Cliente com esse CPF ja existe");
+                Console.WriteLine("Fornecedor com esse cnpj ja existe");
                 return null;
             }
             do

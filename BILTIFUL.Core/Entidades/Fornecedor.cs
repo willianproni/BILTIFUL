@@ -47,11 +47,11 @@ namespace BILTIFUL.Core.Entidades
 
         public string ConverterParaEDI()
         {
-            return $"{CNPJ}{RazaoSocial.PadRight(50).Substring(0, 50)}{DataAbertura.ToString("dd/MM/yyyy")}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
+            return $"{CNPJ.ToString().PadLeft(14,'0')}{RazaoSocial.PadRight(50).Substring(0, 50)}{DataAbertura.ToString("dd/MM/yyyy")}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
         }
         public string DadosFornecedor()
         {
-            return "-------------------------------------------\nRazão social: " + RazaoSocial + "\nCNPJ: " + CNPJ + "\nData de abertura: " + DataAbertura.ToString("dd/MM/yyyy") + "\nData de ultima compra: " + UltimaCompra.ToString("dd/MM/yyyy") + "\nData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\nSituação: " + Situacao;
+            return "-------------------------------------------\nRazão social: " + RazaoSocial + "\nCNPJ: " + CNPJ.ToString().PadLeft(14, '0') + "\nData de abertura: " + DataAbertura.ToString("dd/MM/yyyy") + "\nData de ultima compra: " + UltimaCompra.ToString("dd/MM/yyyy") + "\nData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\nSituação: " + Situacao;
         }
     }
 }

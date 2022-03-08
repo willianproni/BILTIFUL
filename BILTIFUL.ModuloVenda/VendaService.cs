@@ -84,9 +84,9 @@ namespace BILTIFUL.ModuloVenda
             Console.WriteLine("\t\t------------- Verificar CPF -------------\n");
             Console.Write("\t\tDigite o Cpf do cliente: ");
 
-            if (long.TryParse(Console.ReadLine(), out long confrimar))
+            if (long.TryParse(Console.ReadLine(), out long confimar))
             {
-                long cpfCliente = confrimar;
+                long cpfCliente = confimar;
 
                 if (BuscarInadimplentes(cpfCliente, controle.inadimplentes))
                 {
@@ -160,29 +160,67 @@ namespace BILTIFUL.ModuloVenda
                     if (float.TryParse(Console.ReadLine(), out float CanParse) && quantidade > 0)
                     {
                         quantidade = CanParse;
+                        if (quantidade > 999)
+                        {
+                            do
+                            {
+                            Console.WriteLine("\t\tQuantidade máxima de produto por item é 999");
+                                Console.Write("\t\tDigite a Quantidade do Produto: ");
+                                quantidade = long.Parse(Console.ReadLine());
+                            } while (quantidade > 999);
+                        }
                         float valorUnitario = float.Parse(aux.ValorVenda);
                         float valorTotal = quantidade * valorUnitario;
-                        valorVenda = valorTotal + valorVenda;
-
-                        Console.WriteLine($"\n\t\tValor Total: R${valorTotal}");
-                        cont++;
-
-                        controle.itensvenda.Add(new ItemVenda(codigo, codProduto, quantidade.ToString().Replace(",", "").Replace(".", ""), valorUnitario.ToString().Replace(",", "").Replace(".", "")));
-
-                        Console.WriteLine($"\t\t{quantidade} {aux.Nome} adicionados na venda!!");
-                        if (cont <= 2)
+                        if (valorTotal > 9999)
+                        { 
+                            do
+                            {
+                                Console.WriteLine("\n\t\tValor Total superior ao permitido, máximo valor por item é R$ 9.999");
+                                Console.Write("\t\tDigite a Quantidade do Produto: ");
+                                quantidade = float.Parse(Console.ReadLine());
+                                valorTotal = quantidade * valorUnitario;
+                            } while (valorTotal > 9999);
+                        }
+                        if (valorVenda + valorTotal == 99999)
                         {
-                            Console.Write("\n\t\t Deseja adiciona outro Item [S]/[N]: ");
-                            string adicionarNovoItem = Console.ReadLine().ToUpper();
+                            Console.WriteLine("\n\t\tValor total de Compras atigindo, abrir novo cadastro de compras");
+                            cont = 3;
+                        }
+                        else if (valorVenda + valorTotal > 99999)
+                        {
+                            do
+                            {
+                                Console.WriteLine($"\t\tPreço máximo por compra atingido, escolha outra quantidade do produto até R$ {99999 - valorVenda}");
+                                Console.Write("\t\tDigite a Quantidade do Produto: ");
+                                quantidade = float.Parse(Console.ReadLine());
+                                valorTotal = quantidade * valorUnitario;
+                            } while (valorVenda + valorTotal > 99999);
+                        }
+                        else
+                        {
+                            valorVenda = valorTotal + valorVenda;
 
-                            if (adicionarNovoItem == "S" || adicionarNovoItem == "SIM")
+                            Console.WriteLine($"\n\t\tValor Total: R${valorTotal}");
+                            cont++;
+
+                            controle.itensvenda.Add(new ItemVenda(codigo, codProduto, quantidade.ToString().Replace(",", "").Replace(".", ""), valorUnitario.ToString().Replace(",", "").Replace(".", "")));
+
+                            Console.WriteLine($"\t\t{quantidade} {aux.Nome} adicionados na venda!!");
+                            if (cont <= 2)
                             {
-                            }
-                            else
-                            {
-                                cont = 3;
+                                Console.Write("\n\t\t Deseja adiciona outro Item [S]/[N]: ");
+                                string adicionarNovoItem = Console.ReadLine().ToUpper();
+
+                                if (adicionarNovoItem == "S" || adicionarNovoItem == "SIM")
+                                {
+                                }
+                                else
+                                {
+                                    cont = 3;
+                                }
                             }
                         }
+
                     }
                     else
                     {

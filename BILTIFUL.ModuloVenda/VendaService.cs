@@ -13,13 +13,9 @@ namespace BILTIFUL.ModuloVenda
 {
     public class VendaService
     {
+              
         Controle cadastros = new Controle();
         Controle controle = new Controle();
-        List<Venda> vendas = new List<Venda>();
-        List<Produto> produtos = new List<Produto>();
-        List<Cliente> clientes = new List<Cliente>();
-        List<ItemVenda> itemVenda = new List<ItemVenda>();
-        List<Producao> producao = new List<Producao>();
         ItemVenda vendaitem = new ItemVenda();
         Venda venda = new Venda();
 
@@ -37,7 +33,8 @@ namespace BILTIFUL.ModuloVenda
             Console.Write("\t|________________________________________________|\n" +
                           "\t|Opção: ");
         }
-        //78966171234567
+       
+        //78966173245676
         public void SubMenu()
         {
             int opc;
@@ -82,12 +79,12 @@ namespace BILTIFUL.ModuloVenda
 
         public void AdicionandoProduto()
         {
-            produtos.Add(new Produto("1234567", "batom", "12"));
-            produtos.Add(new Produto("3245676", "Blush", "12"));
-            producao.Add(new Producao("batom", "12"));
-            producao.Add(new Producao("Blush", "33"));      
-            clientes.Add(new Cliente(123456789, "Nayron Holuppi"));
-            clientes.Add(new Cliente(123456788, "Willian Proni"));
+            controle.produtos.Add(new Produto("1234567", "batom", "12"));
+            controle.produtos.Add(new Produto("3245676", "Blush", "12"));
+            controle.producao.Add(new Producao("batom", "12"));
+            controle.producao.Add(new Producao("Blush", "33"));      
+            controle.clientes.Add(new Cliente(123456789, "Nayron Holuppi"));
+            controle.clientes.Add(new Cliente(123456788, "Willian Proni"));
             controle.inadimplentes.Add("123456787");
             controle.inadimplentes.Add("111111111");
             controle.inadimplentes.Add("333333333");
@@ -111,7 +108,7 @@ namespace BILTIFUL.ModuloVenda
 
                 long clientecpf = long.Parse(clientcpf);
                 clienteVenda = clientecpf;
-                Cliente aux = BuscarCpf(clientecpf, clientes);
+                Cliente aux = BuscarCpf(clientecpf, controle.clientes);
 
                 if (aux == null)
                 {
@@ -119,8 +116,8 @@ namespace BILTIFUL.ModuloVenda
                                       "\n\t\t\t   CPF não encontrado\n" +
                                       "\t\t-----------------------------------------");
                     Console.Write("\t\tCadastrar um nome Cliente (S/N): ");
-                    char cadNovoCliente = char.Parse(Console.ReadLine().ToUpper());
-                    if (cadNovoCliente == 'S')
+                    string cadNovoCliente = Console.ReadLine().ToUpper();
+                    if (cadNovoCliente == "S")
                     {
                         Console.ReadKey();
                     }
@@ -164,7 +161,7 @@ namespace BILTIFUL.ModuloVenda
             {
                 Console.Write("\n\t\tCódigo do Produto: ");
                 string codigoProd = Console.ReadLine();
-                Produto aux = vendaitem.CodigoProdutoValido(codigoProd, produtos);
+                Produto aux = vendaitem.CodigoProdutoValido(codigoProd, controle.produtos);
                 if (aux != null)
                 {
                     Console.Write("\t\tDigite a Quantidade do Produto: ");
@@ -172,12 +169,15 @@ namespace BILTIFUL.ModuloVenda
                     if (int.TryParse(Console.ReadLine(), out int CanParse) && quantidade > 0)
                     {
                         quantidade = CanParse;
+                        int valorUnitario = int.Parse(aux.ValorVenda);
                         int valorTotal = quantidade * int.Parse(aux.ValorVenda);
+
                         valorVenda = valorTotal + valorVenda;
+
                         Console.WriteLine($"\n\t\tValor Total: R${valorTotal}");
                         cont++;                    
                         
-                        itemVenda.Add(new ItemVenda(cod, codigoProd, quantidade, valorTotal));
+                        controle.itensvenda.Add(new ItemVenda(cod, codigoProd, quantidade, valorUnitario));
                       
                         Console.WriteLine($"\t\t{quantidade} {aux.Nome} adicionados na venda!!");
                         if (cont <= 2)
@@ -203,7 +203,7 @@ namespace BILTIFUL.ModuloVenda
                 }
             } while (cont != 3);
            
-            vendas.Add(new Venda(cod, clienteVenda, valorVenda));
+            controle.vendas.Add(new Venda(cod, clienteVenda, valorVenda));
           
         }
         public string CodId() {
@@ -216,28 +216,42 @@ namespace BILTIFUL.ModuloVenda
 
         public void RegistroVenda()
         {
-        
-            vendas.ForEach(v =>
+
+
+            Console.WriteLine("\t__________________________________________________________________");
+            Console.WriteLine("\t|+++++++++++++++++++++| Registro de Vendas |+++++++++++++++++++++");
+            Console.WriteLine("\t|                                                                ");
+            controle.vendas.ForEach((Action<Venda>)(v =>
             {
-                                                                       
-                Console.WriteLine(String.Format("{0} {1} {2} {3}",v.Id, v.DataVenda, v.Cliente , v.ValorTotal));
-                Console.ReadKey();
 
-
+              
                
-                itemVenda.ForEach(i =>
+                Console.WriteLine("\t| Id da Venda : "+ v.Id + "          Data de venda : "+ v.DataVenda+"  ");
+                Console.WriteLine("\t| Cpf do Cliente : "+ v.Cliente                          + "                                     |");
+                Console.WriteLine("\t|                                                                ");
+
+
+
+                controle.itensvenda.ForEach((Action<ItemVenda>)(i =>
                 {
                     if (v.Id == i.Id)
-                        Console.WriteLine(String.Format("{0} {1} {2} {3} {4}", i.Id, i.Produto,i.Quantidade, i.ValorUnitario, i.TotalItem));
-                        Console.ReadKey();
-                });
-            });
+                        Console.WriteLine("\t|                                                                ");
+                    Console.WriteLine("\t| Id do Item :" + i.Id + "                                                ");
+                    Console.WriteLine("\t| Codigo do Produto :" + i.Produto + "                              ");
+                    Console.WriteLine("\t| Quantidade :" + i.Quantidade + "                                                ");
+                    Console.WriteLine("\t| Valor Unitario :" + i.ValorUnitario + "                                           ");
+                    Console.WriteLine("\t| Total do valor por item :" + i.TotalItem + "                                   ");
+                    Console.WriteLine("\t|                                                                ");
+                    Console.Write("\t|________________________________________________________________\n");
+                }));
+                Console.WriteLine("\t| Valor total da venda :" + v.ValorTotal + "                                      ");
 
-           
 
-            /*   long cliente =
-            int ValorTotal =
-            cadastros.produtos.Add(new Produto(cod, cliente, ValorTotal));*/
+            }));
+     
+            Console.Write("\t|________________________________________________________________\n");
+
+            Console.ReadKey();
         }
         public void Localizar()
         {
@@ -245,7 +259,7 @@ namespace BILTIFUL.ModuloVenda
             Console.WriteLine("\t\t------------ Localizar Venda ------------");
             Console.Write("\t\tDigite a venda especifica: ");
             string buscarId = Console.ReadLine();
-            venda.LocalizarVenda(buscarId, vendas);
+            venda.LocalizarVenda(buscarId, controle.vendas);
             Console.ReadKey();
             Console.Clear();
         }

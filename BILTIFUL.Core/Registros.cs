@@ -330,9 +330,9 @@ namespace BILTIFUL.Core
             while (opc != "0")
             {
                 Console.Clear();
-                Console.WriteLine(">>>>>>>>PRODUÇÕES<<<<<<<<");
+                Console.WriteLine(">>>>>>>>VENDAS<<<<<<<<");
                 Console.WriteLine(vendas[i].DadosVenda());
-                Console.WriteLine("Itens da produção: ");
+                Console.WriteLine("Itens da venda: ");
                 List<ItemVenda> itens = itensvendas.FindAll(p => p.Id == vendas[i].Id);//encontra todos os itens com mesmo id da compra
                 itens.ForEach(p => Console.WriteLine(p.DadosItemVenda()));//mostra todos os itens
                 if (i > 0)

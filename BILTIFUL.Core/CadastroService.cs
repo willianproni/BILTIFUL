@@ -289,8 +289,9 @@ namespace BILTIFUL.Core
             try
             {
                 StreamWriter sw = new StreamWriter("Arquivos\\Controle.dat");
-                sw.WriteLine(cadastros.codigos[0]);
-                sw.WriteLine(cadastros.codigos[1]);
+
+                cadastros.codigos.ForEach(c => sw.WriteLine(c));
+
                 sw.Close();
             }
             catch (Exception ex)

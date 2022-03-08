@@ -16,14 +16,19 @@ namespace BILTIFUL.Core.Entidades
 
         public ItemVenda(string produto, string qtd, string totalitem)
         {
+            Id = id;
             this.Produto = produto;
             this.Quantidade = qtd;
             this.TotalItem = totalitem;
         }
 
+
         public override string ToString()
         {
-            return $"Código produto: {Produto}"; 
+            
+            return $"Código id: {Id}" +
+                  $"Código produto: {Produto}"+
+                  $"Código Quantidade : {Quantidade}"; 
         }
 
         public Produto CodigoProdutoValido(string codproduto, List<Produto> list)

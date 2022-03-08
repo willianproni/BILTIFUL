@@ -18,6 +18,12 @@ namespace BILTIFUL.Core.Entidades
         {
         }
 
+        public Cliente(long cpf, string nome)
+        {
+            CPF = cpf;
+            Nome = nome;
+        }
+
         public Cliente(long cpf, string nome, DateTime dnascimento, Sexo sexo)
         {
             this.CPF = cpf;
@@ -45,6 +51,15 @@ namespace BILTIFUL.Core.Entidades
         public string DadosCliente()
         {
             return "-------------------------------------------\n|Nome: " + Nome+ "\n|CPF: " + CPF+ "\n|Data de nascimento: " + DataNascimento.ToString("dd/MM/yyyy") + "\n|Sexo: " + Sexo+ "\n|Ultima compra: " + UltimaCompra.ToString("dd/MM/yyyy") + "\n|Data de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\n|Situação: " + Situacao;
+        }
+
+        public string VendasCliente()
+        {
+            return  $"\n\t\t-------------- Informações --------------" +
+                    $"\n\t\tCpf: {CPF}" +
+                    $"\n\t\tNome: {Nome}" +
+                    $"\n\t\tData Ultima Compra: {UltimaCompra.ToString("dd/MM/yyyy")}" +
+                    $"\n\t\t-----------------------------------------";
         }
     }
 

@@ -32,7 +32,7 @@ namespace BILTIFUL.Core.Entidades
 
         public string ConverterParaEDI()
         {
-            return $"{Id}{DataProducao.ToString("dd/MM/yyyy")}{MateriaPrima}{QuantidadeMateriaPrima.ToString().PadLeft(5, '0')}";
+            return $"{Id.PadLeft(5, '0')}{DataProducao.ToString("dd/MM/yyyy")}{MateriaPrima}{QuantidadeMateriaPrima.ToString().PadLeft(5, '0')}";
         }
         public string DadosItemProducao()
         {

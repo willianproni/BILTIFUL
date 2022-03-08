@@ -45,7 +45,7 @@ namespace BILTIFUL.Core.Entidades
 
         public string ConverterParaEDI()
         {
-            return $"{Id}{DataProducao.ToString("dd/MM/yyyy")}{Produto}{Quantidade}";
+            return $"{Id.PadLeft(5, '0')}{DataProducao.ToString("dd/MM/yyyy")}{Produto}{Quantidade}";
         }
         public string DadosProducao()
         {

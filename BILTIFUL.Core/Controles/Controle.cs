@@ -434,7 +434,7 @@ namespace BILTIFUL.Core.Controles
             {
                 try//envia cliente para arquivo como novo cliente]try
                 {
-                    StreamWriter sw = new StreamWriter("Arquivos\\ItemVenda.dat", append: true);
+                    StreamWriter sw = new StreamWriter("Arquivos\\Venda.dat", append: true);
                     sw.WriteLine(venda.ConverterParaEDI());
                     sw.Close();
                     Console.WriteLine("Item de produção cadastrado com sucesso!");

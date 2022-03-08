@@ -237,17 +237,14 @@ namespace BILTIFUL.ModuloVenda
        public void SalvarItemVenda(string codigo)
         {
             codigo = codigo.PadLeft(5, '0');
-            for (int i = 0; i < 3; i++)
-            {
-                controle.itensvenda.FindAll(delegate (ItemVenda iv)
+           
+                foreach(ItemVenda iv in controle.itensvenda) 
                 {
                     if (iv.Id == codigo)
                     {
-          new  Controle(new ItemVenda(codigo, iv.Produto, iv.Quantidade.ToString().Replace(",", "").Replace(".", ""), iv.ValorUnitario.ToString().Replace(",", "").Replace(".", "")));
+                        new Controle(new ItemVenda(codigo, iv.Produto, iv.Quantidade.ToString().Replace(",", "").Replace(".", ""), iv.ValorUnitario.ToString().Replace(",", "").Replace(".", "")));
 
-                    }
-                    return true;
-                });
+                    }                  
             }
         }
         public void SalvarCodigos()

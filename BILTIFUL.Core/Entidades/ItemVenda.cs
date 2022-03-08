@@ -14,14 +14,23 @@ namespace BILTIFUL.Core.Entidades
         {
         }
 
-        public ItemVenda(string id,string produto, string qtd, string totalitem)
+        public ItemVenda(string id,string produto, string qtd, string valorunitario, string totalitem)
         {
             Id = id;
             this.Produto = produto;
             this.Quantidade = qtd;
-            this.ValorUnitario = totalitem;
+            ValorUnitario = valorunitario;
+            this.TotalItem = totalitem;
         }
 
+        public ItemVenda(string id,string produto, string quantidade, string valorUnitario)
+        {
+            Id=id.PadLeft(5,'0');
+            Produto = produto;
+            Quantidade = quantidade.PadLeft(3,'0');
+            ValorUnitario = valorUnitario.PadLeft(5,'0');
+            TotalItem = (float.Parse(Quantidade) * float.Parse(ValorUnitario)).ToString();
+        }
 
         public override string ToString()
         {
@@ -47,7 +56,7 @@ namespace BILTIFUL.Core.Entidades
         }
         public string ConverterParaEDI()
         {
-            return $"{Produto}{Quantidade}{TotalItem}";
+            return $"{Id}{Produto}{Quantidade}{ValorUnitario}{TotalItem}";
         }
         public string DadosItemVenda()
         {

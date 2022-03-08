@@ -221,7 +221,7 @@ namespace BILTIFUL.ModuloProducao
         {
             Console.WriteLine(producao.Dados());
             Console.WriteLine("Produto: ");
-            Console.WriteLine((cadastroService.cadastros.produtos.Find(c => c.CodigoBarras == producao.Produto)).ExibirProd());
+            Console.WriteLine((cadastroService.cadastros.produtos.Find(c => c.CodigoBarras == producao.Produto)).DadosProduto());
 
             List<ItemProducao> itens = cadastroService.cadastros.itensproducao.FindAll(c => c.Id == producao.Id);
 

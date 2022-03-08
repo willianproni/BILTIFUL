@@ -35,7 +35,7 @@ namespace BILTIFUL.Core.Entidades
         }
         public string DadosCompra()
         {
-            return "-------------------------------------------\nId: " + Id + "\nData de compra: " + DataCompra + "\nFornecedor: " + Fornecedor + "\nValor da compra: " + ValorTotal;
+            return "-------------------------------------------\nId: " + Id + "\nData de compra: " + DataCompra.ToString("dd/MM/yyyy") + "\nFornecedor: " + Fornecedor + "\nValor da compra: "  +float.Parse(ValorTotal.Insert(5, ","));
         }
     }
 }

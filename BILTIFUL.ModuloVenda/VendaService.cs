@@ -84,7 +84,10 @@ namespace BILTIFUL.ModuloVenda
             Console.WriteLine("\t\t------------- Verificar CPF -------------\n");
             Console.Write("\t\tDigite o Cpf do cliente: ");
             string cpfCliente = Console.ReadLine();
+            if (cpfCliente != "")
+            {
 
+            
             if (BuscarInadimplentes(cpfCliente, controle.inadimplentes))
             {
                 Console.WriteLine("\t\t-------------------------- Solicitar  ao cliente que se direcione a gerencia------------- "); //Cliente Inadimplente
@@ -128,6 +131,12 @@ namespace BILTIFUL.ModuloVenda
                     }
                     //Console.Clear();
                 }
+            }
+            }
+            else
+            {
+                Console.WriteLine("\n\t\tDigite um CPF!!");
+                Console.ReadKey();
             }
         }
 

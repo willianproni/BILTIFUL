@@ -264,6 +264,7 @@ namespace BILTIFUL.ModuloVenda
                 Console.WriteLine("\n\t\t\t\t\tVenda Cancelada!!");
                 Console.ReadKey();
             }
+            controle = new Controle();
         }
 
         public void RemoveItem(string codigo)

@@ -155,7 +155,8 @@ namespace BILTIFUL.ModuloCompra
             Console.Clear();
             do
             {
-                Console.WriteLine("Informe o CNPJ do forncedor");
+                Console.WriteLine("\n\t\t\t\t\t------------CADASTRAR COMPRA------------");
+                Console.Write("\t\t\t\t\tInforme o CNPJ do forncedor :");
                 if (long.TryParse(Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", ""), out long confirmar))
                 {
                     cnpj = confirmar;
@@ -163,7 +164,7 @@ namespace BILTIFUL.ModuloCompra
 
                     if (BuscarBloqueado(cnpj, cadastroService.cadastros.bloqueados))
                     {
-                        Console.WriteLine("Fornecedor bloqueado para compra");
+                        Console.WriteLine("\t\t\t\t\tFornecedor bloqueado para compra");
                         return;
                     }
 
@@ -175,9 +176,19 @@ namespace BILTIFUL.ModuloCompra
                     else
                     {
                         Console.WriteLine(fornecedorCompra.DadosFornecedorCompra());
-                        Console.WriteLine("[1]SIM [0]NAO");
-                        Console.WriteLine("Confirma dados do Fornecedor?");
-                        opc = Console.ReadLine();
+                        Console.WriteLine("------------------------------");
+                        do
+                        {
+                            Console.WriteLine("Confirma dados do Fornecedor?");
+                            Console.Write("[1]SIM [0]NAO: ");
+                            opc = Console.ReadLine();
+
+                            if ((opc != "0" & opc != "1"))
+                            {
+                                Console.WriteLine("Escolha uma opcao valida");
+
+                            }
+                        } while (opc != "0" & opc != "1");
                         if (opc == "0")
                         {
                             Console.WriteLine("");
@@ -244,13 +255,21 @@ namespace BILTIFUL.ModuloCompra
                             buscar = true;
                         }
                     } while (buscar != true);
-                    Console.Clear();
-                    Console.WriteLine("------------------------------");
+                    Console.Clear();                    
                     Console.WriteLine(mPrimaCompra.DadosMateriaPrima());
-                    Console.WriteLine("------------------------------");                    
-                    Console.WriteLine("Confirma dados da Materia-Prima?");
-                    Console.Write("[1]SIM [0]NAO: ");
-                    opcp = Console.ReadLine();
+                    Console.WriteLine("-------------------------------------------");
+                    do
+                    {
+                        Console.WriteLine("Confirma dados da Materia-Prima?");
+
+                        Console.Write("[1]SIM [0]NAO: ");
+                        opcp = Console.ReadLine();
+                        if ((opcp != "0" & opcp != "1"))
+                        {
+                            Console.WriteLine("Escolha uma opcao valida");
+
+                        }
+                    } while (opcp != "0" & opcp != "1");
                     if (opcp == "0")
                     {
                         Console.WriteLine("");
@@ -258,21 +277,23 @@ namespace BILTIFUL.ModuloCompra
                     }
                     else
                     {
-                        
+
                         do
                         {
+                            Console.ReadKey();
                             Console.Clear();
                             Console.WriteLine("-----------------------------------------");
                             Console.WriteLine("Informe o valor unitario da Materia-Prima");
                             Console.Write("Valor($$$,$$)(valor precisa ser menor que 1000,00): ");
 
-                            if (long.TryParse(Console.ReadLine(), out long confirmar2))
+                            if (double.TryParse(Console.ReadLine(), out double confirmar2))
                             {
                                 stringValor[cont] = confirmar2.ToString();
                                 valorQuantidade[cont] = double.Parse(stringValor[cont]);
                                 stringValor[cont] = stringValor[cont].Trim().Replace(".", "").Replace(",", "");
                                 if (!double.TryParse(stringValor[cont], out valor) || (valor > 99999) || (valor <= 0))
                                     Console.WriteLine("Valor invalido!");
+                                
                             }
                             else
                             {
@@ -288,7 +309,7 @@ namespace BILTIFUL.ModuloCompra
                                 do
                                 {
                                     Console.Write("Informe a quantidade: ");
-                                    if (long.TryParse(Console.ReadLine(), out long confirmar1))
+                                    if (double.TryParse(Console.ReadLine(), out double confirmar1))
                                     {
                                         quantidadeString[cont] = confirmar1.ToString();
 
@@ -428,7 +449,7 @@ namespace BILTIFUL.ModuloCompra
             if (buscar == false)
             {
                 Console.WriteLine("Materia-Prima nao encontrada");
-                
+
             }
             return buscar;
         }

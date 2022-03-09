@@ -71,21 +71,21 @@ namespace BILTIFUL.Core
         private string Menu()
         {
             string opc;
-            Console.WriteLine("\t________________________________________________");
-            Console.WriteLine("\t|+++++++++++++++++++| MENU |+++++++++++++++++++|");
-            Console.WriteLine("\t|1| - CADASTRAR CLIENTE                        |");
-            Console.WriteLine("\t|2| - CADASTRAR PRODUTO                        |");
-            Console.WriteLine("\t|3| - CADASTRAR FORNECEDOR                     |");
-            Console.WriteLine("\t|4| - CADASTRAR MATERIA PRIMA                  |");
-            Console.WriteLine("\t|5| - ADICIONAR CLIENTE COMO INADIMPLENTE      |");
-            Console.WriteLine("\t|6| - ADICIONAR FORNECEDOR A LISTA DE BLOQUEADO|");
-            Console.WriteLine("\t|7| - REMOVER CLIENTE DA LISTA DE INADIMPLENTE |");
-            Console.WriteLine("\t|8| - REMOVER FORNECEDOR DA LISTA DE BLOQUEADO |");
-            Console.WriteLine("\t|9| - MOSTRAR REGISTROS                        |");
-            Console.WriteLine("\t|10| - LOCALIZAR REGISTROS                     |");
-            Console.WriteLine("\t|0| - VOLTAR PARA O MENU PRINCIPAL             |");
-            Console.Write("\t|______________________________________________|\n" +
-                          "\t|Opção: ");
+            Console.WriteLine("\n\t\t\t\t\t________________________________________________");
+            Console.WriteLine("\t\t\t\t\t|+++++++++++++++++++| MENU |+++++++++++++++++++|");
+            Console.WriteLine("\t\t\t\t\t|1| - CADASTRAR CLIENTE                        |");
+            Console.WriteLine("\t\t\t\t\t|2| - CADASTRAR PRODUTO                        |");
+            Console.WriteLine("\t\t\t\t\t|3| - CADASTRAR FORNECEDOR                     |");
+            Console.WriteLine("\t\t\t\t\t|4| - CADASTRAR MATERIA PRIMA                  |");
+            Console.WriteLine("\t\t\t\t\t|5| - ADICIONAR CLIENTE COMO INADIMPLENTE      |");
+            Console.WriteLine("\t\t\t\t\t|6| - ADICIONAR FORNECEDOR A LISTA DE BLOQUEADO|");
+            Console.WriteLine("\t\t\t\t\t|7| - REMOVER CLIENTE DA LISTA DE INADIMPLENTE |");
+            Console.WriteLine("\t\t\t\t\t|8| - REMOVER FORNECEDOR DA LISTA DE BLOQUEADO |");
+            Console.WriteLine("\t\t\t\t\t|9| - MOSTRAR REGISTROS                        |");
+            Console.WriteLine("\t\t\t\t\t|10| - LOCALIZAR REGISTROS                     |");
+            Console.WriteLine("\t\t\t\t\t|0| - VOLTAR PARA O MENU PRINCIPAL             |");
+            Console.Write("\t\t\t\t\t|______________________________________________|\n" +
+                          "\t\t\t\t\t|Opção: ");
             opc = Console.ReadLine();
             return opc;
         }
@@ -97,41 +97,41 @@ namespace BILTIFUL.Core
             DateTime dnascimento;
             string nome;
             Console.Clear();
-            Console.WriteLine("===========CADASTRO CLIENTE===========");
+            Console.WriteLine("\n\t\t\t\t\t===========CADASTRO CLIENTE===========");
             do
             {
-                Console.Write("CPF: ");
+                Console.Write("\t\t\t\t\tCPF: ");
                 cpf = Console.ReadLine().Trim().Replace(".", "").Replace("-", "");//tira o ponto e o traço caso digitado
                 if (!ValidaCpf(cpf))//valida cpf
-                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+                    Console.WriteLine("\t\t\t\t\tCpf invalido!\n\t\t\t\t\tDigite novamente");
             } while (!ValidaCpf(cpf));//enquanto cpf nao for valido digitar denovo
             if (cadastros.clientes.Find(p => p.CPF == long.Parse(cpf)) != null)
             {
-                Console.WriteLine("Cliente com esse CPF ja existe");
+                Console.WriteLine("\t\t\t\t\tCliente com esse CPF ja existe");
                 return null;
             }
             do
             {
-                Console.Write("Nome: ");
+                Console.Write("\t\t\t\t\tNome: ");
                 nome = Console.ReadLine().Trim();
                 if (nome == "")
-                    Console.WriteLine("Nome nao pode ser vazio");
+                    Console.WriteLine("\t\t\t\t\tNome nao pode ser vazio");
             } while (nome == "");
             do
             {
-                Console.Write("Data de nascimento(dd/mm/aaaa): ");
+                Console.Write("\t\t\t\t\tData de nascimento(dd/mm/aaaa): ");
                 datanascimento = Console.ReadLine();
                 if (!DateTime.TryParse(datanascimento, out dnascimento))
-                    Console.WriteLine("Data invalida!");
+                    Console.WriteLine("\t\t\t\t\tData invalida!");
             } while (!DateTime.TryParse(datanascimento, out dnascimento));
             if ((DateTime.Now - dnascimento).Days / 365 < 18)
             {
-                Console.WriteLine("Deve ter pelomenos 18 anos para ser cliente!");
+                Console.WriteLine("\t\t\t\t\tDeve ter pelomenos 18 anos para ser cliente!");
                 return null;
             }
             do
             {
-                Console.Write("Sexo(M-Masculino e F-Feminino): ");
+                Console.Write("\t\t\t\t\tSexo(M-Masculino e F-Feminino): ");
                 csexo = Console.ReadLine().ToUpper();
             } while ((csexo != "M") && (csexo != "F"));
             Sexo sexo = (Sexo)char.Parse(csexo);
@@ -183,35 +183,35 @@ namespace BILTIFUL.Core
             string rsocial;
             string cnpj;
             Console.Clear();
-            Console.WriteLine("===========CADASTRO FORNECEDOR===========");
+            Console.WriteLine("\n\t\t\t\t\t===========CADASTRO FORNECEDOR===========");
             do
             {
-                Console.Write("CNPJ: ");
+                Console.Write("\t\t\t\t\tCNPJ: ");
                 cnpj = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");//tira o ponto e o traço caso digitado
                 if (!ValidaCnpj(cnpj))//valida c
-                    Console.WriteLine("Cnpj invalido!\nDigite novamente");
+                    Console.WriteLine("\t\t\t\t\tCnpj invalido!\nDigite novamente");
 
             } while (!ValidaCnpj(cnpj));//enquanto cpf nao for valido digitar denovo
             if (cadastros.fornecedores.Find(p => p.CNPJ == long.Parse(cnpj)) != null)
             {
-                Console.WriteLine("Fornecedor com esse cnpj ja existe");
+                Console.WriteLine("\t\t\t\t\tFornecedor com esse cnpj ja existe");
                 return null;
             }
             do
             {
-                Console.Write("Razão Social: ");
+                Console.Write("\t\t\t\t\tRazão Social: ");
                 rsocial = Console.ReadLine().Trim();
             } while (rsocial == "");
             do
             {
-                Console.Write("Data de abertura(dd/mm/aaaa): ");
+                Console.Write("\t\t\t\t\tData de abertura(dd/mm/aaaa): ");
                 dataabertura = Console.ReadLine();
                 if (!DateTime.TryParse(dataabertura, out dabertura))
-                    Console.WriteLine("Data invalida!");
+                    Console.WriteLine("\t\t\t\t\tData invalida!");
             } while (!DateTime.TryParse(dataabertura, out dabertura));
             if ((DateTime.Now - dabertura).Days < 180)
             {
-                Console.WriteLine("Deve ter se passado pelo menos 6 meses desde a abertura!");
+                Console.WriteLine("\t\t\t\t\tDeve ter se passado pelo menos 6 meses desde a abertura!");
                 return null;
             }
 
@@ -261,18 +261,18 @@ namespace BILTIFUL.Core
             int valor;
             string nome;
             Console.Clear();
-            Console.WriteLine("===========CADASTRO PRODUTO===========");
+            Console.WriteLine("\n\t\t\t\t\t===========CADASTRO PRODUTO===========");
             do
             {
-                Console.Write("Nome: ");
+                Console.Write("\t\t\t\t\tNome: ");
                 nome = Console.ReadLine().Trim();
             } while (nome == "");
             do
             {
-                Console.Write("Valor($$$,$$)(valor precisa ser menor que 1000,00): ");
+                Console.Write("\t\t\t\t\tValor($$$,$$)(valor precisa ser menor que 1000,00): ");
                 svalor = Console.ReadLine().Trim().Replace(".", "").Replace(",", "");
                 if (!int.TryParse(svalor, out valor) || (valor > 99999) || (valor <= 0))
-                    Console.WriteLine("Valor invalido!");
+                    Console.WriteLine("\t\t\t\t\tValor invalido!");
             } while (!int.TryParse(svalor, out valor) || (valor > 99999) || (valor <= 0));
 
             cadastros.codigos[0]++;
@@ -288,7 +288,7 @@ namespace BILTIFUL.Core
         {
             try
             {
-                StreamWriter sw = new StreamWriter("Arquivos\\Controle.dat");
+                StreamWriter sw = new StreamWriter("\t\t\t\t\tArquivos\\Controle.dat");
 
                 cadastros.codigos.ForEach(c => sw.WriteLine(c));
 
@@ -303,10 +303,10 @@ namespace BILTIFUL.Core
         {
             string nome;
             Console.Clear();
-            Console.WriteLine("===========CADASTRO MATERIA PRIMA===========");
+            Console.WriteLine("\n\t\t\t\t\t===========CADASTRO MATERIA PRIMA===========");
             do
             {
-                Console.WriteLine("Digite o nome da Materia Prima");
+                Console.WriteLine("\t\t\t\t\tDigite o nome da Materia Prima");
                 nome = Console.ReadLine().Trim();
             } while (nome == "");
 
@@ -326,17 +326,17 @@ namespace BILTIFUL.Core
         {
             string inadimplente;
             Console.Clear();
-            Console.WriteLine("===========CADASTRO DE INADIMPLENTE===========");
+            Console.WriteLine("\n\t\t\t\t\t===========CADASTRO DE INADIMPLENTE===========");
             do
             {
-                Console.WriteLine("Digite o cpf do inadimplente: ");
+                Console.WriteLine("\t\t\t\t\tDigite o cpf do inadimplente: ");
                 inadimplente = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
                 if (!ValidaCpf(inadimplente))//valida cpf
-                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+                    Console.WriteLine("\t\t\t\t\tCpf invalido!\nDigite novamente");
             } while (!ValidaCpf(inadimplente));
             if (cadastros.inadimplentes.Find(p => p == "" + inadimplente) != null)
             {
-                Console.WriteLine("Inadimplente com esse CPF ja existe");
+                Console.WriteLine("\t\t\t\t\tInadimplente com esse CPF ja existe");
                 return 0;
             }
             long cpf = long.Parse(inadimplente);
@@ -353,17 +353,17 @@ namespace BILTIFUL.Core
         {
             string bloqueado;
             Console.Clear();
-            Console.WriteLine("===========CADASTRO DE BLOQUEADO===========");
+            Console.WriteLine("\n\t\t\t\t\t===========CADASTRO DE BLOQUEADO===========");
             do
             {
-                Console.WriteLine("Digite o CNPJ do fornecedor: ");
+                Console.WriteLine("\t\t\t\t\tDigite o CNPJ do fornecedor: ");
                 bloqueado = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");
                 if (!ValidaCnpj(bloqueado))//valida cpf
-                    Console.WriteLine("Cnpj invalido!\nDigite novamente");
+                    Console.WriteLine("\t\t\t\t\tCnpj invalido!\nDigite novamente");
             } while (!ValidaCnpj(bloqueado));
             if (cadastros.bloqueados.Find(p => p == bloqueado) != null)
             {
-                Console.WriteLine("Fornecedor com esse cnpj ja existe");
+                Console.WriteLine("\t\t\t\t\tFornecedor com esse cnpj ja existe");
                 return 0;
             }
 
@@ -382,13 +382,13 @@ namespace BILTIFUL.Core
         {
             string inadimplente;
             Console.Clear();
-            Console.WriteLine("===========REMOVER DE INADIMPLENTE===========");
+            Console.WriteLine("\n\t\t\t\t\t===========REMOVER DE INADIMPLENTE===========");
             do
             {
-                Console.WriteLine("Digite o cpf do ex caloteiro: ");
+                Console.WriteLine("\t\t\t\t\tDigite o cpf do ex caloteiro: ");
                 inadimplente = Console.ReadLine().Trim().Replace(".", "").Replace("-", "");
                 if (!ValidaCpf(inadimplente))//valida cpf
-                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+                    Console.WriteLine("\t\t\t\t\tCpf invalido!\nDigite novamente");
             } while (!ValidaCpf(inadimplente));
 
             long cpf = long.Parse(inadimplente);
@@ -400,13 +400,13 @@ namespace BILTIFUL.Core
         {
             string bloqueado;
             Console.Clear();
-            Console.WriteLine("===========REMOVER DE BLOQUEADO===========");
+            Console.WriteLine("\n\t\t\t\t\t===========REMOVER DE BLOQUEADO===========");
             do
             {
-                Console.WriteLine("Digite o cnpj do fornecedor bloqueado: ");
+                Console.WriteLine("\t\t\t\t\tDigite o cnpj do fornecedor bloqueado: ");
                 bloqueado = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");
                 if (!ValidaCnpj(bloqueado))//valida cpf
-                    Console.WriteLine("Cpf invalido!\nDigite novamente");
+                    Console.WriteLine("\t\t\t\t\tCpf invalido!\nDigite novamente");
             } while (!ValidaCnpj(bloqueado));
 
             long cnpj = long.Parse(bloqueado);
@@ -430,7 +430,7 @@ namespace BILTIFUL.Core
                         i++;
                     }
                     sw.Close();
-                    Console.WriteLine("Cliente removido dos inadimplentes!");
+                    Console.WriteLine("\t\t\t\t\tCliente removido dos inadimplentes!");
                 }
                 catch (Exception e)
                 {
@@ -450,7 +450,7 @@ namespace BILTIFUL.Core
                         i++;
                     }
                     sw.Close();
-                    Console.WriteLine("Fornecedor desbloqueado!!");
+                    Console.WriteLine("\t\t\t\t\tFornecedor desbloqueado!!");
                 }
                 catch (Exception e)
                 {
@@ -465,18 +465,18 @@ namespace BILTIFUL.Core
             do
             {
                 Console.Clear();
-                Console.WriteLine("\t________________________________________________");
-                Console.WriteLine("\t|+++++++++++++| MENU DE REGISTROS |++++++++++++|");
-                Console.WriteLine("\t|1| - REGISTROS DE CLIENTES                    |");
-                Console.WriteLine("\t|2| - REGISTROS DE FORNECEDORES                |");
-                Console.WriteLine("\t|3| - REGISTROS DE MATERIAS PRIMAS             |");
-                Console.WriteLine("\t|4| - REGISTROS DE PRODUTOS                    |");
-                Console.WriteLine("\t|5| - REGISTROS DE VENDAS                      |");
-                Console.WriteLine("\t|6| - REGISTROS DE COMPRAS                     |");
-                Console.WriteLine("\t|7| - REGISTROS DE PRODUÇÃO                    |");
-                Console.WriteLine("\t|0| - VOLTAR                                   |");
-                Console.Write("\t|______________________________________________|\n" +
-                              "\t|Opção: ");
+                Console.WriteLine("\n\t\t\t\t\t________________________________________________");
+                Console.WriteLine("\t\t\t\t\t|+++++++++++++| MENU DE REGISTROS |++++++++++++|");
+                Console.WriteLine("\t\t\t\t\t|1| - REGISTROS DE CLIENTES                    |");
+                Console.WriteLine("\t\t\t\t\t|2| - REGISTROS DE FORNECEDORES                |");
+                Console.WriteLine("\t\t\t\t\t|3| - REGISTROS DE MATERIAS PRIMAS             |");
+                Console.WriteLine("\t\t\t\t\t|4| - REGISTROS DE PRODUTOS                    |");
+                Console.WriteLine("\t\t\t\t\t|5| - REGISTROS DE VENDAS                      |");
+                Console.WriteLine("\t\t\t\t\t|6| - REGISTROS DE COMPRAS                     |");
+                Console.WriteLine("\t\t\t\t\t|7| - REGISTROS DE PRODUÇÃO                    |");
+                Console.WriteLine("\t\t\t\t\t|0| - VOLTAR                                   |");
+                Console.Write("\t\t\t\t\t|______________________________________________|\n" +
+                              "\t\t\t\t\t|Opção: ");
                 opc = Console.ReadLine();
                 switch (opc)
                 {
@@ -484,45 +484,49 @@ namespace BILTIFUL.Core
                         if (cadastros.clientes.Count() != 0)
                             new Registros(cadastros.clientes);
                         else
-                            Console.WriteLine("Nenhum cliente registrado");
+                            Console.WriteLine("\t\t\t\t\tNenhum cliente registrado");
                         break;
                     case "2":
                         if (cadastros.fornecedores.Count() != 0)
                             new Registros(cadastros.fornecedores);
                         else
-                            Console.WriteLine("Nenhum fornecedor registrado");
+                            Console.WriteLine("\t\t\t\t\tNenhum fornecedor registrado");
                         break;
                     case "3":
                         if (cadastros.materiasprimas.Count() != 0)
                             new Registros(cadastros.materiasprimas);
                         else
-                            Console.WriteLine("Nenhuma materia prima registrada");
+                            Console.WriteLine("\t\t\t\t\tNenhuma materia prima registrada");
                         break;
                     case "4":
                         if (cadastros.produtos.Count() != 0)
                             new Registros(cadastros.produtos);
                         else
-                            Console.WriteLine("Nenhum produto registrado");
+                            Console.WriteLine("\t\t\t\t\tNenhum produto registrado");
                         break;
                     case "5":
+                        if (cadastros.vendas.Count() != 0)
+                            new Registros(cadastros.vendas, cadastros.itensvenda);
+                        else
+                            Console.WriteLine("\t\t\t\t\tNenhuma venda registrada");
                         break;
                     case "6":
                         if (cadastros.compras.Count() != 0)
                             new Registros(cadastros.compras, cadastros.itenscompra);
                         else
-                            Console.WriteLine("Nenhum produto registrado");
+                            Console.WriteLine("\t\t\t\t\tNenhum produto registrado");
                         break;
                     case "7":
                         if (cadastros.producao.Count() != 0)
                             new Registros(cadastros.producao, cadastros.itensproducao);
                         else
-                            Console.WriteLine("Nenhum produto registrado");
+                            Console.WriteLine("\t\t\t\t\tNenhum produto registrado");
                         break;
                     case "0":
 
                         break;
                     default:
-                        Console.WriteLine("Opção invalida");
+                        Console.WriteLine("\t\t\t\t\tOpção invalida");
                         break;
                 }
                 Console.ReadKey();
@@ -534,18 +538,18 @@ namespace BILTIFUL.Core
             do
             {
                 Console.Clear();
-                Console.WriteLine("\t________________________________________________");
-                Console.WriteLine("\t|++++++++++++| MENU DE LOCALIZAÇÃO |+++++++++++|");
-                Console.WriteLine("\t|1| - LOCALIZAR CLIENTES                       |");
-                Console.WriteLine("\t|2| - LOCALIZAR FORNECEDORES                   |");
-                Console.WriteLine("\t|3| - LOCALIZAR MATERIAS PRIMAS                |");
-                Console.WriteLine("\t|4| - LOCALIZAR PRODUTOS                       |");
-                Console.WriteLine("\t|5| - LOCALIZAR VENDAS                         |");
-                Console.WriteLine("\t|6| - LOCALIZAR COMPRAS                        |");
-                Console.WriteLine("\t|7| - LOCALIZAR PRODUÇÕES                      |");
-                Console.WriteLine("\t|0| - VOLTAR                                   |");
-                Console.Write("\t|______________________________________________|\n" +
-                              "\t|Opção: ");
+                Console.WriteLine("\t\t\t\t\t________________________________________________");
+                Console.WriteLine("\t\t\t\t\t|++++++++++++| MENU DE LOCALIZAÇÃO |+++++++++++|");
+                Console.WriteLine("\t\t\t\t\t|1| - LOCALIZAR CLIENTES                       |");
+                Console.WriteLine("\t\t\t\t\t|2| - LOCALIZAR FORNECEDORES                   |");
+                Console.WriteLine("\t\t\t\t\t|3| - LOCALIZAR MATERIAS PRIMAS                |");
+                Console.WriteLine("\t\t\t\t\t|4| - LOCALIZAR PRODUTOS                       |");
+                Console.WriteLine("\t\t\t\t\t|5| - LOCALIZAR VENDAS                         |");
+                Console.WriteLine("\t\t\t\t\t|6| - LOCALIZAR COMPRAS                        |");
+                Console.WriteLine("\t\t\t\t\t|7| - LOCALIZAR PRODUÇÕES                      |");
+                Console.WriteLine("\t\t\t\t\t|0| - VOLTAR                                   |");
+                Console.Write("\t\t\t\t\t|______________________________________________|\n" +
+                              "\t\t\t\t\t|Opção: ");
                 opc = Console.ReadLine();
                 bool encontrado = false;
                 Console.Clear();
@@ -556,11 +560,11 @@ namespace BILTIFUL.Core
                         string cpf;
                         do
                         {
-                            Console.Write("Digite o cpf que deseja localizar: ");
+                            Console.Write("\t\t\t\t\tDigite o cpf que deseja localizar: ");
                             cpf = Console.ReadLine();
                             if (!ValidaCpf(cpf))
                             {
-                                Console.WriteLine("CPF INVÁLIDO, TENTE NOVAMENTE!");
+                                Console.WriteLine("\t\t\t\t\tCPF INVÁLIDO, TENTE NOVAMENTE!");
                             }
                         } while (ValidaCpf(cpf) != true);
                         Console.Clear();
@@ -576,11 +580,11 @@ namespace BILTIFUL.Core
                         string cnpj;
                         do
                         {
-                            Console.Write("Digite o cnpj que deseja localizar: ");
+                            Console.Write("\t\t\t\t\tDigite o cnpj que deseja localizar: ");
                             cnpj = Console.ReadLine();
                             if (!ValidaCnpj(cnpj))
                             {
-                                Console.WriteLine("CNPJ INVÁLIDO, TENTE NOVAMENTE!");
+                                Console.WriteLine("\t\t\t\t\tCNPJ INVÁLIDO, TENTE NOVAMENTE!");
                             }
                         } while (ValidaCnpj(cnpj) != true);
                         Console.Clear();
@@ -593,7 +597,7 @@ namespace BILTIFUL.Core
                         }
                         break;
                     case "3":
-                        Console.Write("Digite o nome que deseja localizar: ");
+                        Console.Write("\t\t\t\t\tDigite o nome que deseja localizar: ");
                         string nomeMateriaPrima = Console.ReadLine().Trim().ToLower();
                         List<MPrima> localizarmprima = cadastros.materiasprimas.FindAll(p => p.Nome.ToLower() == nomeMateriaPrima);
                         if (localizarmprima != null)
@@ -603,7 +607,7 @@ namespace BILTIFUL.Core
                         }
                         break;
                     case "4":
-                        Console.Write("Digite o nome do produto que deseja localizar: ");
+                        Console.Write("\t\t\t\t\tDigite o nome do produto que deseja localizar: ");
                         string nomeProduto = Console.ReadLine().Trim().ToLower();
                         List<Produto> localizaProduto = cadastros.produtos.FindAll(p => p.Nome.ToLower() == nomeProduto);
                         if (localizaProduto != null)
@@ -613,7 +617,7 @@ namespace BILTIFUL.Core
                         }
                         break;
                     case "5":
-                        Console.Write("Digite a data de venda que deseja localizar(dd/mm/aaaa): ");
+                        Console.Write("\t\t\t\t\tDigite a data de venda que deseja localizar(dd/mm/aaaa): ");
                         DateTime dvenda = DateTime.Parse(Console.ReadLine());
                         List<Venda> localizavenda = cadastros.vendas.FindAll(p => p.DataVenda == dvenda);
                         if (localizavenda != null)
@@ -622,7 +626,7 @@ namespace BILTIFUL.Core
                             foreach (Venda p in localizavenda)
                             {
                                 Console.WriteLine(p.DadosVenda());
-                                Console.WriteLine("Itens: ");
+                                Console.WriteLine("\t\t\t\t\tItens: ");
                                 foreach (ItemVenda i in cadastros.itensvenda)
                                 {
                                     if (i.Id == p.Id)
@@ -632,7 +636,7 @@ namespace BILTIFUL.Core
                         }
                         break;
                     case "6":
-                        Console.Write("Digite o data de compra que deseja localizar(dd/mm/aaaa): ");
+                        Console.Write("\t\t\t\t\tDigite o data de compra que deseja localizar(dd/mm/aaaa): ");
                         DateTime dcompra = DateTime.Parse(Console.ReadLine());
                         List<Compra> localizacompra = cadastros.compras.FindAll(p => p.DataCompra == dcompra);
                         if (localizacompra != null)
@@ -641,7 +645,7 @@ namespace BILTIFUL.Core
                             foreach (Compra p in localizacompra)
                             {
                                 Console.WriteLine(p.DadosCompra());
-                                Console.WriteLine("Itens: ");
+                                Console.WriteLine("\t\t\t\t\tItens: ");
                                 foreach (ItemCompra i in cadastros.itenscompra)
                                 {
                                     if (i.Id == p.Id)
@@ -651,7 +655,7 @@ namespace BILTIFUL.Core
                         }
                         break;
                     case "7":
-                        Console.Write("Digite o data de produção que deseja localizar(dd/mm/aaaa): ");
+                        Console.Write("\t\t\t\t\tDigite o data de produção que deseja localizar(dd/mm/aaaa): ");
                         DateTime dproducao = DateTime.Parse(Console.ReadLine());
                         List<Producao> localizaproducao = cadastros.producao.FindAll(p => p.DataProducao == dproducao);
                         if (localizaproducao != null)
@@ -660,7 +664,7 @@ namespace BILTIFUL.Core
                             foreach (Producao p in localizaproducao)
                             {
                                 Console.WriteLine(p.DadosProducao());
-                                Console.WriteLine("Itens: ");
+                                Console.WriteLine("\t\t\t\t\tItens: ");
                                 foreach (ItemProducao i in cadastros.itensproducao)
                                 {
                                     if (i.Id == p.Id)
@@ -672,11 +676,11 @@ namespace BILTIFUL.Core
                     case "0":
                         break;
                     default:
-                        Console.WriteLine("Opção invalida");
+                        Console.WriteLine("\t\t\t\t\tOpção invalida");
                         break;
                 }
                 if (encontrado == false && opc != "0")
-                    Console.WriteLine("Registro não encontrado");
+                    Console.WriteLine("\t\t\t\t\tRegistro não encontrado");
                 Console.ReadKey();
             } while (opc != "0");
         }
@@ -687,15 +691,15 @@ namespace BILTIFUL.Core
             do
             {
                 Console.Clear();
-                Console.WriteLine("\t________________________________________________");
-                Console.WriteLine("\t|++++++++++++++| MENU DE EDIÇÃO |++++++++++++++|");
-                Console.WriteLine("\t|1| - EDITAR CLIENTES                          |");
-                Console.WriteLine("\t|2| - EDITAR FORNECEDORES                      |");
-                Console.WriteLine("\t|3| - EDITAR MATERIAS PRIMAS                   |");
-                Console.WriteLine("\t|4| - EDITAR PRODUTOS                          |");
-                Console.WriteLine("\t|0| - VOLTAR                                   |");
-                Console.Write("\t|_________________________________________________|\n" +
-                              "\t|Opção: ");
+                Console.WriteLine("\t\t\t\t\t________________________________________________");
+                Console.WriteLine("\t\t\t\t\t|++++++++++++++| MENU DE EDIÇÃO |++++++++++++++|");
+                Console.WriteLine("\t\t\t\t\t|1| - EDITAR CLIENTES                          |");
+                Console.WriteLine("\t\t\t\t\t|2| - EDITAR FORNECEDORES                      |");
+                Console.WriteLine("\t\t\t\t\t|3| - EDITAR MATERIAS PRIMAS                   |");
+                Console.WriteLine("\t\t\t\t\t|4| - EDITAR PRODUTOS                          |");
+                Console.WriteLine("\t\t\t\t\t|0| - VOLTAR                                   |");
+                Console.Write("\t\t\t\t\t|_________________________________________________|\n" +
+                              "\t\t\t\t\t|Opção: ");
                 opc = Console.ReadLine();
                 bool encontrado = false;
                 Console.Clear();
@@ -706,11 +710,11 @@ namespace BILTIFUL.Core
                         string cpf;
                         do
                         {
-                            Console.Write("Digite o CPF do cliente que deseja alterar: ");
+                            Console.Write("\t\t\t\t\tDigite o CPF do cliente que deseja alterar: ");
                             cpf = Console.ReadLine();
                             if (!ValidaCpf(cpf))
                             {
-                                Console.WriteLine("CPF INVÁLIDO, TENTE NOVAMENTE!");
+                                Console.WriteLine("\t\t\t\t\tCPF INVÁLIDO, TENTE NOVAMENTE!");
                             }
                         } while (ValidaCpf(cpf) != true);
                         Console.Clear();
@@ -723,16 +727,16 @@ namespace BILTIFUL.Core
                             Console.WriteLine(localizarcliente.DadosCliente());
                             do
                             {
-                                Console.WriteLine("\n\nSOMENTE O NOME É POSSÍVEL ALTERAR!");
-                                Console.WriteLine("Deseja alterar o nome? [S - Sim] [N - Não] ");
+                                Console.WriteLine("\n\n\t\t\t\t\tSOMENTE O NOME É POSSÍVEL ALTERAR!");
+                                Console.WriteLine("\t\t\t\t\tDeseja alterar o nome? [S - Sim] [N - Não] ");
                                 opcao = Console.ReadLine().ToUpper();
                                 if (opcao == "S")
                                 {
-                                    Console.Write("\nInforme o novo Nome: ");
+                                    Console.Write("\n\t\t\t\t\tInforme o novo Nome: ");
                                     string novoNome = Console.ReadLine();
                                     localizarcliente.Nome = novoNome;
                                     Console.WriteLine(localizarcliente.DadosCliente());
-                                    Console.WriteLine("NOVO NOME ALTERADO COM SUCESSO!");
+                                    Console.WriteLine("\t\t\t\t\tNOVO NOME ALTERADO COM SUCESSO!");
                                     Console.ReadLine();//////////
                                     new Controle(localizarcliente);
 
@@ -742,7 +746,7 @@ namespace BILTIFUL.Core
                                 else if (opcao == "N")
                                 {
                                     Console.Clear();
-                                    Console.WriteLine("ALTERAÇÃO CANCELADA");
+                                    Console.WriteLine("\t\t\t\t\tALTERAÇÃO CANCELADA");
                                     break;
                                 }
                             } while (opcao != "S" || opcao != "N");
@@ -755,11 +759,11 @@ namespace BILTIFUL.Core
                         string cnpj;
                         do
                         {
-                            Console.Write("Digite o cnpj que deseja localizar: ");
+                            Console.Write("\t\t\t\t\tDigite o cnpj que deseja localizar: ");
                             cnpj = Console.ReadLine();
                             if (!ValidaCnpj(cnpj))
                             {
-                                Console.WriteLine("CNPJ INVÁLIDO, TENTE NOVAMENTE!");
+                                Console.WriteLine("\t\t\t\t\tCNPJ INVÁLIDO, TENTE NOVAMENTE!");
                             }
                         } while (ValidaCnpj(cnpj) != true);
                         Console.Clear();
@@ -772,7 +776,7 @@ namespace BILTIFUL.Core
                         }
                         break;
                     case "3":
-                        Console.Write("Digite o nome que deseja localizar: ");
+                        Console.Write("\t\t\t\t\tDigite o nome que deseja localizar: ");
                         string nomeMateriaPrima = Console.ReadLine().Trim().ToLower();
                         List<MPrima> localizarmprima = cadastros.materiasprimas.FindAll(p => p.Nome.ToLower() == nomeMateriaPrima);
                         if (localizarmprima != null)
@@ -782,7 +786,7 @@ namespace BILTIFUL.Core
                         }
                         break;
                     case "4":
-                        Console.Write("Digite o nome do produto que deseja localizar: ");
+                        Console.Write("\t\t\t\t\tDigite o nome do produto que deseja localizar: ");
                         string nomeProduto = Console.ReadLine().Trim().ToLower();
                         List<Produto> localizaProduto = cadastros.produtos.FindAll(p => p.Nome.ToLower() == nomeProduto);
                         if (localizaProduto != null)
@@ -792,7 +796,7 @@ namespace BILTIFUL.Core
                         }
                         break;
                     case "5":
-                        Console.Write("Digite a data de venda que deseja localizar(dd/mm/aaaa): ");
+                        Console.Write("\t\t\t\t\tDigite a data de venda que deseja localizar(dd/mm/aaaa): ");
                         DateTime dvenda = DateTime.Parse(Console.ReadLine());
                         List<Venda> localizavenda = cadastros.vendas.FindAll(p => p.DataVenda == dvenda);
                         if (localizavenda != null)
@@ -801,7 +805,7 @@ namespace BILTIFUL.Core
                             foreach (Venda p in localizavenda)
                             {
                                 Console.WriteLine(p.DadosVenda());
-                                Console.WriteLine("Itens: ");
+                                Console.WriteLine("\t\t\t\t\tItens: ");
                                 foreach (ItemVenda i in cadastros.itensvenda)
                                 {
                                     if (i.Id == p.Id)
@@ -811,7 +815,7 @@ namespace BILTIFUL.Core
                         }
                         break;
                     case "6":
-                        Console.Write("Digite o data de compra que deseja localizar(dd/mm/aaaa): ");
+                        Console.Write("\t\t\t\t\tDigite o data de compra que deseja localizar(dd/mm/aaaa): ");
                         DateTime dcompra = DateTime.Parse(Console.ReadLine());
                         List<Compra> localizacompra = cadastros.compras.FindAll(p => p.DataCompra == dcompra);
                         if (localizacompra != null)
@@ -820,7 +824,7 @@ namespace BILTIFUL.Core
                             foreach (Compra p in localizacompra)
                             {
                                 Console.WriteLine(p.DadosCompra());
-                                Console.WriteLine("Itens: ");
+                                Console.WriteLine("\t\t\t\t\tItens: ");
                                 foreach (ItemCompra i in cadastros.itenscompra)
                                 {
                                     if (i.Id == p.Id)
@@ -830,7 +834,7 @@ namespace BILTIFUL.Core
                         }
                         break;
                     case "7":
-                        Console.Write("Digite o data de produção que deseja localizar(dd/mm/aaaa): ");
+                        Console.Write("\t\t\t\t\tDigite o data de produção que deseja localizar(dd/mm/aaaa): ");
                         DateTime dproducao = DateTime.Parse(Console.ReadLine());
                         List<Producao> localizaproducao = cadastros.producao.FindAll(p => p.DataProducao == dproducao);
                         if (localizaproducao != null)
@@ -839,7 +843,7 @@ namespace BILTIFUL.Core
                             foreach (Producao p in localizaproducao)
                             {
                                 Console.WriteLine(p.DadosProducao());
-                                Console.WriteLine("Itens: ");
+                                Console.WriteLine("\t\t\t\t\tItens: ");
                                 foreach (ItemProducao i in cadastros.itensproducao)
                                 {
                                     if (i.Id == p.Id)
@@ -851,11 +855,11 @@ namespace BILTIFUL.Core
                     case "0":
                         break;
                     default:
-                        Console.WriteLine("Opção invalida");
+                        Console.WriteLine("\t\t\t\t\tOpção invalida");
                         break;
                 }
                 if (encontrado == false && opc != "0")
-                    Console.WriteLine("Registro não encontrado");
+                    Console.WriteLine("\t\t\t\t\tRegistro não encontrado");
                 Console.ReadKey();
             } while (opc != "0");
         }

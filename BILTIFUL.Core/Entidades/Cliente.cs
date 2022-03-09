@@ -56,11 +56,11 @@ namespace BILTIFUL.Core.Entidades
 
         public string VendasCliente()
         {
-            return $"\n\t\t-------------- Informações --------------" +
-                    $"\n\t\tCpf: {CPF}" +
-                    $"\n\t\tNome: {Nome}" +
-                    $"\n\t\tData Ultima Compra: {UltimaCompra.ToString("dd/MM/yyyy")}" +
-                    $"\n\t\t-----------------------------------------";
+            return $"\n\t\t\t\t\t-------------- Informações --------------" +
+                    $"\n\t\t\t\t\tCpf: {CPF.ToString().PadLeft(11, '0')}" +
+                    $"\n\t\t\t\t\tNome: {Nome}" +
+                    $"\n\t\t\t\t\tData Ultima Compra: {UltimaCompra.ToString("dd/MM/yyyy")}" +
+                    $"\n\t\t\t\t\t-----------------------------------------";
         }
     }
 

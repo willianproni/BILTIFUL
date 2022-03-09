@@ -45,17 +45,17 @@ namespace BILTIFUL.Core.Entidades
         }
         public string DadosVenda()
         {
-            return $"-------------------------------------------\nId: {Id}\nCliente: {Cliente}\nValor total: {ValorTotal}\n-------------------------------------------";
+            return $"-------------------------------------------\nId: {Id}\nCliente: {Cliente}\nValor total: {float.Parse(ValorTotal.Insert(3, ","))}\n-------------------------------------------";
         }
         public string ConverterParaEDI()
         {
-            return $"{Id}{DataVenda}{Cliente}{ValorTotal}";
+            return $"{Id}{DataVenda.ToString("dd/MM/yyyy")}{Cliente.ToString().PadLeft(11,'0')}{ValorTotal}";
         }
         public string MostrarItemVenda()
         {
-            return $"\n\t\tId = {Id}" +
-                   $"\n\t\tCpf: {Cliente}" +
-                   $"\n\t\tValor Total: {ValorTotal}";
+            return $"\n\t\t\t\t\tId = {Id}" +
+                   $"\n\t\t\t\t\tCpf: {Cliente}" +
+                   $"\n\t\t\t\t\tValor Total: {float.Parse(ValorTotal.Insert(3, ","))}";
         }
     }
 }

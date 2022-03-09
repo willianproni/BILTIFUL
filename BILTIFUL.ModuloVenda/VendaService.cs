@@ -25,21 +25,20 @@ namespace BILTIFUL.ModuloVenda
         public void Menu()
         {
             Console.Clear();
-            Console.WriteLine("\t________________________________________________");
-            Console.WriteLine("\t|+++++++++++++++++++| Vendas |+++++++++++++++++++|");
-            Console.WriteLine("\t|1| - CADASTRAR VENDA                            |");
-            Console.WriteLine("\t|2| - LOCALIZAR VENDA                            |");
-            Console.WriteLine("\t|3| - EXCLUIR VENDA                              |");
-            Console.WriteLine("\t|4| - REGISTROS DE VENDAS                        |");
-            Console.WriteLine("\t|0| - VOLTAR                                     |");
-            Console.Write("\t|________________________________________________|\n" +
-                          "\t|Opção: ");
+            Console.WriteLine("\n\t\t\t\t\t ________________________________________________");
+            Console.WriteLine("\t\t\t\t\t|+++++++++++++++++++| VENDAS |+++++++++++++++++++|");
+            Console.WriteLine("\t\t\t\t\t|1| - CADASTRAR VENDA                            |");
+            Console.WriteLine("\t\t\t\t\t|2| - LOCALIZAR VENDA                            |");        
+            Console.WriteLine("\t\t\t\t\t|3| - EXIBIR VENDAS CADASTRADAS                  |");
+            Console.WriteLine("\t\t\t\t\t|0| - VOLTAR                                     |");
+            Console.Write("\t\t\t\t\t|________________________________________________|\n" +
+                          "\t\t\t\t\t|Opção: ");
         }
-        
+
         public void SubMenu()
         {
             int opc;
-           
+
             do
             {
                 Menu();
@@ -61,12 +60,12 @@ namespace BILTIFUL.ModuloVenda
                     case 2:
                         servicocadastro.LocalizarRegistro();
                         break;
+                  
                     case 3:
-                        Console.WriteLine("Excluir Venda");
-                        break;
-                    case 4:
-                        Console.WriteLine("Impressão");
-                        servicocadastro.MostrarRegistro();
+                        if (servicocadastro.cadastros.vendas.Count() != 0)
+                            new Registros(servicocadastro.cadastros.vendas, servicocadastro.cadastros.itensvenda);
+                        else
+                            Console.WriteLine("Nenhum Venda registrada");
                         break;
 
                     default:
@@ -81,120 +80,188 @@ namespace BILTIFUL.ModuloVenda
         public void CadastrarVenda()
         {
             Console.Clear();
-            Console.WriteLine("\t\t------------- Verificar CPF -------------\n");
-            Console.Write("\t\tDigite o Cpf do cliente: ");
-            string cpfCliente = Console.ReadLine();
+            Console.WriteLine("\n\t\t\t\t\t------------- Verificar CPF -------------\n");
+            Console.Write("\t\t\t\t\tDigite o Cpf do cliente: ");
 
-            if (BuscarInadimplentes(cpfCliente, controle.inadimplentes))
+            if (long.TryParse(Console.ReadLine(), out long confimar))
             {
-                Console.WriteLine("\t\t-------------------------- Solicitar  ao cliente que se direcione a gerencia------------- "); //Cliente Inadimplente
-                Console.ReadKey();
-            }
-            else
-            {
-                long clientecpf = long.Parse(cpfCliente);
-                clienteVenda = clientecpf;
-                Cliente aux = BuscarCpf(clientecpf, controle.clientes);
+                long cpfCliente = confimar;
 
-                if (aux == null)
+                if (BuscarInadimplentes(cpfCliente, controle.inadimplentes))
                 {
-                    Console.WriteLine("\n\t\t-----------------------------------------" +
-                                      "\n\t\t\t   CPF não encontrado\n" +
-                                      "\t\t-----------------------------------------");
-                    Console.Write("\t\tCadastrar um nome Cliente (S/N): ");
-                    string cadNovoCliente = Console.ReadLine().ToUpper();
-                    if (cadNovoCliente == "S" || cadNovoCliente == "SIM")
-                    {
-                        servicocadastro.CadastroCliente();
-                        Console.ReadKey();
-                    }
-                    else
-                    {
-                        Console.WriteLine("\t\tRetornando para o Menu de Vendas... aperte qualquer tecla...");
-                        Console.ReadKey();
-                    }
-                    //Console.Clear();
+                    Console.WriteLine("\t\t\t\t\t-------------------------- Solicitar  ao cliente que se direcione a gerencia------------- "); //Cliente Inadimplente
+                    Console.ReadKey();
                 }
                 else
                 {
-                    Console.WriteLine(aux.VendasCliente());
-                    Console.Write("\n\t\tConfirma dados Cliente [S]/[N]: ");
-                    if (char.TryParse(Console.ReadLine().ToUpper(), out char confirmarCliente))
+                    long clientecpf = cpfCliente;
+                    clienteVenda = clientecpf;
+                    Cliente aux = BuscarCpf(clientecpf, controle.clientes);
+
+                    if (aux == null)
                     {
-                        if (confirmarCliente == 'S')
+                        Console.WriteLine("\n\t\t\t\t\t-----------------------------------------" +
+                                          "\n\t\t\t\t\t   CPF não encontrado\n" +
+                                          "\t\t\t\t\t-----------------------------------------");
+                        Console.Write("\t\t\t\t\tCadastrar um nome Cliente (S/N): ");
+                        string cadNovoCliente = Console.ReadLine().ToUpper();
+                        if (cadNovoCliente == "S" || cadNovoCliente == "SIM")
                         {
-                            ItemVenda();
+                            servicocadastro.CadastroCliente();
+                            Console.ReadKey();
                         }
+                        else
+                        {
+                            Console.WriteLine("\t\t\t\t\tRetornando para o Menu de Vendas... aperte qualquer tecla...");
+                            Console.ReadKey();
+                        }
+                        //Console.Clear();
                     }
-                    //Console.Clear();
+                    else
+                    {
+                        Console.WriteLine(aux.VendasCliente());
+                        Console.Write("\n\t\t\t\t\tConfirma dados Cliente [S]/[N]: ");
+                        if (char.TryParse(Console.ReadLine().ToUpper(), out char confirmarCliente))
+                        {
+                            if (confirmarCliente == 'S')
+                            {
+                                ItemVenda();
+                            }
+                        }
+                        //Console.Clear();
+                    }
                 }
+            }
+            else
+            {
+                Console.Write("\n\t\t\t\t\tDigite um CPF!!");
+                Console.ReadKey();
             }
         }
 
         public void ItemVenda()
         {
             Console.Clear();
-            Console.WriteLine("\t\t------------ Cadastro de Venda ------------");
+            Console.WriteLine("\n\t\t\t\t\t------------ Cadastro de Venda ------------");
             int cont = 0;
             float quantidade = 1;
 
             string codigo = CodIdIncremento();
             do
             {
-                Console.Write("\n\t\tCódigo do Produto: ");
+                Console.Write("\n\t\t\t\t\tCódigo do Produto: ");
                 string codProduto = Console.ReadLine();
                 Produto aux = vendaitem.CodigoProdutoValido(codProduto, controle.produtos);
                 if (aux != null)
                 {
-                    Console.Write("\t\tDigite a Quantidade do Produto: ");
-
+                    Console.Write("\t\t\t\t\tDigite a Quantidade do Produto: ");
                     if (float.TryParse(Console.ReadLine(), out float CanParse) && quantidade > 0)
                     {
                         quantidade = CanParse;
+                        if (quantidade > 999.99)
+                        {
+                            do
+                            {
+                                Console.WriteLine("\t\t\t\t\tQuantidade máxima de produto por item é 999\n");
+                                Console.Write("\t\t\t\t\tDigite a Quantidade do Produto: ");
+                                if (float.TryParse(Console.ReadLine(), out float quantMax) && quantidade > 0)
+                                {
+                                    quantidade = quantMax;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\t\t\t\t\tDigite uma quantidade válida!");
+                                }
+                            } while (quantidade > 999.99);
+                        }
                         float valorUnitario = float.Parse(aux.ValorVenda);
                         float valorTotal = quantidade * valorUnitario;
+                        if (valorTotal > 9999.99)
+                        {
+                            do
+                            {
+                                Console.WriteLine("\n\t\t\t\t\tValor Total superior ao permitido, máximo valor por item é R$ 9.999\n");
+                                Console.Write("\t\t\t\t\tDigite a Quantidade do Produto: ");
+                                if (float.TryParse(Console.ReadLine(), out float quantUnidadeTotal) && quantidade > 0)
+                                {
+                                    quantidade = quantUnidadeTotal;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\t\t\t\t\tDigite uma quantidade válida!");
+                                }
+                                valorTotal = quantidade * valorUnitario;
+                            } while (valorTotal > 9999.99);
+                        }
+                        if (valorVenda + valorTotal == 99999.99)
+                        {
+                            Console.WriteLine("\n\t\t\t\t\tValor total de Compras atigindo, abrir novo cadastro de compras");
+                            cont = 3;
+                        }
+                        else if (valorVenda + valorTotal > 99999.99)
+                        {
+                            do
+                            {
+                                Console.WriteLine($"\t\t\t\t\tPreço máximo por compra atingido, escolha outra quantidade do produto até R$ {99999 - valorVenda}\n");
+                                Console.Write("\t\t\t\t\tDigite a Quantidade do Produto: ");
+                                if (float.TryParse(Console.ReadLine(), out float quantValorTotal) && quantidade > 0)
+                                {
+                                    quantidade = quantValorTotal;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\t\t\t\t\tDigite uma quantidade válida!");
+                                }
+                                valorTotal = quantidade * valorUnitario;
+                            } while (valorVenda + valorTotal > 99999.99);
+                        }
+
+
                         valorVenda = valorTotal + valorVenda;
 
-                        Console.WriteLine($"\n\t\tValor Total: R${valorTotal}");
+                        Console.WriteLine($"\n\t\t\t\t\tValor Total: R${valorTotal.ToString("F2").TrimStart('0')}");
                         cont++;
 
-                        controle.itensvenda.Add(new ItemVenda(codigo, codProduto, quantidade.ToString().Replace(",", "").Replace(".", ""), valorUnitario.ToString().Replace(",", "").Replace(".", "")));
+                        controle.itensvenda.Add(new ItemVenda(codigo, codProduto, quantidade.ToString().Replace(",", "").Replace(".", ""), valorUnitario.ToString("F2").Replace(",", "").Replace(".", "")));
 
-                        Console.WriteLine($"\t\t{quantidade} {aux.Nome} adicionados na venda!!");
+                        Console.WriteLine($"\t\t\t\t\t{quantidade} {aux.Nome} adicionados na venda!!");
                         if (cont <= 2)
                         {
-                            Console.Write("\n\t\t Deseja adiciona outro Item [S]/[N]: ");
+                            Console.Write("\n\t\t\t\t\t Deseja adiciona outro Item [S]/[N]: ");
                             string adicionarNovoItem = Console.ReadLine().ToUpper();
 
-                            if (adicionarNovoItem == "S" || adicionarNovoItem == "SIM"){
+                            if (adicionarNovoItem == "S" || adicionarNovoItem == "SIM")
+                            {
                             }
                             else
                             {
                                 cont = 3;
                             }
                         }
+
+
                     }
                     else
                     {
-                        Console.WriteLine("\t\t\tDigite uma quantidade válida!!");
+                        Console.WriteLine("\t\t\t\t\tDigite uma quantidade válida!!");
                     }
                 }
-            } while (cont != 3);
+            } while (cont <= 2 || cont != 3);
 
-            Console.Write("\t\tConfirmar Compras [S]/[N]: ");
+            Console.Write("\t\t\t\t\tConfirmar Compras [S]/[N]: ");
             string confirmarCompras = Console.ReadLine().ToUpper();
             if (confirmarCompras == "S" || confirmarCompras == "SIM")
             {
                 SalvarItemVenda(codigo);
-                controle.vendas.Add(new Venda(codigo, clienteVenda, valorVenda.ToString().Replace(",", "").Replace(".", "")));
-                new Controle(new Venda(codigo, clienteVenda, valorVenda.ToString().Replace(",", "").Replace(".", "")));
-                
+                controle.vendas.Add(new Venda(codigo, clienteVenda, valorVenda.ToString("F2").Replace(",", "").Replace(".", "")));
+                new Controle(new Venda(codigo, clienteVenda, valorVenda.ToString("F2").Replace(",", "").Replace(".", "")));
+
             }
             else
             {
                 RemoveItem(codigo);
                 CodIdDecremento();
-                Console.WriteLine("\n\t\tVenda Cancelada!!");
+                Console.WriteLine("\n\t\t\t\t\tVenda Cancelada!!");
                 Console.ReadKey();
             }
         }
@@ -208,8 +275,8 @@ namespace BILTIFUL.ModuloVenda
                 {
                     if (iv.Id == codigo)
                     {
-                        Console.WriteLine("Removendo compra...");
-                        Console.WriteLine(iv);
+                        Console.WriteLine("\t\t\t\t\tRemovendo compra...");
+                        Console.WriteLine("\t\t\t\t\t" + iv);
                         controle.itensvenda.Remove(iv);
                     }
                     return true;
@@ -233,18 +300,18 @@ namespace BILTIFUL.ModuloVenda
 
             return cod;
         }
-   
-       public void SalvarItemVenda(string codigo)
+
+        public void SalvarItemVenda(string codigo)
         {
             codigo = codigo.PadLeft(5, '0');
-           
-                foreach(ItemVenda iv in controle.itensvenda) 
-                {
-                    if (iv.Id == codigo)
-                    {
-                        new Controle(new ItemVenda(codigo, iv.Produto, iv.Quantidade.ToString().Replace(",", "").Replace(".", ""), iv.ValorUnitario.ToString().Replace(",", "").Replace(".", "")));
 
-                    }                  
+            foreach (ItemVenda iv in controle.itensvenda)
+            {
+                if (iv.Id == codigo)
+                {
+                    new Controle(new ItemVenda(codigo, iv.Produto, iv.Quantidade.ToString().Replace(",", "").Replace(".", ""), iv.ValorUnitario.ToString().Replace(",", "").Replace(".", "")));
+
+                }
             }
         }
         public void SalvarCodigos()
@@ -262,9 +329,9 @@ namespace BILTIFUL.ModuloVenda
                 Console.WriteLine(ex.Message);
             }
         }
-        public bool BuscarInadimplentes(string clientcpf, List<string> inadimplentes)
+        public bool BuscarInadimplentes(long clientcpf, List<string> inadimplentes)
         {
-            string clienteinadimplentes = inadimplentes.Find(delegate (string i) { return i == clientcpf; });
+            string clienteinadimplentes = inadimplentes.Find(delegate (string i) { return i == clientcpf.ToString(); });
             if (clienteinadimplentes == null)
             {
                 return false;

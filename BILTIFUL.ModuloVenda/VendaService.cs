@@ -65,8 +65,10 @@ namespace BILTIFUL.ModuloVenda
                         Console.WriteLine("Excluir Venda");
                         break;
                     case 4:
-                        Console.WriteLine("Impressão");
-                        servicocadastro.MostrarRegistro();
+                        if (servicocadastro.cadastros.vendas.Count() != 0)
+                            new Registros(servicocadastro.cadastros.vendas, servicocadastro.cadastros.itensvenda);
+                        else
+                            Console.WriteLine("Nenhum Venda registrada");
                         break;
 
                     default:
@@ -220,7 +222,7 @@ namespace BILTIFUL.ModuloVenda
 
                         valorVenda = valorTotal + valorVenda;
 
-                        Console.WriteLine($"\n\t\tValor Total: R${valorTotal.ToString("F2")}");
+                        Console.WriteLine($"\n\t\tValor Total: R${valorTotal.ToString("F2").TrimStart('0')}");
                         cont++;
 
                         controle.itensvenda.Add(new ItemVenda(codigo, codProduto, quantidade.ToString().Replace(",", "").Replace(".", ""), valorUnitario.ToString("F2").Replace(",", "").Replace(".", "")));

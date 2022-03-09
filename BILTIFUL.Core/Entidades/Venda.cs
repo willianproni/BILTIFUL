@@ -45,7 +45,7 @@ namespace BILTIFUL.Core.Entidades
         }
         public string DadosVenda()
         {
-            return $"-------------------------------------------\nId: {Id}\nCliente: {Cliente}\nValor total: {ValorTotal}\n-------------------------------------------";
+            return $"-------------------------------------------\nId: {Id}\nCliente: {Cliente}\nValor total: {float.Parse(ValorTotal.Insert(3, ","))}\n-------------------------------------------";
         }
         public string ConverterParaEDI()
         {

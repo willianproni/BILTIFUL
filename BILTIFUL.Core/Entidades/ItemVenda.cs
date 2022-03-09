@@ -60,7 +60,7 @@ namespace BILTIFUL.Core.Entidades
         }
         public string DadosItemVenda()
         {
-            return $"-------------------------------------------\nProduto: {Produto}\nQuantidade: {Quantidade}\nValor total: {TotalItem}\n-------------------------------------------";
+            return $"-------------------------------------------\nProduto: {Produto}\nQuantidade: {float.Parse(Quantidade.Insert(3, ","))}\nValor total: {float.Parse(TotalItem.Insert(3, ","))}\n-------------------------------------------";
         }
     }
 }

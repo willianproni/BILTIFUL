@@ -53,9 +53,9 @@ namespace BILTIFUL.Core.Entidades
         }
         public string MostrarItemVenda()
         {
-            return $"\n\t\tId = {Id}" +
-                   $"\n\t\tCpf: {Cliente}" +
-                   $"\n\t\tValor Total: {ValorTotal}";
+            return $"\n\t\t\t\t\tId = {Id}" +
+                   $"\n\t\t\t\t\tCpf: {Cliente}" +
+                   $"\n\t\t\t\t\tValor Total: {float.Parse(ValorTotal.Insert(3, ","))}";
         }
     }
 }

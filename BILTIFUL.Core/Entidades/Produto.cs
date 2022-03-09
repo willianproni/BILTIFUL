@@ -35,10 +35,12 @@ namespace BILTIFUL.Core.Entidades
             this.Situacao = situacao;
         }
         public string ExibirProd()
-        {
-            return $"\n\t\tCod. Barra: {CodigoBarras}\n" +
-                   $"\t\tNome: {Nome}\n" +
-                   $"\t\tValor Unitário: R$ {ValorVenda}";
+        {   
+            return $"\n\t\t\t\t\t----------------------------\n" +
+                   $"\n\t\t\t\t\tCod. Barra: {CodigoBarras}\n" +
+                   $"\t\t\t\t\tNome: {Nome}\n" +
+                   $"\t\t\t\t\tValor Unitário: R$ {float.Parse(ValorVenda.Insert(3, ","))}\n"+
+                   $"\n\t\t\t\t\t----------------------------\n" ;
         }
 
         public string ConverterParaEDI()

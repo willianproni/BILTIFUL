@@ -50,7 +50,7 @@ namespace BILTIFUL.ModuloCompra
                     if (cadastroService.cadastros.compras.Count() != 0)
                         new Registros(cadastroService.cadastros.compras, cadastroService.cadastros.itenscompra);
                     else
-                        Console.WriteLine("Nenhum produto registrado");
+                        Console.WriteLine("\t\t\t\t\tNenhum produto registrado");
                     break;
                 case "0":
                     break;
@@ -65,21 +65,21 @@ namespace BILTIFUL.ModuloCompra
             do
             {
                 Console.Clear();
-                Console.WriteLine("\t________________________________________________");
-                Console.WriteLine("\t|++++++++++++| MENU DE LOCALIZAÇÃO |+++++++++++|");
-                Console.WriteLine("\t|1| - LOCALIZAR POR DATA                       |");
-                Console.WriteLine("\t|2| - LOCALIZAR POR FORNECEDOR                 |");                
-                Console.WriteLine("\t|3| - LOCALIZAR POR ID                         |");
-                Console.WriteLine("\t|0| - VOLTAR                                   |");
-                Console.Write("\t|______________________________________________|\n" +
-                              "\t|Opção: ");
+                Console.WriteLine("\t\t\t\t\t________________________________________________");
+                Console.WriteLine("\t\t\t\t\t|+++++++| MENU DE LOCALIZAÇÃO DE COMPRA |++++++|");
+                Console.WriteLine("\t\t\t\t\t|1| - LOCALIZAR POR DATA                       |");
+                Console.WriteLine("\t\t\t\t\t|2| - LOCALIZAR POR FORNECEDOR                 |");                
+                Console.WriteLine("\t\t\t\t\t|3| - LOCALIZAR POR ID                         |");
+                Console.WriteLine("\t\t\t\t\t|0| - VOLTAR                                   |");
+                Console.Write("\t\t\t\t\t|______________________________________________|\n" +
+                              "\t\t\t\t\t|Opção: ");
                 opc = Console.ReadLine();
                 bool encontrado = false;
                 Console.Clear();
                 switch (opc)
                 {
                     case "1":
-                        Console.Write("Digite o data de compra que deseja localizar(dd/mm/aaaa): ");
+                        Console.Write("\t\t\t\t\tDigite o data de compra que deseja localizar(dd/mm/aaaa): ");
                         DateTime dcompra = DateTime.Parse(Console.ReadLine());
                         List<Compra> localizacompra = cadastroService.cadastros.compras.FindAll(p => p.DataCompra == dcompra);
                         if (localizacompra != null)
@@ -88,7 +88,7 @@ namespace BILTIFUL.ModuloCompra
                             foreach (Compra p in localizacompra)
                             {
                                 Console.WriteLine(p.DadosCompra());
-                                Console.WriteLine("Itens: ");
+                                Console.WriteLine("\t\t\t\t\tItens: ");
                                 foreach (ItemCompra i in cadastroService.cadastros.itenscompra)
                                 {
                                     if (i.Id == p.Id)
@@ -101,7 +101,7 @@ namespace BILTIFUL.ModuloCompra
                         break;
 
                     case "2":
-                        Console.Write("Digite o CNPJ do fornecedor que deseja localizar: ");
+                        Console.Write("\t\t\t\t\tDigite o CNPJ do fornecedor que deseja localizar: ");
                         long cnpj = long.Parse(Console.ReadLine());
                         List<Compra> localizacnpj = cadastroService.cadastros.compras.FindAll(p=> p.Fornecedor == cnpj);
                         if (localizacnpj != null)
@@ -110,7 +110,7 @@ namespace BILTIFUL.ModuloCompra
                             foreach (Compra p in localizacnpj)
                             {
                                 Console.WriteLine(p.DadosCompra());
-                                Console.WriteLine("Itens: ");
+                                Console.WriteLine("\t\t\t\t\tItens: ");
                                 foreach (ItemCompra i in cadastroService.cadastros.itenscompra)
                                 {
                                     if (i.Id == p.Id)
@@ -123,7 +123,7 @@ namespace BILTIFUL.ModuloCompra
 
                         break;
                     case "3":
-                        Console.Write("Digite o ID da compra que deseja localizar: ");
+                        Console.Write("\t\t\t\t\tDigite o ID da compra que deseja localizar: ");
                         string idCompra = Console.ReadLine();
                         List<Compra> localizaId = cadastroService.cadastros.compras.FindAll(p => p.Id == idCompra);
                         if (localizaId != null)
@@ -132,7 +132,7 @@ namespace BILTIFUL.ModuloCompra
                             foreach (Compra p in localizaId)
                             {
                                 Console.WriteLine(p.DadosCompra());
-                                Console.WriteLine("Itens: ");
+                                Console.WriteLine("\t\t\t\t\tItens: ");
                                 foreach (ItemCompra i in cadastroService.cadastros.itenscompra)
                                 {
                                     if (i.Id == p.Id)
@@ -160,24 +160,25 @@ namespace BILTIFUL.ModuloCompra
             Console.Clear();
             do
             {
-                Console.WriteLine("Informe o CNPJ do forncedor");
+                Console.WriteLine("\n\t\t\t\t\t------------CADASTRAR COMPRA------------");
+                Console.Write("\t\t\t\t\tInforme o CNPJ do forncedor :");
                 cnpj = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");
                 if(BuscarBloqueado(cnpj, cadastroService.cadastros.bloqueados))
                 {
-                    Console.WriteLine("Fornecedor bloqueado para compra");
+                    Console.WriteLine("\t\t\t\t\tFornecedor bloqueado para compra");
                     return;
                 }              
 
                 Fornecedor fornecedorCompra = BuscarCnpj(cnpj, cadastroService.cadastros.fornecedores);
                 if (fornecedorCompra == null)
                 {
-                    Console.WriteLine("Fornecedor nao encontrado.");
+                    Console.WriteLine("\t\t\t\t\tFornecedor nao encontrado.");
                 }
                 else
                 {
                     Console.WriteLine(fornecedorCompra.DadosFornecedorCompra());
-                    Console.WriteLine("[1]SIM [0]NAO");
-                    Console.WriteLine("Confirma dados do Fornecedor?");
+                    Console.WriteLine("\t\t\t\t\t[1]SIM [0]NAO");
+                    Console.WriteLine("\t\t\t\t\tConfirma dados do Fornecedor?");
                     opc = Console.ReadLine();
                     if (opc == "0")
                     {
@@ -214,25 +215,25 @@ namespace BILTIFUL.ModuloCompra
                     Console.Clear();
                     do
                     {
-                        Console.WriteLine("Informe o nome da Materia-Prima");
+                        Console.WriteLine("\t\t\t\t\tInforme o nome da Materia-Prima");
                         buscarMPrima = Console.ReadLine();
 
                     } while (ImprimirMPrima(cadastroService.cadastros.materiasprimas, buscarMPrima)!= true);
-                        Console.WriteLine("Informe o ID referente a Materia-Prima que deseja adicionar");
+                        Console.WriteLine("\t\t\t\t\tInforme o ID referente a Materia-Prima que deseja adicionar");
                         idMPrima[cont] = Console.ReadLine().ToUpper();
                     
                     MPrima mPrimaCompra = BuscaMPrima(idMPrima[cont],cadastroService.cadastros.materiasprimas);
                     if (mPrimaCompra == null)
                     {
-                        Console.WriteLine("Materia-Prima nao encontrada.");
+                        Console.WriteLine("\t\t\t\t\tMateria-Prima nao encontrada.");
                     }
                     else
                     {
-                        Console.WriteLine("------------------------------");
+                        Console.WriteLine("\t\t\t\t\t------------------------------");
                         Console.WriteLine(mPrimaCompra.DadosMateriaPrima());
-                        Console.WriteLine("------------------------------");
-                        Console.WriteLine("[1]SIM [0]NAO");
-                        Console.WriteLine("Confirma dados da Materia-Prima?");
+                        Console.WriteLine("\t\t\t\t\t------------------------------");
+                        Console.WriteLine("\t\t\t\t\t[1]SIM [0]NAO");
+                        Console.WriteLine("\t\t\t\t\tConfirma dados da Materia-Prima?");
                         opcp = Console.ReadLine();
                         if (opcp == "0")
                         {
@@ -245,55 +246,55 @@ namespace BILTIFUL.ModuloCompra
                             do
                             {
                                 Console.Clear();
-                                Console.WriteLine("-----------------------------------------");
-                                Console.WriteLine("Informe o valor unitario da Materia-Prima");
-                                Console.Write("Valor($$$,$$)(valor precisa ser menor que 1000,00): ");
+                                Console.WriteLine("\t\t\t\t\t-----------------------------------------");
+                                Console.WriteLine("\t\t\t\t\tInforme o valor unitario da Materia-Prima");
+                                Console.Write("\t\t\t\t\tValor($$$,$$)(valor precisa ser menor que 1000,00): ");
                                 stringValor[cont] = Console.ReadLine();
                                 valorQuantidade[cont] = double.Parse(stringValor[cont]);
                                 stringValor[cont] = stringValor[cont].Trim().Replace(".", "").Replace(",", "");
                                 if (!double.TryParse(stringValor[cont], out valor) || (valor > 99999) || (valor <= 0))
-                                    Console.WriteLine("Valor invalido!");
+                                    Console.WriteLine("\t\t\t\t\tValor invalido!");
                             } while (!double.TryParse(stringValor[cont], out valor) || (valor > 99999) || (valor <= 0));
                             do
                             {
                                 do
                                 {
-                                    Console.Write("Informe a quantidade: ");
+                                    Console.Write("\t\t\t\t\tInforme a quantidade: ");
                                     quantidadeString[cont] = Console.ReadLine();
                                     quantidade[cont] = double.Parse(quantidadeString[cont]);
                                     quantidadeString[cont] = quantidadeString[cont].Trim().Replace(".", "").Replace(",", "");
                                     totalItemString[cont] = (quantidade[cont] * valorQuantidade[cont]).ToString("F2");
                                     totalItem[cont] = (quantidade[cont] * valorQuantidade[cont]);
                                     if (!double.TryParse(quantidadeString[cont], out quantidadeTeste) || (quantidadeTeste > 99999) || (quantidadeTeste <= 0))
-                                        Console.WriteLine("Valor invalido!");
+                                        Console.WriteLine("\t\t\t\t\tValor invalido!");
                                 } while (!double.TryParse(quantidadeString[cont], out quantidadeTeste) || (quantidadeTeste > 99999) || (quantidadeTeste <= 0));
                             } while (TotalItem(valorQuantidade[cont], quantidade[cont]) != true);
                         }
                     }
 
                 } while (opcp != "1");
-                Console.WriteLine("Materia-Prima:\t{0} Valor Unitario:\t{1} Quantidade:\t{2} Total Item:\t{3}", idMPrima[cont], valorQuantidade[cont], quantidade[cont], totalItemString[cont]);
+                Console.WriteLine("\t\t\t\t\tMateria-Prima:\t{0} Valor Unitario:\t{1} Quantidade:\t{2} Total Item:\t{3}", idMPrima[cont], valorQuantidade[cont], quantidade[cont], totalItemString[cont]);
                 Console.ReadKey();
 
                 valorTotal = valorTotal + totalItem[cont];
                 cont++;
                 if (cont == 3)
                 {
-                    Console.WriteLine("Limite de Materia-Prima atingido por compra");
+                    Console.WriteLine("\t\t\t\t\tLimite de Materia-Prima atingido por compra");
                     Console.ReadKey();
                 }
                 else
                 {
-                    Console.WriteLine("Deseja adicionar mais materia-prima\n[1]SIM [0]NAO");
+                    Console.WriteLine("\t\t\t\t\tDeseja adicionar mais materia-prima\n[1]SIM [0]NAO");
                     saida = Console.ReadLine();
                 }
 
             } while ((saida != "0") & (cont != 3));
             for (int i = 0; i < cont; i++)
             {
-                Console.WriteLine("Materia-Prima:\t{0} Valor Unitario:\t{1} Quantidade:\t{2} Total Item:\t{3}", idMPrima[i], stringValor[i], valorQuantidade[i], totalItemString[i]);
+                Console.WriteLine("\t\t\t\t\tMateria-Prima:\t{0} Valor Unitario:\t{1} Quantidade:\t{2} Total Item:\t{3}", idMPrima[i], stringValor[i], valorQuantidade[i], totalItemString[i]);
             }
-            Console.Write("Confirmar a compra?[1]SIM [0]NAO :");
+            Console.Write("\t\t\t\t\tConfirmar a compra?[1]SIM [0]NAO :");
             string confirmar = Console.ReadLine();
             if (confirmar == "1")
             {
@@ -332,9 +333,9 @@ namespace BILTIFUL.ModuloCompra
             double totalCompra = valor * quantidade;
             if (totalCompra >= 10000)
             {
-                Console.WriteLine("Valor ultrapasssou o valor total permetido por compra");
-                Console.WriteLine("Favor informar outra quantidade e outro valor de Materia-Prima");
-                Console.WriteLine("Quantidade disponivel para compra: {0}", 9999 / valor);
+                Console.WriteLine("\t\t\t\t\tValor ultrapasssou o valor total permetido por compra");
+                Console.WriteLine("\t\t\t\t\tFavor informar outra quantidade e outro valor de Materia-Prima");
+                Console.WriteLine("\t\t\t\t\tQuantidade disponivel para compra: {0}", 9999 / valor);
                 return false;
             }
             else
@@ -375,12 +376,12 @@ namespace BILTIFUL.ModuloCompra
             listaMprima.ForEach(delegate (MPrima m)
             {
                 Console.WriteLine(m.DadosMateriaPrima());
-                Console.WriteLine("-----------------------------------------");
+                Console.WriteLine("\t\t\t\t\t-----------------------------------------");
                 buscar = true;
             });
             if(buscar == false)
             {
-                Console.WriteLine("Materia-Prima nao encontrada");
+                Console.WriteLine("\t\t\t\t\tMateria-Prima nao encontrada");
                 Console.ReadKey();
             }
             return buscar;

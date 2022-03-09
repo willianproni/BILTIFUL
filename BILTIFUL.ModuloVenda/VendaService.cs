@@ -80,8 +80,8 @@ namespace BILTIFUL.ModuloVenda
         public void CadastrarVenda()
         {
             Console.Clear();
-            Console.WriteLine("\t\t------------- Verificar CPF -------------\n");
-            Console.Write("\t\tDigite o Cpf do cliente: ");
+            Console.WriteLine("\n\t\t\t\t\t------------- Verificar CPF -------------\n");
+            Console.Write("\t\t\t\t\tDigite o Cpf do cliente: ");
 
             if (long.TryParse(Console.ReadLine(), out long confimar))
             {
@@ -89,7 +89,7 @@ namespace BILTIFUL.ModuloVenda
 
                 if (BuscarInadimplentes(cpfCliente, controle.inadimplentes))
                 {
-                    Console.WriteLine("\t\t-------------------------- Solicitar  ao cliente que se direcione a gerencia------------- "); //Cliente Inadimplente
+                    Console.WriteLine("\t\t\t\t\t-------------------------- Solicitar  ao cliente que se direcione a gerencia------------- "); //Cliente Inadimplente
                     Console.ReadKey();
                 }
                 else
@@ -100,10 +100,10 @@ namespace BILTIFUL.ModuloVenda
 
                     if (aux == null)
                     {
-                        Console.WriteLine("\n\t\t-----------------------------------------" +
-                                          "\n\t\t\t   CPF não encontrado\n" +
-                                          "\t\t-----------------------------------------");
-                        Console.Write("\t\tCadastrar um nome Cliente (S/N): ");
+                        Console.WriteLine("\n\t\t\t\t\t-----------------------------------------" +
+                                          "\n\t\t\t\t\t   CPF não encontrado\n" +
+                                          "\t\t\t\t\t-----------------------------------------");
+                        Console.Write("\t\t\t\t\tCadastrar um nome Cliente (S/N): ");
                         string cadNovoCliente = Console.ReadLine().ToUpper();
                         if (cadNovoCliente == "S" || cadNovoCliente == "SIM")
                         {
@@ -112,7 +112,7 @@ namespace BILTIFUL.ModuloVenda
                         }
                         else
                         {
-                            Console.WriteLine("\t\tRetornando para o Menu de Vendas... aperte qualquer tecla...");
+                            Console.WriteLine("\t\t\t\t\tRetornando para o Menu de Vendas... aperte qualquer tecla...");
                             Console.ReadKey();
                         }
                         //Console.Clear();
@@ -120,7 +120,7 @@ namespace BILTIFUL.ModuloVenda
                     else
                     {
                         Console.WriteLine(aux.VendasCliente());
-                        Console.Write("\n\t\tConfirma dados Cliente [S]/[N]: ");
+                        Console.Write("\n\t\t\t\t\tConfirma dados Cliente [S]/[N]: ");
                         if (char.TryParse(Console.ReadLine().ToUpper(), out char confirmarCliente))
                         {
                             if (confirmarCliente == 'S')
@@ -134,7 +134,7 @@ namespace BILTIFUL.ModuloVenda
             }
             else
             {
-                Console.Write("\n\t\tDigite um CPF!!");
+                Console.Write("\n\t\t\t\t\tDigite um CPF!!");
                 Console.ReadKey();
             }
         }
@@ -142,19 +142,19 @@ namespace BILTIFUL.ModuloVenda
         public void ItemVenda()
         {
             Console.Clear();
-            Console.WriteLine("\t\t------------ Cadastro de Venda ------------");
+            Console.WriteLine("\n\t\t\t\t\t------------ Cadastro de Venda ------------");
             int cont = 0;
             float quantidade = 1;
 
             string codigo = CodIdIncremento();
             do
             {
-                Console.Write("\n\t\tCódigo do Produto: ");
+                Console.Write("\n\t\t\t\t\tCódigo do Produto: ");
                 string codProduto = Console.ReadLine();
                 Produto aux = vendaitem.CodigoProdutoValido(codProduto, controle.produtos);
                 if (aux != null)
                 {
-                    Console.Write("\t\tDigite a Quantidade do Produto: ");
+                    Console.Write("\t\t\t\t\tDigite a Quantidade do Produto: ");
                     if (float.TryParse(Console.ReadLine(), out float CanParse) && quantidade > 0)
                     {
                         quantidade = CanParse;
@@ -162,15 +162,15 @@ namespace BILTIFUL.ModuloVenda
                         {
                             do
                             {
-                                Console.WriteLine("\t\tQuantidade máxima de produto por item é 999");
-                                Console.Write("\t\tDigite a Quantidade do Produto: ");
+                                Console.WriteLine("\t\t\t\t\tQuantidade máxima de produto por item é 999\n");
+                                Console.Write("\t\t\t\t\tDigite a Quantidade do Produto: ");
                                 if (float.TryParse(Console.ReadLine(), out float quantMax) && quantidade > 0)
                                 {
                                     quantidade = quantMax;
                                 }
                                 else
                                 {
-                                    Console.WriteLine("\t\tDigite uma quantidade válida!");
+                                    Console.WriteLine("\t\t\t\t\tDigite uma quantidade válida!");
                                 }
                             } while (quantidade > 999.99);
                         }
@@ -180,37 +180,37 @@ namespace BILTIFUL.ModuloVenda
                         {
                             do
                             {
-                                Console.WriteLine("\n\t\tValor Total superior ao permitido, máximo valor por item é R$ 9.999");
-                                Console.Write("\t\tDigite a Quantidade do Produto: ");
+                                Console.WriteLine("\n\t\t\t\t\tValor Total superior ao permitido, máximo valor por item é R$ 9.999\n");
+                                Console.Write("\t\t\t\t\tDigite a Quantidade do Produto: ");
                                 if (float.TryParse(Console.ReadLine(), out float quantUnidadeTotal) && quantidade > 0)
                                 {
                                     quantidade = quantUnidadeTotal;
                                 }
                                 else
                                 {
-                                    Console.WriteLine("\t\tDigite uma quantidade válida!");
+                                    Console.WriteLine("\t\t\t\t\tDigite uma quantidade válida!");
                                 }
                                 valorTotal = quantidade * valorUnitario;
                             } while (valorTotal > 9999.99);
                         }
                         if (valorVenda + valorTotal == 99999.99)
                         {
-                            Console.WriteLine("\n\t\tValor total de Compras atigindo, abrir novo cadastro de compras");
+                            Console.WriteLine("\n\t\t\t\t\tValor total de Compras atigindo, abrir novo cadastro de compras");
                             cont = 3;
                         }
                         else if (valorVenda + valorTotal > 99999.99)
                         {
                             do
                             {
-                                Console.WriteLine($"\t\tPreço máximo por compra atingido, escolha outra quantidade do produto até R$ {99999 - valorVenda}");
-                                Console.Write("\t\tDigite a Quantidade do Produto: ");
+                                Console.WriteLine($"\t\t\t\t\tPreço máximo por compra atingido, escolha outra quantidade do produto até R$ {99999 - valorVenda}\n");
+                                Console.Write("\t\t\t\t\tDigite a Quantidade do Produto: ");
                                 if (float.TryParse(Console.ReadLine(), out float quantValorTotal) && quantidade > 0)
                                 {
                                     quantidade = quantValorTotal;
                                 }
                                 else
                                 {
-                                    Console.WriteLine("\t\tDigite uma quantidade válida!");
+                                    Console.WriteLine("\t\t\t\t\tDigite uma quantidade válida!");
                                 }
                                 valorTotal = quantidade * valorUnitario;
                             } while (valorVenda + valorTotal > 99999.99);
@@ -219,15 +219,15 @@ namespace BILTIFUL.ModuloVenda
 
                         valorVenda = valorTotal + valorVenda;
 
-                        Console.WriteLine($"\n\t\tValor Total: R${valorTotal.ToString("F2").TrimStart('0')}");
+                        Console.WriteLine($"\n\t\t\t\t\tValor Total: R${valorTotal.ToString("F2").TrimStart('0')}");
                         cont++;
 
                         controle.itensvenda.Add(new ItemVenda(codigo, codProduto, quantidade.ToString().Replace(",", "").Replace(".", ""), valorUnitario.ToString("F2").Replace(",", "").Replace(".", "")));
 
-                        Console.WriteLine($"\t\t{quantidade} {aux.Nome} adicionados na venda!!");
+                        Console.WriteLine($"\t\t\t\t\t{quantidade} {aux.Nome} adicionados na venda!!");
                         if (cont <= 2)
                         {
-                            Console.Write("\n\t\t Deseja adiciona outro Item [S]/[N]: ");
+                            Console.Write("\n\t\t\t\t\t Deseja adiciona outro Item [S]/[N]: ");
                             string adicionarNovoItem = Console.ReadLine().ToUpper();
 
                             if (adicionarNovoItem == "S" || adicionarNovoItem == "SIM")
@@ -243,12 +243,12 @@ namespace BILTIFUL.ModuloVenda
                     }
                     else
                     {
-                        Console.WriteLine("\t\t\tDigite uma quantidade válida!!");
+                        Console.WriteLine("\t\t\t\t\tDigite uma quantidade válida!!");
                     }
                 }
             } while (cont <= 2 || cont != 3);
 
-            Console.Write("\t\tConfirmar Compras [S]/[N]: ");
+            Console.Write("\t\t\t\t\tConfirmar Compras [S]/[N]: ");
             string confirmarCompras = Console.ReadLine().ToUpper();
             if (confirmarCompras == "S" || confirmarCompras == "SIM")
             {
@@ -261,7 +261,7 @@ namespace BILTIFUL.ModuloVenda
             {
                 RemoveItem(codigo);
                 CodIdDecremento();
-                Console.WriteLine("\n\t\tVenda Cancelada!!");
+                Console.WriteLine("\n\t\t\t\t\tVenda Cancelada!!");
                 Console.ReadKey();
             }
         }
@@ -275,8 +275,8 @@ namespace BILTIFUL.ModuloVenda
                 {
                     if (iv.Id == codigo)
                     {
-                        Console.WriteLine("Removendo compra...");
-                        Console.WriteLine(iv);
+                        Console.WriteLine("\t\t\t\t\tRemovendo compra...");
+                        Console.WriteLine("\t\t\t\t\t" + iv);
                         controle.itensvenda.Remove(iv);
                     }
                     return true;

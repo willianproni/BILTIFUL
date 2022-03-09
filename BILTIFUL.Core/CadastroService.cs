@@ -288,7 +288,7 @@ namespace BILTIFUL.Core
         {
             try
             {
-                StreamWriter sw = new StreamWriter("\t\t\t\t\tArquivos\\Controle.dat");
+                StreamWriter sw = new StreamWriter("Arquivos\\Controle.dat");
 
                 cadastros.codigos.ForEach(c => sw.WriteLine(c));
 
@@ -685,7 +685,7 @@ namespace BILTIFUL.Core
             } while (opc != "0");
         }
 
-        public void EditarRegistros()
+       /* public void EditarRegistros()
         {
             string opc;
             do
@@ -700,6 +700,15 @@ namespace BILTIFUL.Core
                 Console.WriteLine("\t\t\t\t\t|0| - VOLTAR                                   |");
                 Console.Write("\t\t\t\t\t|_________________________________________________|\n" +
                               "\t\t\t\t\t|Opção: ");
+                Console.WriteLine("\t________________________________________________");
+                Console.WriteLine("\t|++++++++++++++| MENU DE EDIÇÃO |++++++++++++++|");
+                Console.WriteLine("\t|1| - EDITAR CLIENTES                          |");
+                Console.WriteLine("\t|2| - EDITAR FORNECEDORES                      |");
+                Console.WriteLine("\t|3| - EDITAR MATERIAS PRIMAS                   |");
+                Console.WriteLine("\t|4| - EDITAR PRODUTOS                          |");
+                Console.WriteLine("\t|0| - VOLTAR                                   |");
+                Console.Write("\t|______________________________________________|\n" +
+                              "\t|Opção: ");
                 opc = Console.ReadLine();
                 bool encontrado = false;
                 Console.Clear();
@@ -712,6 +721,8 @@ namespace BILTIFUL.Core
                         {
                             Console.Write("\t\t\t\t\tDigite o CPF do cliente que deseja alterar: ");
                             cpf = Console.ReadLine();
+                            Console.Write("Digite o CPF do cliente que deseja alterar: ");
+                            cpf = Console.ReadLine().Replace(".", "").Replace("-", "");
                             if (!ValidaCpf(cpf))
                             {
                                 Console.WriteLine("\t\t\t\t\tCPF INVÁLIDO, TENTE NOVAMENTE!");
@@ -722,7 +733,7 @@ namespace BILTIFUL.Core
                         Cliente localizarcliente = cadastros.clientes.Find(p => p.CPF == long.Parse(cpf));
                         if (localizarcliente != null)
                         {
-                            string opcao;
+                            string opca;
                             encontrado = true;
                             Console.WriteLine(localizarcliente.DadosCliente());
                             do
@@ -731,6 +742,10 @@ namespace BILTIFUL.Core
                                 Console.WriteLine("\t\t\t\t\tDeseja alterar o nome? [S - Sim] [N - Não] ");
                                 opcao = Console.ReadLine().ToUpper();
                                 if (opcao == "S")
+                                Console.WriteLine("\n\nSOMENTE O NOME É POSSÍVEL ALTERAR!");
+                                Console.WriteLine("Deseja alterar o nome? [S - Sim] [N - Não] ");
+                                opca = Console.ReadLine().ToUpper();
+                                if (opca == "S")
                                 {
                                     Console.Write("\n\t\t\t\t\tInforme o novo Nome: ");
                                     string novoNome = Console.ReadLine();
@@ -738,30 +753,32 @@ namespace BILTIFUL.Core
                                     Console.WriteLine(localizarcliente.DadosCliente());
                                     Console.WriteLine("\t\t\t\t\tNOVO NOME ALTERADO COM SUCESSO!");
                                     Console.ReadLine();//////////
+                                    Console.WriteLine("NOVO NOME ALTERADO COM SUCESSO!");
+                                    Console.ReadLine();
                                     new Controle(localizarcliente);
 
                                     Console.ReadLine();
                                     break;
                                 }
-                                else if (opcao == "N")
+                                else if (opca == "N")
                                 {
                                     Console.Clear();
                                     Console.WriteLine("\t\t\t\t\tALTERAÇÃO CANCELADA");
                                     break;
                                 }
-                            } while (opcao != "S" || opcao != "N");
-
-
-
+                            } while (opca != "S" || opca != "N");
                         }
                         break;
                     case "2":
-                        string cnpj;
+                        string cnpj, opc2 = null;
                         do
                         {
                             Console.Write("\t\t\t\t\tDigite o cnpj que deseja localizar: ");
                             cnpj = Console.ReadLine();
                             if (!ValidaCnpj(cnpj))
+                            Console.Write("Digite o cnpj que deseja localizar: ");
+                            cnpj = Console.ReadLine().Replace(".", "").Replace("/", "").Replace("-", "");
+                            if (ValidaCnpj(cnpj))
                             {
                                 Console.WriteLine("\t\t\t\t\tCNPJ INVÁLIDO, TENTE NOVAMENTE!");
                             }
@@ -774,6 +791,30 @@ namespace BILTIFUL.Core
                             encontrado = true;
                             Console.WriteLine(localizarfornecedor.DadosFornecedor());
                         }
+                                Fornecedor localizarfornecedor = cadastros.fornecedores.Find(p => p.CNPJ == long.Parse(cnpj));
+                                if (localizarfornecedor != null)
+                                {
+                                    encontrado = true;
+                                    Console.WriteLine(localizarfornecedor.DadosFornecedor());
+                                }
+                                else
+                                {
+                                    Console.WriteLine("CNPJ não encontrado");
+                                    Console.ReadLine();
+                                }
+                                Console.WriteLine("CNPJ INVÁLIDO, TENTE NOVAMENTE!");
+                                Console.WriteLine("Deseja Procurar novamente? [S - sim] [N - Não]");
+                                opc2 = Console.ReadLine().ToUpper();
+                                if (opc2 == "N")
+                                {
+                                    break;
+                                }
+                                Console.Clear();
+                            }
+                        } while (opc2 != "S");
+                        Console.Clear();
+                       
+                        
                         break;
                     case "3":
                         Console.Write("\t\t\t\t\tDigite o nome que deseja localizar: ");
@@ -862,6 +903,6 @@ namespace BILTIFUL.Core
                     Console.WriteLine("\t\t\t\t\tRegistro não encontrado");
                 Console.ReadKey();
             } while (opc != "0");
-        }
+        }*/
     }
 }

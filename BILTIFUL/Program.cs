@@ -21,7 +21,7 @@ namespace BILTIFUL
             VendaService vendaService = new VendaService();
             CompraService compraService = new CompraService();
             CadastroService cadastroService = new CadastroService();
-            
+            Console.ReadLine();
             Console.WriteLine(@$"
 
                                 1) Producao

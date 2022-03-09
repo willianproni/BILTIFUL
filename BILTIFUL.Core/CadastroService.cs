@@ -681,7 +681,7 @@ namespace BILTIFUL.Core
             } while (opc != "0");
         }
 
-        public void EditarRegistros()
+       /* public void EditarRegistros()
         {
             string opc;
             do
@@ -694,7 +694,7 @@ namespace BILTIFUL.Core
                 Console.WriteLine("\t|3| - EDITAR MATERIAS PRIMAS                   |");
                 Console.WriteLine("\t|4| - EDITAR PRODUTOS                          |");
                 Console.WriteLine("\t|0| - VOLTAR                                   |");
-                Console.Write("\t|_________________________________________________|\n" +
+                Console.Write("\t|______________________________________________|\n" +
                               "\t|Opção: ");
                 opc = Console.ReadLine();
                 bool encontrado = false;
@@ -707,7 +707,7 @@ namespace BILTIFUL.Core
                         do
                         {
                             Console.Write("Digite o CPF do cliente que deseja alterar: ");
-                            cpf = Console.ReadLine();
+                            cpf = Console.ReadLine().Replace(".", "").Replace("-", "");
                             if (!ValidaCpf(cpf))
                             {
                                 Console.WriteLine("CPF INVÁLIDO, TENTE NOVAMENTE!");
@@ -718,58 +718,68 @@ namespace BILTIFUL.Core
                         Cliente localizarcliente = cadastros.clientes.Find(p => p.CPF == long.Parse(cpf));
                         if (localizarcliente != null)
                         {
-                            string opcao;
+                            string opca;
                             encontrado = true;
                             Console.WriteLine(localizarcliente.DadosCliente());
                             do
                             {
                                 Console.WriteLine("\n\nSOMENTE O NOME É POSSÍVEL ALTERAR!");
                                 Console.WriteLine("Deseja alterar o nome? [S - Sim] [N - Não] ");
-                                opcao = Console.ReadLine().ToUpper();
-                                if (opcao == "S")
+                                opca = Console.ReadLine().ToUpper();
+                                if (opca == "S")
                                 {
                                     Console.Write("\nInforme o novo Nome: ");
                                     string novoNome = Console.ReadLine();
                                     localizarcliente.Nome = novoNome;
                                     Console.WriteLine(localizarcliente.DadosCliente());
                                     Console.WriteLine("NOVO NOME ALTERADO COM SUCESSO!");
-                                    Console.ReadLine();//////////
+                                    Console.ReadLine();
                                     new Controle(localizarcliente);
 
                                     Console.ReadLine();
                                     break;
                                 }
-                                else if (opcao == "N")
+                                else if (opca == "N")
                                 {
                                     Console.Clear();
                                     Console.WriteLine("ALTERAÇÃO CANCELADA");
                                     break;
                                 }
-                            } while (opcao != "S" || opcao != "N");
-
-
-
+                            } while (opca != "S" || opca != "N");
                         }
                         break;
                     case "2":
-                        string cnpj;
+                        string cnpj, opc2 = null;
                         do
                         {
                             Console.Write("Digite o cnpj que deseja localizar: ");
-                            cnpj = Console.ReadLine();
-                            if (!ValidaCnpj(cnpj))
+                            cnpj = Console.ReadLine().Replace(".", "").Replace("/", "").Replace("-", "");
+                            if (ValidaCnpj(cnpj))
                             {
+                                Fornecedor localizarfornecedor = cadastros.fornecedores.Find(p => p.CNPJ == long.Parse(cnpj));
+                                if (localizarfornecedor != null)
+                                {
+                                    encontrado = true;
+                                    Console.WriteLine(localizarfornecedor.DadosFornecedor());
+                                }
+                                else
+                                {
+                                    Console.WriteLine("CNPJ não encontrado");
+                                    Console.ReadLine();
+                                }
                                 Console.WriteLine("CNPJ INVÁLIDO, TENTE NOVAMENTE!");
+                                Console.WriteLine("Deseja Procurar novamente? [S - sim] [N - Não]");
+                                opc2 = Console.ReadLine().ToUpper();
+                                if (opc2 == "N")
+                                {
+                                    break;
+                                }
+                                Console.Clear();
                             }
-                        } while (ValidaCnpj(cnpj) != true);
+                        } while (opc2 != "S");
                         Console.Clear();
-
-                        Fornecedor localizarfornecedor = cadastros.fornecedores.Find(p => p.CNPJ == long.Parse(cnpj));
-                        if (localizarfornecedor != null)
-                        {
-                            encontrado = true;
-                            Console.WriteLine(localizarfornecedor.DadosFornecedor());
-                        }
+                       
+                        
                         break;
                     case "3":
                         Console.Write("Digite o nome que deseja localizar: ");
@@ -858,6 +868,6 @@ namespace BILTIFUL.Core
                     Console.WriteLine("Registro não encontrado");
                 Console.ReadKey();
             } while (opc != "0");
-        }
+        }*/
     }
 }

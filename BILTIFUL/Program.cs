@@ -27,7 +27,7 @@ namespace BILTIFUL
             Console.WriteLine("\t\t\t\t\t|+++++++++++++++++++| BILTIFUL |+++++++++++++++++++|");
             Console.WriteLine("\t\t\t\t\t|1| - PRODUCAO                                     |");
             Console.WriteLine("\t\t\t\t\t|2| - COMPRA                                       |");
-            Console.WriteLine("\t\t\t\t\t|3| - VANDA                                        |");
+            Console.WriteLine("\t\t\t\t\t|3| - VENDA                                        |");
             Console.WriteLine("\t\t\t\t\t|4| - CADASTRO                                     |");
             Console.WriteLine("\t\t\t\t\t|0| - SAIR                                         |");
             Console.Write("\t\t\t\t\t|__________________________________________________|\n" +

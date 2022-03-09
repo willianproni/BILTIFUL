@@ -25,15 +25,14 @@ namespace BILTIFUL.ModuloVenda
         public void Menu()
         {
             Console.Clear();
-            Console.WriteLine("\t________________________________________________");
-            Console.WriteLine("\t|+++++++++++++++++++| Vendas |+++++++++++++++++++|");
-            Console.WriteLine("\t|1| - CADASTRAR VENDA                            |");
-            Console.WriteLine("\t|2| - LOCALIZAR VENDA                            |");
-            Console.WriteLine("\t|3| - EXCLUIR VENDA                              |");
-            Console.WriteLine("\t|4| - REGISTROS DE VENDAS                        |");
-            Console.WriteLine("\t|0| - VOLTAR                                     |");
-            Console.Write("\t|________________________________________________|\n" +
-                          "\t|Opção: ");
+            Console.WriteLine("\n\t\t\t\t\t ________________________________________________");
+            Console.WriteLine("\t\t\t\t\t|+++++++++++++++++++| VENDAS |+++++++++++++++++++|");
+            Console.WriteLine("\t\t\t\t\t|1| - CADASTRAR VENDA                            |");
+            Console.WriteLine("\t\t\t\t\t|2| - LOCALIZAR VENDA                            |");        
+            Console.WriteLine("\t\t\t\t\t|3| - EXIBIR VENDAS CADASTRADAS                  |");
+            Console.WriteLine("\t\t\t\t\t|0| - VOLTAR                                     |");
+            Console.Write("\t\t\t\t\t|________________________________________________|\n" +
+                          "\t\t\t\t\t|Opção: ");
         }
 
         public void SubMenu()
@@ -61,10 +60,8 @@ namespace BILTIFUL.ModuloVenda
                     case 2:
                         servicocadastro.LocalizarRegistro();
                         break;
+                  
                     case 3:
-                        Console.WriteLine("Excluir Venda");
-                        break;
-                    case 4:
                         if (servicocadastro.cadastros.vendas.Count() != 0)
                             new Registros(servicocadastro.cadastros.vendas, servicocadastro.cadastros.itensvenda);
                         else

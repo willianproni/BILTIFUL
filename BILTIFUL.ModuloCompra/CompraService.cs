@@ -27,10 +27,15 @@ namespace BILTIFUL.ModuloCompra
         public void SubMenu()
         {
             Console.Clear();
-            Console.WriteLine("1 - Cadastrar");
-            Console.WriteLine("2 - Localizar");
-            Console.WriteLine("3 - Imprimir Compras");
-            Console.WriteLine("0 - Sair");
+            Console.WriteLine("\n\t\t\t\t\t __________________________________________________");
+            Console.WriteLine("\t\t\t\t\t|+++++++++++++++++++| COMPRAS |+++++++++++++++++++|");
+            Console.WriteLine("\t\t\t\t\t|1| - CADASTRAR COMPRA                            |");
+            Console.WriteLine("\t\t\t\t\t|2| - LOCALIZAR COMPRA                            |");
+            Console.WriteLine("\t\t\t\t\t|3| - EXIBIR COMPRAS CADASTRADAS                  |");
+            Console.WriteLine("\t\t\t\t\t|0| - SAIR                                        |");
+            Console.Write("\t\t\t\t\t|_________________________________________________|\n" +
+                          "\t\t\t\t\t|Opção: ");
+           
             string opc = Console.ReadLine();
             switch (opc)
             {

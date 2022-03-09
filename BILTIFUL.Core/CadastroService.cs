@@ -71,21 +71,21 @@ namespace BILTIFUL.Core
         private string Menu()
         {
             string opc;
-            Console.WriteLine("\t________________________________________________");
-            Console.WriteLine("\t|+++++++++++++++++++| MENU |+++++++++++++++++++|");
-            Console.WriteLine("\t|1| - CADASTRAR CLIENTE                        |");
-            Console.WriteLine("\t|2| - CADASTRAR PRODUTO                        |");
-            Console.WriteLine("\t|3| - CADASTRAR FORNECEDOR                     |");
-            Console.WriteLine("\t|4| - CADASTRAR MATERIA PRIMA                  |");
-            Console.WriteLine("\t|5| - ADICIONAR CLIENTE COMO INADIMPLENTE      |");
-            Console.WriteLine("\t|6| - ADICIONAR FORNECEDOR A LISTA DE BLOQUEADO|");
-            Console.WriteLine("\t|7| - REMOVER CLIENTE DA LISTA DE INADIMPLENTE |");
-            Console.WriteLine("\t|8| - REMOVER FORNECEDOR DA LISTA DE BLOQUEADO |");
-            Console.WriteLine("\t|9| - MOSTRAR REGISTROS                        |");
-            Console.WriteLine("\t|10| - LOCALIZAR REGISTROS                     |");
-            Console.WriteLine("\t|0| - VOLTAR PARA O MENU PRINCIPAL             |");
-            Console.Write("\t|______________________________________________|\n" +
-                          "\t|Opção: ");
+            Console.WriteLine("\n\t\t\t\t\t________________________________________________");
+            Console.WriteLine("\t\t\t\t\t|+++++++++++++++++++| MENU |+++++++++++++++++++|");
+            Console.WriteLine("\t\t\t\t\t|1| - CADASTRAR CLIENTE                        |");
+            Console.WriteLine("\t\t\t\t\t|2| - CADASTRAR PRODUTO                        |");
+            Console.WriteLine("\t\t\t\t\t|3| - CADASTRAR FORNECEDOR                     |");
+            Console.WriteLine("\t\t\t\t\t|4| - CADASTRAR MATERIA PRIMA                  |");
+            Console.WriteLine("\t\t\t\t\t|5| - ADICIONAR CLIENTE COMO INADIMPLENTE      |");
+            Console.WriteLine("\t\t\t\t\t|6| - ADICIONAR FORNECEDOR A LISTA DE BLOQUEADO|");
+            Console.WriteLine("\t\t\t\t\t|7| - REMOVER CLIENTE DA LISTA DE INADIMPLENTE |");
+            Console.WriteLine("\t\t\t\t\t|8| - REMOVER FORNECEDOR DA LISTA DE BLOQUEADO |");
+            Console.WriteLine("\t\t\t\t\t|9| - MOSTRAR REGISTROS                        |");
+            Console.WriteLine("\t\t\t\t\t|10| - LOCALIZAR REGISTROS                     |");
+            Console.WriteLine("\t\t\t\t\t|0| - VOLTAR PARA O MENU PRINCIPAL             |");
+            Console.Write("\t\t\t\t\t|______________________________________________|\n" +
+                          "\t\t\t\t\t|Opção: ");
             opc = Console.ReadLine();
             return opc;
         }

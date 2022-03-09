@@ -155,16 +155,17 @@ namespace BILTIFUL.ModuloVenda
                 if (aux != null)
                 {
                     Console.Write("\t\t\t\t\tDigite a Quantidade do Produto: ");
-                    if (float.TryParse(Console.ReadLine(), out float CanParse) && quantidade > 0)
+                    if (float.TryParse(Console.ReadLine(), out float CanParse))
                     {
                         quantidade = CanParse;
-                        if (quantidade > 999.99)
+                        if (quantidade > 999 || quantidade <= 0)
                         {
+
                             do
                             {
-                                Console.WriteLine("\t\t\t\t\tQuantidade máxima de produto por item é 999\n");
+                                Console.WriteLine("\t\t\t\t\tQuantidade do produto tem que ser maior que 0 e menor que 999 unidades\n");
                                 Console.Write("\t\t\t\t\tDigite a Quantidade do Produto: ");
-                                if (float.TryParse(Console.ReadLine(), out float quantMax) && quantidade > 0)
+                                if (float.TryParse(Console.ReadLine(), out float quantMax))
                                 {
                                     quantidade = quantMax;
                                 }
@@ -172,7 +173,7 @@ namespace BILTIFUL.ModuloVenda
                                 {
                                     Console.WriteLine("\t\t\t\t\tDigite uma quantidade válida!");
                                 }
-                            } while (quantidade > 999.99);
+                            } while (quantidade > 999 || quantidade <= 0);
                         }
                         float valorUnitario = float.Parse(aux.ValorVenda.Insert(3, ","));
                         float valorTotal = quantidade * valorUnitario;
@@ -215,7 +216,6 @@ namespace BILTIFUL.ModuloVenda
                                 valorTotal = quantidade * valorUnitario;
                             } while (valorVenda + valorTotal > 99999.99);
                         }
-
 
                         valorVenda = valorTotal + valorVenda;
 

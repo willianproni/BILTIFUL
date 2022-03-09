@@ -89,7 +89,7 @@ namespace BILTIFUL.ModuloVenda
 
                 if (BuscarInadimplentes(cpfCliente, controle.inadimplentes))
                 {
-                    Console.WriteLine("\t\t\t\t\t-------------------------- Solicitar  ao cliente que se direcione a gerencia------------- "); //Cliente Inadimplente
+                    Console.WriteLine("\t\t\t\t\t------- Solicitar  ao cliente que se direcione a gerencia-------"); //Cliente Inadimplente
                     Console.ReadKey();
                 }
                 else

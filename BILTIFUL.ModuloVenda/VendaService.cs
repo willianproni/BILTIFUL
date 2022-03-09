@@ -174,7 +174,7 @@ namespace BILTIFUL.ModuloVenda
                                 }
                             } while (quantidade > 999.99);
                         }
-                        float valorUnitario = float.Parse(aux.ValorVenda);
+                        float valorUnitario = float.Parse(aux.ValorVenda.Insert(3, ","));
                         float valorTotal = quantidade * valorUnitario;
                         if (valorTotal > 9999.99)
                         {

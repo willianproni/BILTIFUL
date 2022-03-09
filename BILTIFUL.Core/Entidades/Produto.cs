@@ -39,7 +39,7 @@ namespace BILTIFUL.Core.Entidades
             return $"\n\t\t\t\t\t----------------------------\n" +
                    $"\n\t\t\t\t\tCod. Barra: {CodigoBarras}\n" +
                    $"\t\t\t\t\tNome: {Nome}\n" +
-                   $"\t\t\t\t\tValor Unitário: R$ {float.Parse(ValorVenda.Insert(5, ","))}\n"+
+                   $"\t\t\t\t\tValor Unitário: R$ {float.Parse(ValorVenda.Insert(3, ","))}\n"+
                    $"\n\t\t\t\t\t----------------------------\n" ;
         }
 

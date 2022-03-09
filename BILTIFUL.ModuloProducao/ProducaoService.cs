@@ -17,12 +17,17 @@ namespace BILTIFUL.ModuloProducao
         {
             string opcao = "";
 
+           
             Console.Clear();
-
-            Console.WriteLine("1- Adicionar Produção");
-            Console.WriteLine("2- Localizar Produção");
-            Console.WriteLine("3- Exibir Produções cadastradas");
-            Console.WriteLine("0- Voltar para menu principal");
+            Console.WriteLine("\n\t\t\t\t\t __________________________________________________");
+            Console.WriteLine("\t\t\t\t\t|+++++++++++++++++++| PRODUÇÃO |+++++++++++++++++++|");
+            Console.WriteLine("\t\t\t\t\t|1| - ADICIONAR PRODUÇÃO                           |");
+            Console.WriteLine("\t\t\t\t\t|2| - LOCALIZAR PRODUÇÃO                           |");
+            Console.WriteLine("\t\t\t\t\t|3| - EXIBIR PRODUÇÃO CADASTRADAS                  |");        
+            Console.WriteLine("\t\t\t\t\t|0| - SAIR                                         |");
+            Console.Write("\t\t\t\t\t|__________________________________________________|\n" +
+                          "\t\t\t\t\t|Opção: ");
+          
 
             opcao = Console.ReadLine();
 
@@ -46,7 +51,7 @@ namespace BILTIFUL.ModuloProducao
                     if (!ProducaoVazia()) ImpressaoDoRegistro();
                     break;
                 default:
-                    Console.WriteLine("Opção inválida! ");
+                    Console.WriteLine("\t\t\t\t\tOpção inválida! ");
                     Console.ReadKey();
                     SubMenu();
                     break;
@@ -56,7 +61,7 @@ namespace BILTIFUL.ModuloProducao
 
         public void BackMenu()
         {
-            Console.WriteLine("\n Pressione qualquer tecla para voltar ao menu de Produção...");
+            Console.WriteLine("\n\t\t\t Pressione qualquer tecla para voltar ao menu de Produção...");
             Console.ReadKey();
             Console.Clear();
             SubMenu();
@@ -66,7 +71,7 @@ namespace BILTIFUL.ModuloProducao
         {
             if (cadastroService.cadastros.producao.Count == 0)
             {
-                Console.WriteLine("Nenhuma produção cadastrada no sistema.");
+                Console.WriteLine("\n\t\t\tNenhuma produção cadastrada no sistema.");
                 BackMenu();
                 return true;
             }
@@ -78,7 +83,7 @@ namespace BILTIFUL.ModuloProducao
         {
             if (cadastroService.cadastros.materiasprimas.Count == 0)
             {
-                Console.WriteLine("Nenhuma Materia Prima cadastrada no sistema.");
+                Console.WriteLine("\n\t\t\tNenhuma Materia Prima cadastrada no sistema.");
                 BackMenu();
                 return true;
             }
@@ -92,9 +97,9 @@ namespace BILTIFUL.ModuloProducao
             List<ItemProducao> itemProducoes = new List<ItemProducao>();
             Produto produto = new Produto();
 
-            if (cadastroService.cadastros.produtos.Count == 0) Console.WriteLine("Nenhum produto cadastrado");
+            if (cadastroService.cadastros.produtos.Count == 0) Console.WriteLine("\n\t\t\tNenhum produto cadastrado");
 
-            Console.WriteLine("Deseja cadastrar um novo produto para Produção? Sim/Não");
+            Console.WriteLine("\n\t\t\tDeseja cadastrar um novo produto para Produção? Sim/Não");
             string existe = Console.ReadLine().ToLower();
             if (existe == "s" || existe == "sim")
             {
@@ -105,7 +110,7 @@ namespace BILTIFUL.ModuloProducao
             {
                 do
                 {
-                    Console.WriteLine("Insira o nome do produto a ser localizado:");
+                    Console.WriteLine("\n\t\t\tInsira o nome do produto a ser localizado:");
                     string nome = Console.ReadLine();
 
                     produto = cadastroService.cadastros.produtos.Find(c => c.Nome == nome && c.Situacao == Situacao.Ativo);
@@ -117,7 +122,7 @@ namespace BILTIFUL.ModuloProducao
                     }
                     else
                     {
-                        Console.WriteLine("Produto não localizado");
+                        Console.WriteLine("\n\t\t\tProduto não localizado");
                     }
 
                 } while (produto == null);
@@ -127,12 +132,12 @@ namespace BILTIFUL.ModuloProducao
 
             if (producao.Quantidade == null)
             {
-                Console.Write("Quantidade de produtos: ");
+                Console.Write("\n\t\t\tQuantidade de produtos: ");
                 if (Int32.TryParse(Console.ReadLine(), out int quantidade))
                     producao.Quantidade = quantidade.ToString();
                 else
                 {
-                    Console.WriteLine("Quantidade inválida");
+                    Console.WriteLine("\n\t\t\tQuantidade inválida");
                     EntradaDadosProducao(producao);
                 }
             }
@@ -141,7 +146,7 @@ namespace BILTIFUL.ModuloProducao
             do
             {
                 itemProducoes.Add(EntradaDadosItemProducao(new ItemProducao()));
-                Console.WriteLine("Deseja adicionar mais alguma materia prima? Sim/Não");
+                Console.WriteLine("\n\t\t\tDeseja adicionar mais alguma materia prima? Sim/Não");
                 string confirmar = Console.ReadLine().ToLower();
                 materiaprima = confirmar == "s" || confirmar == "sim";
 
@@ -149,7 +154,7 @@ namespace BILTIFUL.ModuloProducao
 
             DadosProducao(producao);
 
-            Console.WriteLine("Deseja cadastrar a produção? Sim/Não");
+            Console.WriteLine("\n\t\t\tDeseja cadastrar a produção? Sim/Não");
             string confirma = Console.ReadLine().ToLower();
 
             if (confirma == "s" || confirma == "sim")
@@ -168,13 +173,13 @@ namespace BILTIFUL.ModuloProducao
 
             int materiasprimas = 0;
 
-            Console.WriteLine("Quais as materias primas utilizadas?");
+            Console.WriteLine("\n\t\t\tQuais as materias primas utilizadas?");
             cadastroService.cadastros.materiasprimas.ForEach(c => Console.WriteLine(++posicao + "- " + c.Nome));
             do
             {
                 itemProducao.MateriaPrima = Console.ReadLine();
                 if (!int.TryParse(itemProducao.MateriaPrima, out materiasprimas) || materiasprimas > cadastroService.cadastros.materiasprimas.Count || materiasprimas == 0)
-                    Console.WriteLine("Item invalido!");
+                    Console.WriteLine("\n\t\t\tItem invalido!");
             } while (!int.TryParse(itemProducao.MateriaPrima, out materiasprimas) || materiasprimas > cadastroService.cadastros.materiasprimas.Count || materiasprimas == 0);
 
             itemProducao.MateriaPrima = cadastroService.cadastros.materiasprimas[materiasprimas - 1].Id;
@@ -182,12 +187,12 @@ namespace BILTIFUL.ModuloProducao
 
             if (itemProducao.QuantidadeMateriaPrima == null)
             {
-                Console.Write("Quantidade Materia prima: ");
+                Console.Write("\n\t\t\tQuantidade Materia prima: ");
                 if (Int32.TryParse(Console.ReadLine(), out int quantidade))
                     itemProducao.QuantidadeMateriaPrima = quantidade.ToString();
                 else
                 {
-                    Console.WriteLine("Quantidade inválida");
+                    Console.WriteLine("\n\t\t\tQuantidade inválida");
                     EntradaDadosItemProducao(itemProducao);
                 }
             }
@@ -220,7 +225,7 @@ namespace BILTIFUL.ModuloProducao
         void DadosProducao(Producao producao)
         {
             Console.WriteLine(producao.Dados());
-            Console.WriteLine("Produto: ");
+            Console.WriteLine("\n\t\t\tProduto: ");
             Console.WriteLine((cadastroService.cadastros.produtos.Find(c => c.CodigoBarras == producao.Produto)).DadosProduto());
 
             List<ItemProducao> itens = cadastroService.cadastros.itensproducao.FindAll(c => c.Id == producao.Id);
@@ -228,7 +233,7 @@ namespace BILTIFUL.ModuloProducao
 
             foreach (var itemProducao in itens)
             {
-                Console.WriteLine("Quantidade Materia prima: " + itemProducao.QuantidadeMateriaPrima);
+                Console.WriteLine("\n\t\t\tQuantidade Materia prima: " + itemProducao.QuantidadeMateriaPrima);
                 Console.WriteLine((cadastroService.cadastros.materiasprimas.Find(c => c.Id == itemProducao.MateriaPrima)).DadosMateriaPrima());
             }
         }

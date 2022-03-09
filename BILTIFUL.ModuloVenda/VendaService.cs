@@ -161,7 +161,7 @@ namespace BILTIFUL.ModuloVenda
                     if (float.TryParse(Console.ReadLine(), out float CanParse) && quantidade > 0)
                     {
                         quantidade = CanParse;
-                        if (quantidade > 999)
+                        if (quantidade > 999.99)
                         {
                             do
                             {
@@ -175,11 +175,11 @@ namespace BILTIFUL.ModuloVenda
                                 {
                                     Console.WriteLine("\t\tDigite uma quantidade válida!");
                                 }
-                            } while (quantidade > 999);
+                            } while (quantidade > 999.99);
                         }
                         float valorUnitario = float.Parse(aux.ValorVenda);
                         float valorTotal = quantidade * valorUnitario;
-                        if (valorTotal > 9999)
+                        if (valorTotal > 9999.99)
                         {
                             do
                             {
@@ -194,14 +194,14 @@ namespace BILTIFUL.ModuloVenda
                                     Console.WriteLine("\t\tDigite uma quantidade válida!");
                                 }
                                 valorTotal = quantidade * valorUnitario;
-                            } while (valorTotal > 9999);
+                            } while (valorTotal > 9999.99);
                         }
-                        if (valorVenda + valorTotal == 99999)
+                        if (valorVenda + valorTotal == 99999.99)
                         {
                             Console.WriteLine("\n\t\tValor total de Compras atigindo, abrir novo cadastro de compras");
                             cont = 3;
                         }
-                        else if (valorVenda + valorTotal > 99999)
+                        else if (valorVenda + valorTotal > 99999.99)
                         {
                             do
                             {
@@ -216,7 +216,7 @@ namespace BILTIFUL.ModuloVenda
                                     Console.WriteLine("\t\tDigite uma quantidade válida!");
                                 }
                                 valorTotal = quantidade * valorUnitario;
-                            } while (valorVenda + valorTotal > 99999);
+                            } while (valorVenda + valorTotal > 99999.99);
                         }
 
 

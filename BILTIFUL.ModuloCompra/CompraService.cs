@@ -85,7 +85,7 @@ namespace BILTIFUL.ModuloCompra
                         List<Compra> localizacompra = cadastroService.cadastros.compras.FindAll(p => p.DataCompra == dcompra);
                         if (localizacompra != null)
                         {
-                            
+
                             foreach (Compra p in localizacompra)
                             {
                                 Console.WriteLine(p.DadosCompra());
@@ -108,31 +108,45 @@ namespace BILTIFUL.ModuloCompra
                         break;
 
                     case "2":
-                        Console.Write("\t\t\t\t\tDigite o CNPJ do fornecedor que deseja localizar: ");
-                        long cnpj = long.Parse(Console.ReadLine());
-                        List<Compra> localizacnpj = cadastroService.cadastros.compras.FindAll(p => p.Fornecedor == cnpj);
-                        if (localizacnpj != null)
-                        {
-                            
-                            foreach (Compra p in localizacnpj)
-                            {
-                                Console.WriteLine(p.DadosCompra());
-                                Console.WriteLine("\t\t\t\t\tItens: ");
-                                foreach (ItemCompra i in cadastroService.cadastros.itenscompra)
-                                {
-                                    if (i.Id == p.Id)
-                                        Console.WriteLine(i.DadosItemCompra());
-                                    encontrado = true;
-                                }
-                                Console.ReadKey();
-                            }
-                        }
-                        if (encontrado != true)
-                        {
-                            Console.WriteLine("\t\t\t\t\tNenhuma compra encontrada");
-                            Console.ReadKey();
-                        }
 
+                        bool saida = false;
+                        do {
+                            Console.Write("\t\t\t\t\tDigite o CNPJ do fornecedor que deseja localizar: ");
+                            if (long.TryParse(Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", ""), out long confirmar))
+                            {
+                                cnpj = confirmar;
+                                saida = true;
+                                List<Compra> localizacnpj = cadastroService.cadastros.compras.FindAll(p => p.Fornecedor == cnpj);
+                                if (localizacnpj != null)
+                                {
+
+                                    foreach (Compra p in localizacnpj)
+                                    {
+                                        Console.WriteLine(p.DadosCompra());
+                                        Console.WriteLine("\t\t\t\t\tItens: ");
+                                        foreach (ItemCompra i in cadastroService.cadastros.itenscompra)
+                                        {
+                                            if (i.Id == p.Id)
+                                                Console.WriteLine(i.DadosItemCompra());
+                                            encontrado = true;
+                                        }
+                                        Console.ReadKey();
+                                    }
+                                }
+                                if (encontrado != true)
+                                {
+                                    Console.WriteLine("\t\t\t\t\tNenhuma compra encontrada");
+                                    Console.ReadKey();
+                                }
+                            }
+                            else
+                            {
+                                Console.Write("\t\t\t\t\tInforme um CNPJ valido ");
+                                Console.ReadKey();
+                                Console.Clear();
+
+                            }
+                        } while (saida != true);
 
                         break;
                     case "3":
@@ -141,7 +155,7 @@ namespace BILTIFUL.ModuloCompra
                         List<Compra> localizaId = cadastroService.cadastros.compras.FindAll(p => p.Id == idCompra);
                         if (localizaId != null)
                         {
-                            
+
                             foreach (Compra p in localizaId)
                             {
                                 Console.WriteLine(p.DadosCompra());
@@ -159,7 +173,7 @@ namespace BILTIFUL.ModuloCompra
                         {
                             Console.WriteLine("\t\t\t\t\tNenhuma compra encontrada");
                             Console.ReadKey();
-                        }
+                        } 
 
                         break;
                     case "0":
@@ -389,7 +403,7 @@ namespace BILTIFUL.ModuloCompra
             } while ((saida != "0") & (cont != 3));
             for (int i = 0; i < cont; i++)
             {
-                Console.WriteLine("\t\t\t\t\tMateria-Prima:\t{0} Valor Unitario:\t{1} Quantidade:\t{2} Total Item:\t{3}", idMPrima[i], stringValor[i], valorQuantidade[i], totalItemString[i]);
+                Console.WriteLine("\t\t\t\t\tMateria-Prima:\t{0} Valor Unitario:\t{1} Quantidade:\t{2} Total Item:\t{3}", idMPrima[i], valorQuantidade[i], quantidade[i], totalItemString[i]);
             }
             Console.Write("\t\t\t\t\tConfirmar a compra?[1]SIM [0]NAO : ");
             string confirmar = Console.ReadLine();

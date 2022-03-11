@@ -1,8 +1,6 @@
-﻿using BILTIFUL.Core.Controles;
-using BILTIFUL.ModuloCompra;
-using BILTIFUL.ModuloProducao;
-using BILTIFUL.ModuloVenda;
-using BILTIFUL.Core;
+﻿using BILTIFUL.Application.Repository.Base;
+using BILTIFUL.Application.Service;
+using BILTIFUL.Core.Entidades;
 using System;
 
 namespace BILTIFUL
@@ -11,17 +9,23 @@ namespace BILTIFUL
     {
         static void Main(string[] args)
         {
-            
+
+            /*Repository<MPrima> repository = new Repository<MPrima>("MPrima.dat");
+
+            repository.Add(new MPrima("Teste", Core.Entidades.Enums.Situacao.Inativo));
+
+            foreach (var p in repository.GetAll())
+                Console.WriteLine(p.Dados());
+
+            Console.WriteLine(repository.GetByWhere(c => c.Nome == "teste2").Dados());
+
+            Console.ReadKey();*/
+
             Menu();
         }
 
         public static void Menu()
         {
-            ProducaoService producaoService = new ProducaoService();
-            VendaService vendaService = new VendaService();
-            CompraService compraService = new CompraService();
-            CadastroService cadastroService = new CadastroService();
-
             Console.Clear();
             Console.WriteLine("\n\t\t\t\t\t __________________________________________________");
             Console.WriteLine("\t\t\t\t\t|+++++++++++++++++++| BILTIFUL |+++++++++++++++++++|");
@@ -32,7 +36,7 @@ namespace BILTIFUL
             Console.WriteLine("\t\t\t\t\t|0| - SAIR                                         |");
             Console.Write("\t\t\t\t\t|__________________________________________________|\n" +
                           "\t\t\t\t\t|Opção: ");
-            
+
 
             string option = Console.ReadLine();
 
@@ -42,25 +46,23 @@ namespace BILTIFUL
 
                 case "1":
                     Console.Clear();
-                    producaoService.SubMenu();
+                    new ProducaoService().SubMenu();
                     BackMenu();
                     break;
 
                 case "2":
                     Console.Clear();
-                    compraService.SubMenu();
                     BackMenu();
                     break;
 
                 case "3":
                     Console.Clear();
-                    vendaService.SubMenu();
                     BackMenu();
                     break;
 
                 case "4":
                     Console.Clear();
-                    cadastroService.SubMenu();
+                    new CadastroService().SubMenu();
                     BackMenu();
                     break;
 

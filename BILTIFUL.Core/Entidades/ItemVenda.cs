@@ -1,66 +1,37 @@
-﻿using System.Collections.Generic;
-using BILTIFUL.Core.Entidades.Base;
+﻿using BILTIFUL.Core.Entidades.Base;
 
 namespace BILTIFUL.Core.Entidades
 {
-    public class ItemVenda : EntidadeBase
+    public class ItemVenda : EntidadeBase, IEntidadeDAT<ItemVenda>
     {
         //ID produto
-        public string Produto { get; set; }
-        public string Quantidade { get; set; }
-        public string ValorUnitario { get; set; }
-        public string TotalItem { get; set; }
+        public int Produto { get; set; }
+        public float Quantidade { get; set; }
+        public int ValorUnitario { get; set; }
+        public float TotalItem => Quantidade * ValorUnitario;
         public ItemVenda()
         {
         }
 
-        public ItemVenda(string id,string produto, string qtd, string valorunitario, string totalitem)
-        {
-            Id = id;
-            this.Produto = produto;
-            this.Quantidade = qtd;
-            ValorUnitario = valorunitario;
-            this.TotalItem = totalitem;
-        }
-
-        public ItemVenda(string id,string produto, string quantidade, string valorUnitario)
-        {
-            Id=id.PadLeft(5,'0');
-            Produto = produto;
-            Quantidade = quantidade.PadLeft(3,'0');
-            ValorUnitario = valorUnitario.PadLeft(5,'0');
-            TotalItem = (float.Parse(Quantidade) * float.Parse(ValorUnitario)).ToString().PadLeft(6,'0');
-        }
-
-        public override string ToString()
-        {
-            
-            return $"Código id: {Id}" +
-                  $"Código produto: {Produto}"+
-                  $"Código Quantidade : {Quantidade}"; 
-        }
-
-        public Produto CodigoProdutoValido(string codproduto, List<Produto> list)
-        {
-            Produto aux = list.Find(i => i.CodigoBarras == codproduto);
-
-            if (aux == null)
-            {
-                System.Console.WriteLine("\t\t\t\t\tNenhum Produto encontrado!!");
-            }
-            else
-            {
-                System.Console.WriteLine(aux.ExibirProd());
-            }
-            return aux;
-        }
-        public string ConverterParaEDI()
+        public string ConverterParaDAT()
         {
             return $"{Id}{Produto}{Quantidade}{ValorUnitario}{TotalItem}";
         }
-        public string DadosItemVenda()
+        public string Dados()
         {
-            return $"-------------------------------------------\nProduto: {Produto}\nQuantidade: {float.Parse(Quantidade.Insert(3, ","))}\nValor total: {float.Parse(TotalItem.Insert(3, ","))}\n-------------------------------------------";
+            return $"-------------------------------------------\nProduto: {Produto}\nQuantidade: {Quantidade}\nValor total: {TotalItem}\n-------------------------------------------";
+        }
+
+        public ItemVenda ExtrairDAT(string line)
+        {
+            if (line == null) return null;
+
+            Id = int.Parse(line.Substring(0, 5));
+            Produto = int.Parse(line.Substring(5, 12));
+            Quantidade = float.Parse(line.Substring(17, 3));
+            ValorUnitario = int.Parse(line.Substring(20, 5));
+
+            return this;
         }
     }
 }

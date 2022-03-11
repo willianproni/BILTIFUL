@@ -1,41 +1,40 @@
 ﻿using BILTIFUL.Core.Entidades.Base;
 using System;
+using System.Collections.Generic;
 
 namespace BILTIFUL.Core.Entidades
 {
-    public class Compra : EntidadeBase
+    public class Compra : EntidadeBase, IEntidadeDAT<Compra>
     {
         public DateTime DataCompra { get; set; } = DateTime.Now;
         //CNPJ
-        public long Fornecedor { get; set; }
-        public string ValorTotal { get; set; }
+        public string Fornecedor { get; set; }
+        public float ValorTotal { get; set; }
+        public List<ItemCompra> Itens { get; set; }
         public Compra()
         {
 
         }
 
-        public Compra( string id , long fornecedor, string valorTotal)//criação
-        {
-            Id = id.PadLeft(5,'0');
-            Fornecedor = fornecedor;
-            ValorTotal = valorTotal.PadLeft(7,'0');
-        }
-
-        public Compra(string id,DateTime dataCompra, long fornecedor, string valorTotal)//leitura
-        {
-            Id = id;
-            DataCompra = dataCompra;
-            Fornecedor = fornecedor;
-            ValorTotal = valorTotal;
-        }
-
-        public string ConverterParaEDI()
+        public string ConverterParaDAT()
         {
             return $"{Id}{DataCompra.ToString("dd/MM/yyyy")}{Fornecedor}{ValorTotal}";
         }
-        public string DadosCompra()
+        public string Dados()
         {
-            return "\t\t\t\t\t-------------------------------------------\n\t\t\t\t\tId: " + Id + "\n\t\t\t\t\tData de compra: " + DataCompra.ToString("dd/MM/yyyy") + "\n\t\t\t\t\tFornecedor: " + Fornecedor + "\n\t\t\t\t\tValor da compra: " + float.Parse(ValorTotal.Insert(5, ","));
+            return "\t\t\t\t\t-------------------------------------------\n\t\t\t\t\tId: " + Id + "\n\t\t\t\t\tData de compra: " + DataCompra.ToString("dd/MM/yyyy") + "\n\t\t\t\t\tFornecedor: " + Fornecedor + "\n\t\t\t\t\tValor da compra: " + ValorTotal;
+        }
+
+        public Compra ExtrairDAT(string line)
+        {
+            if (line == null) return null;
+
+            Id = int.Parse(line.Substring(0, 5));
+            DataCompra = DateTime.Parse(line.Substring(5, 10));
+            Fornecedor= line.Substring(15, 14);
+            ValorTotal = float.Parse(line.Substring(29, 7));
+
+            return this;
         }
     }
 }

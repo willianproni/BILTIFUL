@@ -1,12 +1,12 @@
-﻿using BILTIFUL.Core.Entidades.Enums;
+﻿using BILTIFUL.Core.Entidades.Base;
+using BILTIFUL.Core.Entidades.Enums;
 using System;
 
 namespace BILTIFUL.Core.Entidades
 {
-    public class Cliente
+    public class Cliente : IEntidadeDAT<Cliente>
     {
-
-        public long CPF { get; set; }
+        public string CPF { get; set; }
         public string Nome { get; set; }
         public DateTime DataNascimento { get; set; }
         public Sexo Sexo { get; set; }
@@ -18,38 +18,12 @@ namespace BILTIFUL.Core.Entidades
         {
         }
 
-        public Cliente(long cpf, string nome)
-        {
-            CPF = cpf;
-            Nome = nome;
-        }
-
-        public Cliente(long cpf, string nome, DateTime dnascimento, Sexo sexo)
-        {
-            this.CPF = cpf;
-            this.Nome = nome;
-            this.DataNascimento = dnascimento;
-            this.Sexo = sexo;
-            this.Situacao = Situacao;
-        }
-
-        public Cliente(long cpf, string nome, DateTime dnascimento, Sexo sexo, DateTime ucompra, DateTime dcadastro, Situacao situacao)
-        {
-            this.CPF = cpf;
-            this.Nome = nome;
-            this.DataNascimento = dnascimento;
-            this.Sexo = sexo;
-            this.UltimaCompra = ucompra;
-            this.DataCadastro = dcadastro;
-            this.Situacao = situacao;
-        }
-
-
-        public string ConverterParaEDI()
+        public string ConverterParaDAT()
         {
             return $"{CPF.ToString().PadLeft(11, '0')}{Nome.PadRight(50).Substring(0, 50)}{DataNascimento.ToString("dd/MM/yyyy")}{(char)Sexo}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
         }
-        public string DadosCliente()
+
+        public string Dados()
         {
             return "-------------------------------------------\n|Nome: " + Nome + "\n|CPF: " + CPF + "\n|Data de nascimento: " + DataNascimento.ToString("dd/MM/yyyy") + "\n|Sexo: " + Sexo + "\n|Ultima compra: " + UltimaCompra.ToString("dd/MM/yyyy") + "\n|Data de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\n|Situação: " + Situacao;
         }
@@ -61,6 +35,21 @@ namespace BILTIFUL.Core.Entidades
                     $"\n\t\t\t\t\tNome: {Nome}" +
                     $"\n\t\t\t\t\tData Ultima Compra: {UltimaCompra.ToString("dd/MM/yyyy")}" +
                     $"\n\t\t\t\t\t-----------------------------------------";
+        }
+
+        public Cliente ExtrairDAT(string line)
+        {
+            if (line == null) return null;
+
+            CPF = line.Substring(0, 11);
+            Nome = line.Substring(11, 50).Trim();
+            DataNascimento = DateTime.Parse(line.Substring(61, 10));
+            Sexo = (Sexo)char.Parse(line.Substring(71, 1));
+            UltimaCompra = DateTime.Parse(line.Substring(72, 10));
+            DataCadastro = DateTime.Parse(line.Substring(82, 10));
+            Situacao = (Situacao)char.Parse(line.Substring(92, 1));
+
+            return this;
         }
     }
 

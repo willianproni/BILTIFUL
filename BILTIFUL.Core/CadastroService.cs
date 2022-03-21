@@ -385,16 +385,20 @@ namespace BILTIFUL.Core
             Console.WriteLine("\n\t\t\t\t\t===========REMOVER DE INADIMPLENTE===========");
             do
             {
-                Console.WriteLine("\t\t\t\t\tDigite o cpf inadimplente: ");
+                Console.Write("\t\t\t\t\tDigite o cpf inadimplente: ");
                 inadimplente = Console.ReadLine().Trim().Replace(".", "").Replace("-", "");
                 if (!ValidaCpf(inadimplente))//valida cpf
-                    Console.WriteLine("\t\t\t\t\tCpf invalido!\nDigite novamente");
+                    Console.WriteLine("\t\t\t\t\tCpf invalido!\n\t\t\t\t\tDigite novamente");
             } while (!ValidaCpf(inadimplente));
 
             long cpf = long.Parse(inadimplente);
 
             if (cadastros.inadimplentes.Find(p => p == "" + cpf) != null)
+            {
                 Remover(cpf);
+                Console.WriteLine("\t\t\t\t\tCpf Liberado");
+            }
+                
         }
         public void RemoverBloqueio()
         {
@@ -403,10 +407,10 @@ namespace BILTIFUL.Core
             Console.WriteLine("\n\t\t\t\t\t===========REMOVER DE BLOQUEADO===========");
             do
             {
-                Console.WriteLine("\t\t\t\t\tDigite o cnpj do fornecedor bloqueado: ");
+                Console.Write("\t\t\t\t\tDigite o cnpj do fornecedor bloqueado: ");
                 bloqueado = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");
                 if (!ValidaCnpj(bloqueado))//valida cpf
-                    Console.WriteLine("\t\t\t\t\tCpf invalido!\nDigite novamente");
+                    Console.WriteLine("\t\t\t\t\tCpf invalido!\n\t\t\t\t\tDigite novamente");
             } while (!ValidaCnpj(bloqueado));
 
             long cnpj = long.Parse(bloqueado);

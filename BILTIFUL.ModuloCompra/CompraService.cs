@@ -66,14 +66,14 @@ namespace BILTIFUL.ModuloCompra
             {
 
                 Console.Clear();
-                Console.WriteLine("\t________________________________________________");
-                Console.WriteLine("\t|++++++++++++| MENU DE LOCALIZAÇÃO |+++++++++++|");
-                Console.WriteLine("\t|1| - LOCALIZAR POR DATA                       |");
-                Console.WriteLine("\t|2| - LOCALIZAR POR FORNECEDOR                 |");
-                Console.WriteLine("\t|3| - LOCALIZAR POR ID                         |");
-                Console.WriteLine("\t|0| - VOLTAR                                   |");
-                Console.Write("\t|______________________________________________|\n" +
-                              "\t|Opção: ");
+                Console.WriteLine("\t\t\t\t\t________________________________________________");
+                Console.WriteLine("\t\t\t\t\t|++++++++++++| MENU DE LOCALIZAÇÃO |+++++++++++|");
+                Console.WriteLine("\t\t\t\t\t|1| - LOCALIZAR POR DATA                       |");
+                Console.WriteLine("\t\t\t\t\t|2| - LOCALIZAR POR FORNECEDOR                 |");
+                Console.WriteLine("\t\t\t\t\t|3| - LOCALIZAR POR ID                         |");
+                Console.WriteLine("\t\t\t\t\t|0| - VOLTAR                                   |");
+                Console.Write("\t\t\t\t\t|______________________________________________|\n" +
+                              "\t\t\t\t\t|Opção: ");
                 opc = Console.ReadLine();
                 bool encontrado = false;
                 Console.Clear();
@@ -304,7 +304,6 @@ namespace BILTIFUL.ModuloCompra
 
                         do
                         {
-                            Console.ReadKey();
                             Console.Clear();
                             Console.WriteLine("\t\t\t\t\t-----------------------------------------");
                             Console.WriteLine("\t\t\t\t\tInforme o valor unitario da Materia-Prima");
@@ -363,8 +362,8 @@ namespace BILTIFUL.ModuloCompra
 
 
                 } while (opcp != "S");
-                Console.WriteLine("\t\t\t\t\tMateria-Prima:\t{0} Valor Unitario:\t{1} Quantidade:\t{2} Total Item:\t{3}", idMPrima[cont], valorQuantidade[cont], quantidade[cont], totalItemString[cont]);
-                Console.ReadKey();
+                Console.WriteLine("\n\t\t\t\t\tMateria-Prima:\t{0}\n\t\t\t\t\tValor Unitario:\t{1}\n\t\t\t\t\tQuantidade:\t{2}\n\t\t\t\t\tTotal Item:\t{3}", idMPrima[cont], valorQuantidade[cont], quantidade[cont], totalItemString[cont]);
+                
 
                 //valorTotal = valorTotal + totalItem[cont];
 
@@ -376,16 +375,16 @@ namespace BILTIFUL.ModuloCompra
                 }
                 else
                 {
-                    Console.Write("\t\t\t\t\tDeseja adicionar mais materia-prima (S/N): ");
+                    Console.Write("\n\t\t\t\t\tDeseja adicionar mais materia-prima (S/N): ");
                     saida = Console.ReadLine().ToUpper();
                 }
 
             } while ((saida != "N") & (cont != 3));
             for (int i = 0; i < cont; i++)
             {
-                Console.WriteLine("\t\t\t\t\tMateria-Prima:\t{0} Valor Unitario:\t{1} Quantidade:\t{2} Total Item:\t{3}", idMPrima[i], valorQuantidade[i], quantidade[i], totalItemString[i]);
+                Console.WriteLine("\n\n\t\t\t\t\tMateria-Prima:\t{0}\n\t\t\t\t\tValor Unitario:\t{1}\n\t\t\t\t\tQuantidade:\t{2}\n\t\t\t\t\tTotal Item:\t{3}", idMPrima[i], valorQuantidade[i], quantidade[i], totalItemString[i]);
             }
-            Console.Write("\t\t\t\t\tConfirmar a compra?[1]SIM [0]NAO : ");
+            Console.Write("\n\t\t\t\t\tConfirmar a compra (S/N): ");
             string confirmar = Console.ReadLine();
             if (confirmar == "S")
             {

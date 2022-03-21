@@ -61,7 +61,7 @@ namespace BILTIFUL.ModuloProducao
 
         public void BackMenu()
         {
-            Console.WriteLine("\n\t\t\t Pressione qualquer tecla para voltar ao menu de Produção...");
+            Console.Write("\n\t\t\t Pressione qualquer tecla para voltar ao menu de Produção...");
             Console.ReadKey();
             Console.Clear();
             SubMenu();

@@ -300,7 +300,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter sw = new StreamWriter("Arquivos\\Clientes.dat", append: true);
                     sw.WriteLine(cliente.ConverterParaEDI());
                     sw.Close();
-                    Console.WriteLine("Cliente cadastrado com sucesso!");
+                    Console.WriteLine("\n\t\t\t\t\tCliente cadastrado com sucesso!");
                 }
                 catch (Exception e)
                 {
@@ -317,7 +317,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter sw = new StreamWriter("Arquivos\\Fornecedor.dat", append: true);
                     sw.WriteLine(fornecedor.ConverterParaEDI());
                     sw.Close();
-                    Console.WriteLine("Fornecedor cadastrado com sucesso!");
+                    Console.WriteLine("\n\t\t\t\t\tFornecedor cadastrado com sucesso!");
                 }
                 catch (Exception e)
                 {
@@ -334,7 +334,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter sw = new StreamWriter("Arquivos\\Cosmetico.dat", append: true);
                     sw.WriteLine(produto.ConverterParaEDI());
                     sw.Close();
-                    Console.WriteLine("Produto cadastrado com sucesso!");
+                    Console.WriteLine("\n\t\t\t\t\tProduto cadastrado com sucesso!");
                 }
                 catch (Exception e)
                 {
@@ -352,7 +352,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter sw = new StreamWriter("Arquivos\\Materia.dat", append: true);
                     sw.WriteLine(materiaprima.ConverterParaEDI());
                     sw.Close();
-                    Console.WriteLine("Materia prima cadastrado com sucesso!");
+                    Console.WriteLine("\n\t\t\t\t\tMateria prima cadastrado com sucesso!");
                 }
                 catch (Exception e)
                 {
@@ -369,7 +369,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter sw = new StreamWriter("Arquivos\\Compra.dat", append: true);
                     sw.WriteLine(compra.ConverterParaEDI());
                     sw.Close();
-                    Console.WriteLine("Compra cadastrada cadastrado com sucesso!");
+                    Console.WriteLine("\n\t\t\t\t\tCompra cadastrada cadastrado com sucesso!");
                 }
                 catch (Exception e)
                 {
@@ -386,7 +386,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter sw = new StreamWriter("Arquivos\\ItemCompra.dat", append: true);
                     sw.WriteLine(itemcompra.ConverterParaEDI());
                     sw.Close();
-                    Console.WriteLine("Item de Compra cadastrado cadastrado com sucesso!");
+                    Console.WriteLine("\n\t\t\t\t\tItem de Compra cadastrado cadastrado com sucesso!");
                 }
                 catch (Exception e)
                 {
@@ -403,7 +403,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter sw = new StreamWriter("Arquivos\\Producao.dat", append: true);
                     sw.WriteLine(producao.ConverterParaEDI());
                     sw.Close();
-                    Console.WriteLine("Produção cadastrada com sucesso!");
+                    Console.WriteLine("\n\t\t\t\t\tProdução cadastrada com sucesso!");
                 }
                 catch (Exception e)
                 {
@@ -420,7 +420,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter sw = new StreamWriter("Arquivos\\ItemProducao.dat", append: true);
                     sw.WriteLine(itemproducao.ConverterParaEDI());
                     sw.Close();
-                    Console.WriteLine("Item de produção cadastrado com sucesso!");
+                    Console.WriteLine("\n\t\t\t\t\tItem de produção cadastrado com sucesso!");
                 }
                 catch (Exception e)
                 {
@@ -437,7 +437,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter sw = new StreamWriter("Arquivos\\Venda.dat", append: true);
                     sw.WriteLine(venda.ConverterParaEDI());
                     sw.Close();
-                    Console.WriteLine("Item de produção cadastrado com sucesso!");
+                    Console.WriteLine("\n\t\t\t\t\tItem de produção cadastrado com sucesso!");
                 }
                 catch (Exception e)
                 {
@@ -454,7 +454,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter sw = new StreamWriter("Arquivos\\ItemVenda.dat", append: true);
                     sw.WriteLine(itemvenda.ConverterParaEDI());
                     sw.Close();
-                    Console.WriteLine("Item de produção cadastrado com sucesso!");
+                    Console.WriteLine("\n\t\t\t\t\tItem de produção cadastrado com sucesso!");
                 }
                 catch (Exception e)
                 {
@@ -474,7 +474,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter sw = new StreamWriter("Arquivos\\Risco.dat", append: true);
                     sw.WriteLine(chave);
                     sw.Close();
-                    Console.WriteLine("Cliente cadastrado como inadimplente!");
+                    Console.WriteLine("\n\t\t\t\t\tCliente cadastrado como inadimplente!");
                 }
                 catch (Exception e)
                 {
@@ -488,7 +488,7 @@ namespace BILTIFUL.Core.Controles
                     StreamWriter sw = new StreamWriter("Arquivos\\Bloqueado.dat", append: true);
                     sw.WriteLine(chave);
                     sw.Close();
-                    Console.WriteLine("Fornecedor bloqueado!");
+                    Console.WriteLine("\n\t\t\t\t\tFornecedor bloqueado!");
                 }
                 catch (Exception e)
                 {

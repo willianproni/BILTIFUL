@@ -213,24 +213,23 @@ namespace BILTIFUL.ModuloCompra
                     Console.WriteLine("\t\t\t\t\t------------------------------");
                     do
                     {
-                        Console.WriteLine("\t\t\t\t\tConfirma dados do Fornecedor?");
-                        Console.Write("\t\t\t\t\t[1]SIM [0]NAO : ");
-                        opc = Console.ReadLine();
+                        Console.Write("\t\t\t\t\tConfirma dados do Fornecedor (S/N): ");
+                        opc = Console.ReadLine().ToUpper();
 
-                        if ((opc != "0" & opc != "1"))
+                        if ((opc != "S" & opc != "N"))
                         {
                             Console.Write("\t\t\t\t\tEscolha uma opcao valida : ");
 
                         }
-                    } while (opc != "0" & opc != "1");
-                    if (opc == "0")
+                    } while (opc != "S" & opc != "N");
+                    if (opc == "N")
                     {
                         Console.WriteLine("");
 
                     }
                 }
 
-            } while (opc != "1");
+            } while (opc != "S");
             ItemCompra();
 
 
@@ -287,17 +286,15 @@ namespace BILTIFUL.ModuloCompra
                     Console.WriteLine("\t\t\t\t\t-------------------------------------------");
                     do
                     {
-                        Console.WriteLine("\t\t\t\t\tConfirma dados da Materia-Prima?");
-
-                        Console.Write("\t\t\t\t\t[1]SIM [0]NAO : ");
-                        opcp = Console.ReadLine();
-                        if ((opcp != "0" & opcp != "1"))
+                        Console.Write("\t\t\t\t\tConfirma dados da Matéria-Prima (S/N): ");
+                        opcp = Console.ReadLine().ToUpper();
+                        if ((opcp != "S" & opcp != "N"))
                         {
-                            Console.WriteLine("\t\t\t\t\tEscolha uma opcao valida");
+                            Console.WriteLine("\t\t\t\t\tEscolha uma opcao válida");
 
                         }
-                    } while (opcp != "0" & opcp != "1");
-                    if (opcp == "0")
+                    } while (opcp != "S" & opcp != "N");
+                    if (opcp == "N")
                     {
                         Console.WriteLine("");
 
@@ -311,7 +308,7 @@ namespace BILTIFUL.ModuloCompra
                             Console.Clear();
                             Console.WriteLine("\t\t\t\t\t-----------------------------------------");
                             Console.WriteLine("\t\t\t\t\tInforme o valor unitario da Materia-Prima");
-                            Console.Write("\t\t\t\t\tValor($$$,$$)(valor precisa ser menor que 1000,00) : ");
+                            Console.Write("\t\t\t\t\tValor($$$,$$) (valor precisa ser menor que 1000,00): ");
 
                             if (double.TryParse(Console.ReadLine(), out double confirmar2))
                             {
@@ -335,7 +332,7 @@ namespace BILTIFUL.ModuloCompra
                             {
                                 do
                                 {
-                                    Console.Write("\t\t\t\t\tInforme a quantidade : ");
+                                    Console.Write("\t\t\t\t\tInforme a quantidade: ");
                                     if (double.TryParse(Console.ReadLine(), out double confirmar1))
                                     {
                                         quantidadeString[cont] = confirmar1.ToString();
@@ -365,7 +362,7 @@ namespace BILTIFUL.ModuloCompra
                     }
 
 
-                } while (opcp != "1");
+                } while (opcp != "S");
                 Console.WriteLine("\t\t\t\t\tMateria-Prima:\t{0} Valor Unitario:\t{1} Quantidade:\t{2} Total Item:\t{3}", idMPrima[cont], valorQuantidade[cont], quantidade[cont], totalItemString[cont]);
                 Console.ReadKey();
 
@@ -379,18 +376,18 @@ namespace BILTIFUL.ModuloCompra
                 }
                 else
                 {
-                    Console.Write("\t\t\t\t\tDeseja adicionar mais materia-prima\n\t\t\t\t\t[1]SIM [0]NAO : ");
-                    saida = Console.ReadLine();
+                    Console.Write("\t\t\t\t\tDeseja adicionar mais materia-prima (S/N): ");
+                    saida = Console.ReadLine().ToUpper();
                 }
 
-            } while ((saida != "0") & (cont != 3));
+            } while ((saida != "N") & (cont != 3));
             for (int i = 0; i < cont; i++)
             {
                 Console.WriteLine("\t\t\t\t\tMateria-Prima:\t{0} Valor Unitario:\t{1} Quantidade:\t{2} Total Item:\t{3}", idMPrima[i], valorQuantidade[i], quantidade[i], totalItemString[i]);
             }
             Console.Write("\t\t\t\t\tConfirmar a compra?[1]SIM [0]NAO : ");
             string confirmar = Console.ReadLine();
-            if (confirmar == "1")
+            if (confirmar == "S")
             {
                 string cod = "" + (++cadastroService.cadastros.codigos[3]);
                 cadastroService.SalvarCodigos();

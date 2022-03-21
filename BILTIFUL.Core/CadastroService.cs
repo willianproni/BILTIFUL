@@ -64,7 +64,7 @@ namespace BILTIFUL.Core
                         Console.WriteLine("Opção invalida!");
                         break;
                 }
-                Console.ReadKey();
+               
                 Console.Clear();
             } while (opc != "0");
         }
@@ -306,7 +306,7 @@ namespace BILTIFUL.Core
             Console.WriteLine("\n\t\t\t\t\t===========CADASTRO MATERIA PRIMA===========");
             do
             {
-                Console.WriteLine("\t\t\t\t\tDigite o nome da Materia Prima");
+                Console.Write("\t\t\t\t\tDigite o nome da Materia Prima: ");
                 nome = Console.ReadLine().Trim();
             } while (nome == "");
 
@@ -329,7 +329,7 @@ namespace BILTIFUL.Core
             Console.WriteLine("\n\t\t\t\t\t===========CADASTRO DE INADIMPLENTE===========");
             do
             {
-                Console.WriteLine("\t\t\t\t\tDigite o cpf do inadimplente: ");
+                Console.Write("\t\t\t\t\tDigite o cpf do inadimplente: ");
                 inadimplente = Console.ReadLine().Trim().Replace(".", "").Replace("-", ""); ;
                 if (!ValidaCpf(inadimplente))//valida cpf
                     Console.WriteLine("\t\t\t\t\tCpf invalido!\nDigite novamente");
@@ -356,7 +356,7 @@ namespace BILTIFUL.Core
             Console.WriteLine("\n\t\t\t\t\t===========CADASTRO DE BLOQUEADO===========");
             do
             {
-                Console.WriteLine("\t\t\t\t\tDigite o CNPJ do fornecedor: ");
+                Console.Write("\t\t\t\t\tDigite o CNPJ do fornecedor: ");
                 bloqueado = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");
                 if (!ValidaCnpj(bloqueado))//valida cpf
                     Console.WriteLine("\t\t\t\t\tCnpj invalido!\nDigite novamente");
@@ -385,7 +385,7 @@ namespace BILTIFUL.Core
             Console.WriteLine("\n\t\t\t\t\t===========REMOVER DE INADIMPLENTE===========");
             do
             {
-                Console.WriteLine("\t\t\t\t\tDigite o cpf do ex caloteiro: ");
+                Console.WriteLine("\t\t\t\t\tDigite o cpf inadimplente: ");
                 inadimplente = Console.ReadLine().Trim().Replace(".", "").Replace("-", "");
                 if (!ValidaCpf(inadimplente))//valida cpf
                     Console.WriteLine("\t\t\t\t\tCpf invalido!\nDigite novamente");

@@ -17,7 +17,7 @@ namespace BILTIFUL.Core.Entidades
 
         public MPrima(string nome)
         {
-            this.Nome = nome;
+            Nome = nome;
         }
 
         public MPrima(string nome, Situacao situacao)
@@ -28,11 +28,11 @@ namespace BILTIFUL.Core.Entidades
 
         public MPrima(int id, string nome, DateTime ucompra, DateTime dcadastro, Situacao situacao)
         {
-            this.Id = id;
-            this.Nome = nome;
-            this.UltimaCompra = ucompra;
-            this.DataCadastro = dcadastro;
-            this.Situacao = situacao;
+            Id = id;
+            Nome = nome;
+            UltimaCompra = ucompra;
+            DataCadastro = dcadastro;
+            Situacao = situacao;
         }
 
 

@@ -7,8 +7,7 @@ namespace BILTIFUL.Application.Service
 {
     public class CadastroService
     {
-
-        MateriaPrimaRepository materiaPrimaRepository = new MateriaPrimaRepository();
+        private MateriaPrimaRepository materiaPrimaRepository = new MateriaPrimaRepository();
 
         public void SubMenu()
         {
@@ -120,7 +119,10 @@ namespace BILTIFUL.Application.Service
                         break;
                 }
                 if (encontrado == false && opc != "0")
+                {
                     Console.WriteLine("\t\t\t\t\tRegistro não encontrado");
+                }
+
                 Console.ReadKey();
             } while (opc != "0");
         }

@@ -38,9 +38,9 @@ namespace BILTIFUL.Core.Entidades
             if (line == null) return null;
 
             Id = int.Parse(line.Substring(0, 5));
-            DataProducao= DateTime.Parse(line.Substring(5, 10));
+            DataProducao = DateTime.Parse(line.Substring(5, 10));
             Produto = int.Parse(line.Substring(15, 12));
-            Quantidade= int.Parse(line.Substring(27, 5));
+            Quantidade = int.Parse(line.Substring(27, 5));
 
             return this;
         }

@@ -31,7 +31,7 @@ namespace BILTIFUL.Core.Entidades
 
             Id = int.Parse(line.Substring(0, 5));
             DataCompra = DateTime.Parse(line.Substring(5, 10));
-            Fornecedor= line.Substring(15, 14);
+            Fornecedor = line.Substring(15, 14);
             ValorTotal = float.Parse(line.Substring(29, 7));
 
             return this;

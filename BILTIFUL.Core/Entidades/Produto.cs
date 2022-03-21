@@ -22,7 +22,9 @@ namespace BILTIFUL.Core.Entidades
         public void RetirarEstoque(int quantidade)
         {
             if (QuantidadeEstoque >= quantidade)
+            {
                 QuantidadeEstoque -= quantidade;
+            }
         }
 
         public bool EstaDisponivel(int quantidade)
@@ -56,7 +58,7 @@ namespace BILTIFUL.Core.Entidades
             Id = int.Parse(line.Substring(0, 5));
             Nome = line.Substring(5, 20).Trim();
             ValorVenda = float.Parse(line.Substring(30, 10));
-            UltimaVenda= DateTime.Parse(line.Substring(40, 10));
+            UltimaVenda = DateTime.Parse(line.Substring(40, 10));
             DataCadastro = DateTime.Parse(line.Substring(50, 10));
             Situacao = (Situacao)char.Parse(line.Substring(60, 1));
 

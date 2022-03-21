@@ -66,8 +66,10 @@ namespace BILTIFUL.Application.Repository.Base
             {
                 StreamWriter sw = new StreamWriter(Path);
 
-                foreach (var entity in entities)
+                foreach (TEntity entity in entities)
+                {
                     sw.WriteLine(entity.ConverterParaDAT());
+                }
 
                 sw.Close();
             }

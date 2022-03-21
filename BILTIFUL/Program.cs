@@ -1,13 +1,11 @@
-﻿using BILTIFUL.Application.Repository.Base;
-using BILTIFUL.Application.Service;
-using BILTIFUL.Core.Entidades;
+﻿using BILTIFUL.Application.Service;
 using System;
 
 namespace BILTIFUL
 {
     public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
 
             /*Repository<MPrima> repository = new Repository<MPrima>("MPrima.dat");
@@ -73,6 +71,9 @@ namespace BILTIFUL
             }
 
         }
+
+
+
 
         public static void BackMenu()
         {

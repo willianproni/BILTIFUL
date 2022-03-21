@@ -35,9 +35,9 @@ namespace BILTIFUL.Core.Entidades
         public override string ToString()
         {
             
-            return $"Código id: {Id}" +
-                  $"Código produto: {Produto}"+
-                  $"Código Quantidade : {Quantidade}"; 
+            return $"\n\t\t\t\t\tCódigo id: {Id}\n" +
+                   $"\t\t\t\t\tCódigo produto: {Produto}\n"+
+                   $"\t\t\t\t\tCódigo Quantidade : {Quantidade}"; 
         }
 
         public Produto CodigoProdutoValido(string codproduto, List<Produto> list)

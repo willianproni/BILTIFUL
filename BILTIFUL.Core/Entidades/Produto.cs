@@ -49,7 +49,13 @@ namespace BILTIFUL.Core.Entidades
         }
         public string DadosProduto()
         {
-            return "-------------------------------------------\nCodigo de barras: " + CodigoBarras + "\nNome: " + Nome + "\nValor venda: " + string.Format(CultureInfo.GetCultureInfo("pt-BR"), " {0:C}", float.Parse(ValorVenda.Insert(3,","))) + "\nData de ultima venda: " + UltimaVenda.ToString("dd/MM/yyyy") + "\nData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\nSituação: " + Situacao;
+            return "\n\t\t\t-------------------------------------------\n" +
+                "\t\t\tCodigo de barras: " + CodigoBarras + "\n" +
+                "\t\t\tNome: " + Nome + "\n" +
+                "\t\t\tValor venda: " + string.Format(CultureInfo.GetCultureInfo("pt-BR"), " {0:C}", float.Parse(ValorVenda.Insert(3,","))) + "\n" +
+                "\t\t\tData de ultima venda: " + UltimaVenda.ToString("dd/MM/yyyy") + "\n" +
+                "\t\t\tData de cadastro: " + DataCadastro.ToString("dd/MM/yyyy") + "\n" +
+                "\t\t\tSituação: " + Situacao;
         }
     }
 }

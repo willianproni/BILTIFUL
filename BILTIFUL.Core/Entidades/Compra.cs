@@ -7,21 +7,21 @@ namespace BILTIFUL.Core.Entidades
     {
         public DateTime DataCompra { get; set; } = DateTime.Now;
         //CNPJ
-        public long Fornecedor { get; set; }
+        public string Fornecedor { get; set; }
         public string ValorTotal { get; set; }
         public Compra()
         {
 
         }
 
-        public Compra( string id , long fornecedor, string valorTotal)//criação
+        public Compra( string id , string fornecedor, string valorTotal)//criação
         {
             Id = id.PadLeft(5,'0');
             Fornecedor = fornecedor;
             ValorTotal = valorTotal.PadLeft(7,'0');
         }
 
-        public Compra(string id,DateTime dataCompra, long fornecedor, string valorTotal)//leitura
+        public Compra(string id,DateTime dataCompra, string fornecedor, string valorTotal)//leitura
         {
             Id = id;
             DataCompra = dataCompra;

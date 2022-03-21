@@ -23,7 +23,7 @@ namespace BILTIFUL.ModuloCompra
         //    testes.Add(new Fornecedor(1, "fornecedor1"));
         //    testes.Add(new Fornecedor(2, "fornecedor2"));
         //}
-        long cnpj;
+        string cnpj;
         public void SubMenu()
         {
             Console.Clear();
@@ -64,7 +64,7 @@ namespace BILTIFUL.ModuloCompra
             string opc;
             do
             {
-                
+
                 Console.Clear();
                 Console.WriteLine("\t________________________________________________");
                 Console.WriteLine("\t|++++++++++++| MENU DE LOCALIZAÇÃO |+++++++++++|");
@@ -110,43 +110,33 @@ namespace BILTIFUL.ModuloCompra
                     case "2":
 
                         bool saida = false;
-                        do {
-                            Console.Write("\t\t\t\t\tDigite o CNPJ do fornecedor que deseja localizar: ");
-                            if (long.TryParse(Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", ""), out long confirmar))
-                            {
-                                cnpj = confirmar;
-                                saida = true;
-                                List<Compra> localizacnpj = cadastroService.cadastros.compras.FindAll(p => p.Fornecedor == cnpj);
-                                if (localizacnpj != null)
-                                {
 
-                                    foreach (Compra p in localizacnpj)
-                                    {
-                                        Console.WriteLine(p.DadosCompra());
-                                        Console.WriteLine("\t\t\t\t\tItens: ");
-                                        foreach (ItemCompra i in cadastroService.cadastros.itenscompra)
-                                        {
-                                            if (i.Id == p.Id)
-                                                Console.WriteLine(i.DadosItemCompra());
-                                            encontrado = true;
-                                        }
-                                        Console.ReadKey();
-                                    }
-                                }
-                                if (encontrado != true)
-                                {
-                                    Console.WriteLine("\t\t\t\t\tNenhuma compra encontrada");
-                                    Console.ReadKey();
-                                }
-                            }
-                            else
+                        Console.Write("\t\t\t\t\tDigite o CNPJ do fornecedor que deseja localizar: ");
+
+                        cnpj = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");
+                        saida = true;
+                        List<Compra> localizacnpj = cadastroService.cadastros.compras.FindAll(p => p.Fornecedor == cnpj);
+                        if (localizacnpj != null)
+                        {
+
+                            foreach (Compra p in localizacnpj)
                             {
-                                Console.Write("\t\t\t\t\tInforme um CNPJ valido ");
+                                Console.WriteLine(p.DadosCompra());
+                                Console.WriteLine("\t\t\t\t\tItens: ");
+                                foreach (ItemCompra i in cadastroService.cadastros.itenscompra)
+                                {
+                                    if (i.Id == p.Id)
+                                        Console.WriteLine(i.DadosItemCompra());
+                                    encontrado = true;
+                                }
                                 Console.ReadKey();
-                                Console.Clear();
-
                             }
-                        } while (saida != true);
+                        }
+                        if (encontrado != true)
+                        {
+                            Console.WriteLine("\t\t\t\t\tNenhuma compra encontrada");
+                            Console.ReadKey();
+                        }
 
                         break;
                     case "3":
@@ -173,7 +163,7 @@ namespace BILTIFUL.ModuloCompra
                         {
                             Console.WriteLine("\t\t\t\t\tNenhuma compra encontrada");
                             Console.ReadKey();
-                        } 
+                        }
 
                         break;
                     case "0":
@@ -201,52 +191,45 @@ namespace BILTIFUL.ModuloCompra
             {
                 Console.WriteLine("\n\t\t\t\t\t------------CADASTRAR COMPRA------------");
                 Console.Write("\t\t\t\t\tInforme o CNPJ do forncedor : ");
-                if (long.TryParse(Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", ""), out long confirmar))
+
+
+                cnpj = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");
+
+
+                if (BuscarBloqueado(cnpj, cadastroService.cadastros.bloqueados))
                 {
-                    cnpj = confirmar;
+                    Console.WriteLine("\t\t\t\t\tFornecedor bloqueado para compra");
+                    return;
+                }
 
-
-                    if (BuscarBloqueado(cnpj, cadastroService.cadastros.bloqueados))
-                    {
-                        Console.WriteLine("\t\t\t\t\tFornecedor bloqueado para compra");
-                        return;
-                    }
-
-                    Fornecedor fornecedorCompra = BuscarCnpj(cnpj.ToString(), cadastroService.cadastros.fornecedores);
-                    if (fornecedorCompra == null)
-                    {
-                        Console.WriteLine("\t\t\t\t\tFornecedor nao encontrado.");
-                    }
-                    else
-                    {
-                        Console.WriteLine(fornecedorCompra.DadosFornecedorCompra());
-                        Console.WriteLine("\t\t\t\t\t------------------------------");
-                        do
-                        {
-                            Console.WriteLine("\t\t\t\t\tConfirma dados do Fornecedor?");
-                            Console.Write("\t\t\t\t\t[1]SIM [0]NAO : ");
-                            opc = Console.ReadLine();
-
-                            if ((opc != "0" & opc != "1"))
-                            {
-                                Console.Write("\t\t\t\t\tEscolha uma opcao valida : ");
-
-                            }
-                        } while (opc != "0" & opc != "1");
-                        if (opc == "0")
-                        {
-                            Console.WriteLine("");
-
-                        }
-                    }
+                Fornecedor fornecedorCompra = BuscarCnpj(cnpj.ToString(), cadastroService.cadastros.fornecedores);
+                if (fornecedorCompra == null)
+                {
+                    Console.WriteLine("\t\t\t\t\tFornecedor nao encontrado.");
                 }
                 else
                 {
-                    Console.Write("\t\t\t\t\tInforme um CNPJ valido : ");
-                    Console.ReadKey();
-                    Console.Clear();
+                    Console.WriteLine(fornecedorCompra.DadosFornecedorCompra());
+                    Console.WriteLine("\t\t\t\t\t------------------------------");
+                    do
+                    {
+                        Console.WriteLine("\t\t\t\t\tConfirma dados do Fornecedor?");
+                        Console.Write("\t\t\t\t\t[1]SIM [0]NAO : ");
+                        opc = Console.ReadLine();
 
+                        if ((opc != "0" & opc != "1"))
+                        {
+                            Console.Write("\t\t\t\t\tEscolha uma opcao valida : ");
+
+                        }
+                    } while (opc != "0" & opc != "1");
+                    if (opc == "0")
+                    {
+                        Console.WriteLine("");
+
+                    }
                 }
+
             } while (opc != "1");
             ItemCompra();
 
@@ -454,12 +437,12 @@ namespace BILTIFUL.ModuloCompra
         }
         public Fornecedor BuscarCnpj(string fcnpj, List<Fornecedor> fornecedor)
         {
-            Fornecedor fornecedorcompra = fornecedor.Find(delegate (Fornecedor f) { return f.CNPJ == long.Parse(fcnpj); });
+            Fornecedor fornecedorcompra = fornecedor.Find(delegate (Fornecedor f) { return f.CNPJ == fcnpj; });
 
             return fornecedorcompra;
         }
 
-        public bool BuscarBloqueado(long fcnpj, List<string> bloqueados)
+        public bool BuscarBloqueado(string fcnpj, List<string> bloqueados)
         {
             string buscar = bloqueados.Find(x => x == fcnpj.ToString());
             if (buscar == null)

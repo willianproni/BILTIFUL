@@ -86,7 +86,7 @@ namespace BILTIFUL.Core.Controles
                     line = sr.ReadLine();
                     while (line != null)
                     {
-                        long cpf = long.Parse(line.Substring(0, 11));
+                        string cpf = line.Substring(0, 11);
                         string nome = line.Substring(11, 50).Trim();
                         DateTime dnascimento = DateTime.Parse(line.Substring(61, 10));
                         Sexo sexo = (Sexo)char.Parse(line.Substring(71, 1));
@@ -106,7 +106,7 @@ namespace BILTIFUL.Core.Controles
                     line = sr.ReadLine();
                     while (line != null)
                     {
-                        long cnpj = long.Parse(line.Substring(0, 14));
+                        string cnpj = line.Substring(0, 14);
                         string rsocial = line.Substring(14, 50).Trim();
                         DateTime dabertura = DateTime.Parse(line.Substring(64, 10));
                         DateTime ucompra = DateTime.Parse(line.Substring(74, 10));
@@ -190,7 +190,7 @@ namespace BILTIFUL.Core.Controles
                     {
                         string cod = line.Substring(0, 5);
                         DateTime dcompra = DateTime.Parse(line.Substring(5, 10));
-                        long cnpj = long.Parse(line.Substring(15, 14));
+                        string cnpj = line.Substring(15, 14);
                         string valor = line.Substring(29, 7);
                         compras.Add(new Compra(cod,dcompra,cnpj,valor));
                         line = sr.ReadLine();
@@ -262,7 +262,7 @@ namespace BILTIFUL.Core.Controles
                         DateTime dvenda = DateTime.Parse(line.Substring(5, 10));
                         string cliente = line.Substring(15, 11);
                         string vtotal = line.Substring(26, 7);
-                        vendas.Add(new Venda(id, dvenda, long.Parse(cliente), vtotal));
+                        vendas.Add(new Venda(id, dvenda, cliente, vtotal));
                         line = sr.ReadLine();
                     }
                     sr.Close();
@@ -464,15 +464,15 @@ namespace BILTIFUL.Core.Controles
         }
 
 
-        public Controle(long chave)
+        public Controle(string chave)
         {
-            string schave = "" + chave;
-            if (CadastroService.ValidaCpf(schave))
+            
+            if (CadastroService.ValidaCpf(chave))
             {
                 try//envia cliente para arquivo como novo cliente]try
                 {
                     StreamWriter sw = new StreamWriter("Arquivos\\Risco.dat", append: true);
-                    sw.WriteLine(schave);
+                    sw.WriteLine(chave);
                     sw.Close();
                     Console.WriteLine("Cliente cadastrado como inadimplente!");
                 }
@@ -481,12 +481,12 @@ namespace BILTIFUL.Core.Controles
                     Console.WriteLine("Exception: " + e.Message);
                 }
             }
-            if (CadastroService.ValidaCnpj(schave))
+            if (CadastroService.ValidaCnpj(chave))
             {
                 try//envia cliente para arquivo como novo cliente]try
                 {
                     StreamWriter sw = new StreamWriter("Arquivos\\Bloqueado.dat", append: true);
-                    sw.WriteLine(schave);
+                    sw.WriteLine(chave);
                     sw.Close();
                     Console.WriteLine("Fornecedor bloqueado!");
                 }

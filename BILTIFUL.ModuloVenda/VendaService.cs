@@ -20,7 +20,7 @@ namespace BILTIFUL.ModuloVenda
         CadastroService servicocadastro = new CadastroService();
         Venda venda = new Venda();
 
-        long clienteVenda;
+        string clienteVenda;
         float valorVenda = 0;
         public void Menu()
         {
@@ -83,9 +83,7 @@ namespace BILTIFUL.ModuloVenda
             Console.WriteLine("\n\t\t\t\t\t------------- Verificar CPF -------------\n");
             Console.Write("\t\t\t\t\tDigite o Cpf do cliente: ");
 
-            if (long.TryParse(Console.ReadLine(), out long confimar))
-            {
-                long cpfCliente = confimar;
+            string cpfCliente = Console.ReadLine();
 
                 if (BuscarInadimplentes(cpfCliente, controle.inadimplentes))
                 {
@@ -94,7 +92,7 @@ namespace BILTIFUL.ModuloVenda
                 }
                 else
                 {
-                    long clientecpf = cpfCliente;
+                    string clientecpf = cpfCliente;
                     clienteVenda = clientecpf;
                     Cliente aux = BuscarCpf(clientecpf, controle.clientes);
 
@@ -132,12 +130,13 @@ namespace BILTIFUL.ModuloVenda
                     }
                 }
             }
-            else
-            {
-                Console.Write("\n\t\t\t\t\tDigite um CPF!!");
-                Console.ReadKey();
-            }
-        }
+            //else
+            //{
+            //    Console.Write("\n\t\t\t\t\tDigite um CPF!!");
+            //    Console.ReadKey();
+            //}
+        
+
 
         public void ItemVenda()
         {
@@ -330,7 +329,7 @@ namespace BILTIFUL.ModuloVenda
                 Console.WriteLine(ex.Message);
             }
         }
-        public bool BuscarInadimplentes(long clientcpf, List<string> inadimplentes)
+        public bool BuscarInadimplentes(string clientcpf, List<string> inadimplentes)
         {
             string clienteinadimplentes = inadimplentes.Find(delegate (string i) { return i == clientcpf.ToString(); });
             if (clienteinadimplentes == null)
@@ -342,7 +341,7 @@ namespace BILTIFUL.ModuloVenda
                 return true;
             }
         }
-        public Cliente BuscarCpf(long ccpf, List<Cliente> cliente)
+        public Cliente BuscarCpf(string ccpf, List<Cliente> cliente)
         {
             Cliente clientecompra = cliente.Find(delegate (Cliente c) { return c.CPF == ccpf; });
             return clientecompra;

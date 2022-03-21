@@ -5,7 +5,7 @@ namespace BILTIFUL.Core.Entidades
 {
     public class Fornecedor
     {
-        public long CNPJ { get; set; }
+        public string CNPJ { get; set; }
         public string RazaoSocial { get; set; }
         public DateTime DataAbertura { get; set; }
         public DateTime UltimaCompra { get; set; } = DateTime.Now;
@@ -16,13 +16,13 @@ namespace BILTIFUL.Core.Entidades
         {
         }
 
-        public Fornecedor(long cnpj, string rsocial, DateTime dabertura)
+        public Fornecedor(string cnpj, string rsocial, DateTime dabertura)
         {
             this.CNPJ = cnpj;
             this.RazaoSocial = rsocial;
             this.DataAbertura = dabertura;
         }
-        public Fornecedor(long cnpj, string rsocial)
+        public Fornecedor(string cnpj, string rsocial)
         {
             this.CNPJ = cnpj;
             this.RazaoSocial = rsocial;
@@ -34,7 +34,7 @@ namespace BILTIFUL.Core.Entidades
             return "\t\t\t\t\tFornecedor:\t" + RazaoSocial + "\n\t\t\t\t\tCnpj:\t" + CNPJ+ "\n\t\t\t\t\tData de Abertura:\t" + DataAbertura.ToString("dd/MM/yyyy");
         }
 
-        public Fornecedor(long cnpj, string rsocial, DateTime dabertura, DateTime ucompra, DateTime dcadastro, Situacao situacao)
+        public Fornecedor(string cnpj, string rsocial, DateTime dabertura, DateTime ucompra, DateTime dcadastro, Situacao situacao)
         {
 
             this.CNPJ = cnpj;
@@ -47,7 +47,7 @@ namespace BILTIFUL.Core.Entidades
 
         public string ConverterParaEDI()
         {
-            return $"{CNPJ.ToString().PadLeft(14,'0')}{RazaoSocial.PadRight(50).Substring(0, 50)}{DataAbertura.ToString("dd/MM/yyyy")}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
+            return $"{CNPJ}{RazaoSocial.PadRight(50).Substring(0, 50)}{DataAbertura.ToString("dd/MM/yyyy")}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
         }
         public string DadosFornecedor()
         {

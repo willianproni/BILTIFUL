@@ -6,7 +6,7 @@ namespace BILTIFUL.Core.Entidades
     public class Cliente
     {
 
-        public long CPF { get; set; }
+        public string CPF { get; set; }
         public string Nome { get; set; }
         public DateTime DataNascimento { get; set; }
         public Sexo Sexo { get; set; }
@@ -18,13 +18,13 @@ namespace BILTIFUL.Core.Entidades
         {
         }
 
-        public Cliente(long cpf, string nome)
+        public Cliente(string cpf, string nome)
         {
             CPF = cpf;
             Nome = nome;
         }
 
-        public Cliente(long cpf, string nome, DateTime dnascimento, Sexo sexo)
+        public Cliente(string cpf, string nome, DateTime dnascimento, Sexo sexo)
         {
             this.CPF = cpf;
             this.Nome = nome;
@@ -33,7 +33,7 @@ namespace BILTIFUL.Core.Entidades
             this.Situacao = Situacao;
         }
 
-        public Cliente(long cpf, string nome, DateTime dnascimento, Sexo sexo, DateTime ucompra, DateTime dcadastro, Situacao situacao)
+        public Cliente(string cpf, string nome, DateTime dnascimento, Sexo sexo, DateTime ucompra, DateTime dcadastro, Situacao situacao)
         {
             this.CPF = cpf;
             this.Nome = nome;
@@ -47,7 +47,7 @@ namespace BILTIFUL.Core.Entidades
 
         public string ConverterParaEDI()
         {
-            return $"{CPF.ToString().PadLeft(11, '0')}{Nome.PadRight(50).Substring(0, 50)}{DataNascimento.ToString("dd/MM/yyyy")}{(char)Sexo}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
+            return $"{CPF}{Nome.PadRight(50).Substring(0, 50)}{DataNascimento.ToString("dd/MM/yyyy")}{(char)Sexo}{UltimaCompra.ToString("dd/MM/yyyy")}{DataCadastro.ToString("dd/MM/yyyy")}{(char)Situacao}";
         }
         public string DadosCliente()
         {
@@ -57,7 +57,7 @@ namespace BILTIFUL.Core.Entidades
         public string VendasCliente()
         {
             return $"\n\t\t\t\t\t-------------- Informações --------------" +
-                    $"\n\t\t\t\t\tCpf: {CPF.ToString().PadLeft(11, '0')}" +
+                    $"\n\t\t\t\t\tCpf: {CPF}" +
                     $"\n\t\t\t\t\tNome: {Nome}" +
                     $"\n\t\t\t\t\tData Ultima Compra: {UltimaCompra.ToString("dd/MM/yyyy")}" +
                     $"\n\t\t\t\t\t-----------------------------------------";

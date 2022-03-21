@@ -105,7 +105,7 @@ namespace BILTIFUL.Core
                 if (!ValidaCpf(cpf))//valida cpf
                     Console.WriteLine("\t\t\t\t\tCpf invalido!\n\t\t\t\t\tDigite novamente");
             } while (!ValidaCpf(cpf));//enquanto cpf nao for valido digitar denovo
-            if (cadastros.clientes.Find(p => p.CPF == long.Parse(cpf)) != null)
+            if (cadastros.clientes.Find(p => p.CPF == (cpf)) != null)
             {
                 Console.WriteLine("\t\t\t\t\tCliente com esse CPF ja existe");
                 return null;
@@ -136,7 +136,7 @@ namespace BILTIFUL.Core
             } while ((csexo != "M") && (csexo != "F"));
             Sexo sexo = (Sexo)char.Parse(csexo);
 
-            Cliente cliente = new Cliente(long.Parse(cpf), nome, dnascimento, sexo);
+            Cliente cliente = new Cliente(cpf, nome, dnascimento, sexo);
 
             new Controle(cliente);
             cadastros.clientes.Add(cliente);
@@ -192,7 +192,7 @@ namespace BILTIFUL.Core
                     Console.WriteLine("\t\t\t\t\tCnpj invalido!\nDigite novamente");
 
             } while (!ValidaCnpj(cnpj));//enquanto cpf nao for valido digitar denovo
-            if (cadastros.fornecedores.Find(p => p.CNPJ == long.Parse(cnpj)) != null)
+            if (cadastros.fornecedores.Find(p => p.CNPJ == cnpj) != null)
             {
                 Console.WriteLine("\t\t\t\t\tFornecedor com esse cnpj ja existe");
                 return null;
@@ -216,7 +216,7 @@ namespace BILTIFUL.Core
             }
 
 
-            Fornecedor fornecedor = new Fornecedor(long.Parse(cnpj), rsocial, dabertura);
+            Fornecedor fornecedor = new Fornecedor(cnpj, rsocial, dabertura);
 
             new Controle(fornecedor);
             cadastros.fornecedores.Add(fornecedor);
@@ -322,7 +322,7 @@ namespace BILTIFUL.Core
             return mPrima;
 
         }
-        public long CadastroInadimplente()
+        public string CadastroInadimplente()
         {
             string inadimplente;
             Console.Clear();
@@ -337,9 +337,9 @@ namespace BILTIFUL.Core
             if (cadastros.inadimplentes.Find(p => p == "" + inadimplente) != null)
             {
                 Console.WriteLine("\t\t\t\t\tInadimplente com esse CPF ja existe");
-                return 0;
+                return null;
             }
-            long cpf = long.Parse(inadimplente);
+            string cpf = inadimplente;
 
             if (cadastros.clientes.Find(p => p.CPF == cpf) != null)
             {
@@ -347,9 +347,9 @@ namespace BILTIFUL.Core
                 cadastros.inadimplentes.Add("" + cpf);
                 return cpf;
             }
-            return 0;
+            return null;
         }
-        public long CadastroBloqueado()
+        public string CadastroBloqueado()
         {
             string bloqueado;
             Console.Clear();
@@ -364,10 +364,10 @@ namespace BILTIFUL.Core
             if (cadastros.bloqueados.Find(p => p == bloqueado) != null)
             {
                 Console.WriteLine("\t\t\t\t\tFornecedor com esse cnpj ja existe");
-                return 0;
+                return null;
             }
 
-            long cnpj = long.Parse(bloqueado);
+            string cnpj = bloqueado;
 
             if (cadastros.fornecedores.Find(p => p.CNPJ == cnpj) != null)
             {
@@ -375,7 +375,7 @@ namespace BILTIFUL.Core
                 cadastros.bloqueados.Add("" + cnpj);
                 return cnpj;
             }
-            return 0;
+            return null;
         }
 
         public void RemoverInadimplencia()
@@ -569,7 +569,7 @@ namespace BILTIFUL.Core
                         } while (ValidaCpf(cpf) != true);
                         Console.Clear();
 
-                        Cliente localizarcliente = cadastros.clientes.Find(p => p.CPF == long.Parse(cpf));
+                        Cliente localizarcliente = cadastros.clientes.Find(p => p.CPF == (cpf));
                         if (localizarcliente != null)
                         {
                             encontrado = true;
@@ -581,7 +581,7 @@ namespace BILTIFUL.Core
                         do
                         {
                             Console.Write("\t\t\t\t\tDigite o cnpj que deseja localizar: ");
-                            cnpj = Console.ReadLine();
+                            cnpj = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");                            
                             if (!ValidaCnpj(cnpj))
                             {
                                 Console.WriteLine("\t\t\t\t\tCNPJ INVÁLIDO, TENTE NOVAMENTE!");
@@ -589,7 +589,7 @@ namespace BILTIFUL.Core
                         } while (ValidaCnpj(cnpj) != true);
                         Console.Clear();
 
-                        Fornecedor localizarfornecedor = cadastros.fornecedores.Find(p => p.CNPJ == long.Parse(cnpj));
+                        Fornecedor localizarfornecedor = cadastros.fornecedores.Find(p => p.CNPJ == cnpj);
                         if (localizarfornecedor != null)
                         {
                             encontrado = true;

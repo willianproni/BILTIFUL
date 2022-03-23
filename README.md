@@ -1,4 +1,138 @@
 ## BILTIFUL
+
+<h1>Banco de Dados</h1>
+
+<h3>Ficou Faltando</h3>
+<li>
+  Compra
+   <ul>
+  <ul>
+    <ul>
+    <li>
+      Compra
+    </li>
+      </ul>
+      </ul>
+    </ul>
+   <ul>
+  <ul>
+    <ul>
+    <li>
+      Item Compra
+    </li>
+      </ul>
+      </ul>
+    </ul>
+  </li>
+  <li>
+  Produção
+     <ul>
+  <ul>
+    <ul>
+    <li>
+      Item Produção
+    </li>
+      </ul>
+      </ul>
+    </ul>
+   <ul>
+  <ul>
+    <ul>
+    <li>
+      Produção
+    </li>
+      </ul>
+      </ul>
+    </ul>
+  </li>
+  
+  <hr>
+  
+  <h3>Concluídos</h3>
+  <li>
+  Venda
+   <ul>
+  <ul>
+    <ul>
+    <li>
+      Venda
+    </li>
+      </ul>
+      </ul>
+    </ul>
+   <ul>
+  <ul>
+    <ul>
+    <li>
+      Item Venda
+    </li>
+      </ul>
+      </ul>
+    </ul>
+  </li>
+<li>
+  Cadastro
+   <ul>
+  <ul>
+    <ul>
+    <li>
+      Cliente
+    </li>
+      </ul>
+      </ul>
+      </ul>
+  <ul>
+  <ul>
+    <ul>
+    <li>
+      Fornecedor
+    </li>
+      </ul>
+      </ul>
+    </ul>
+    <ul>
+  <ul>
+    <ul>
+    <li>
+      Produto
+    </li>
+      </ul>
+      </ul>
+     </ul>
+   <ul>
+ 
+   <ul>
+    <ul>
+    <li>
+      Matéria Prima
+    </li>
+      </ul>
+      </ul>
+   </ul>
+  <ul>
+  <ul>
+    <ul>
+    <li>
+      Cliente Inadimplente
+    </li>
+      </ul>
+      </ul>
+    </ul>
+    <ul>
+  <ul>
+    <ul>
+    <li>
+      Fornecedor Bloqueado
+    </li>
+      </ul>
+      </ul>
+      </ul>
+       
+
+        
+<hr>
+
+
 BILTIFUL é um projeto de controle de estoque, produção e vendas para uma empresa de cosméticos, o projeto foi desenvolvido utilizando ConsoleApp
 
 # Como funciona?

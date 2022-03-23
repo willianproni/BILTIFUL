@@ -46,6 +46,7 @@ namespace BILTIFUL.Core.Banco
             Console.WriteLine("\t\tCliente");
             Console.WriteLine("===============================");
 
+            connection.Close();
             connection.Open();
 
             string sql = "select cpf_cliente, nome_cliente, convert(varchar,data_nascimento, 103), sexo, situacao_cliente from tb_cliente where cpf_cliente =" + cpf;
@@ -73,6 +74,7 @@ namespace BILTIFUL.Core.Banco
             Console.WriteLine("\t\t\tCliente");
             Console.WriteLine("\t\t\t===============================");
 
+            connection.Close();
             connection.Open();
 
             string sql = "select cpf_cliente, nome_cliente, convert(varchar,data_nascimento, 103), sexo, situacao_cliente from tb_cliente";
@@ -81,7 +83,7 @@ namespace BILTIFUL.Core.Banco
             {
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    
+
                     while (reader.Read())
                     {
                         Console.WriteLine("\n\t\t\tCPF: {0}\n" +
@@ -95,28 +97,82 @@ namespace BILTIFUL.Core.Banco
             connection.Close();
         }
 
-        public void BuscaCpfClienteBD(string cpf)
+        public void InserirClienteInadimplente(string cpf)
         {
             using (connection)
             {
                 connection.Close();
                 connection.Open();
-                string sql = "select cpf_cliente, nome_cliente from tb_cliente where cpf_cliente =" + cpf;
+                SqlCommand sql_cmnd = new SqlCommand("adicionar_cliente_inadimplente", connection);
+                sql_cmnd.CommandType = CommandType.StoredProcedure;
+                sql_cmnd.Parameters.AddWithValue("@cpf_cliente", SqlDbType.NVarChar).Value = cpf;
+                sql_cmnd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
 
+        public bool VerificarCpfInadimplenteBD(string cpf)
+        {
+            using (connection)
+            {
+                connection.Close();
+                connection.Open();
+                string sql = "select cpf_cliente from tb_risco where cpf_cliente =" + cpf;
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            Console.WriteLine("CPF: {0}\n" +
-                                              "Nome: {1}\n", reader.GetString(0), reader.GetString(1));
+                            Console.WriteLine("\n\t\t\t\t     -----------------------------------------------------" +
+                                              "\n\t\t\t\t\tSolocitar Cliente conversar com a Gerencia!!");
+                            Console.WriteLine("\t\t\t\t\t\t     CPF: {0}", reader.GetString(0));
+                            Console.ReadKey();
+
+                            return true;
                         }
                     }
                 }
-
                 connection.Close();
+                return false;
             }
+        }
+
+        public bool VerificaCpfExisteBD(string cpf)
+        {
+            SqlConnection connection = new SqlConnection(connString);
+            try
+            {
+                using (connection)
+                {
+                    connection.Open();
+                    string sql = "select cpf_cliente, nome_cliente, convert(varchar, data_nascimento, 103), sexo from tb_cliente where cpf_cliente =" + cpf;
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Console.WriteLine("\n\t\t\t\t\t---------------------------\n" +
+                                                  "\t\t\t\t\tCPF: {0}\n" +
+                                                  "\t\t\t\t\tNome Cliente: {1}\n" +
+                                                  "\t\t\t\t\tData Nascimento: {2}\n" +
+                                                  "\t\t\t\t\tSexo: {3}\n", reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                                return true;
+                            }
+                        }
+                    }
+                    connection.Close();
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+
+
         }
 
         //---------------------------- FORNECEDOR
@@ -142,6 +198,7 @@ namespace BILTIFUL.Core.Banco
             Console.WriteLine("\n\t\t\tFornecedor");
             Console.WriteLine("\t\t\t===============================");
 
+            connection.Close();
             connection.Open();
 
             string sql = "select cnpj_fornecedor, razao_social, convert(varchar,data_abertura, 103), convert(varchar,ultima_compra, 103), situacao_fornecedor from tb_fornecedor where cnpj_fornecedor =" + cnpj;
@@ -163,12 +220,21 @@ namespace BILTIFUL.Core.Banco
             connection.Close();
         }
 
+        public void BuscaCnpjFornecedoBD(string cnpj)
+        {
+            connection.Close();
+            connection.Open();
+
+            string sql = "select cnpj_fornecedor, razao_social from tb_fornecedor where cnpj_fornecedor =" + cnpj;
+        }
+
         public void ExibirRegistroFornecedor()
         {
             Console.Clear();
             Console.WriteLine("\n\t\t\tFornecedor");
             Console.WriteLine("\t\t\t===============================");
 
+            connection.Close();
             connection.Open();
 
             string sql = "select cnpj_fornecedor, razao_social, convert(varchar,data_abertura, 103), convert(varchar,ultima_compra, 103), situacao_fornecedor from tb_fornecedor";
@@ -210,9 +276,11 @@ namespace BILTIFUL.Core.Banco
 
         public void LocalizarProduto(string produto)
         {
+            Console.Clear();
             Console.WriteLine("\t\t\tProduto");
-            Console.WriteLine("===============================");
+            Console.WriteLine("\t\t===============================");
 
+            connection.Close();
             connection.Open();
 
             string sql = "select codigo_barra, nome_produto, valor_venda, convert(varchar, ultima_venda, 103), convert(varchar, data_cadastro, 103), situacao_produto from tb_produto where codigo_barra =" + produto;
@@ -223,12 +291,42 @@ namespace BILTIFUL.Core.Banco
                 {
                     while (reader.Read())
                     {
-                        Console.WriteLine("\t\tCodigo Produto: {0}\n" +
+                        Console.WriteLine("\t\tCódigo Barra: {0}\n" +
                                           "\t\tNome Produto: {1}\n" +
-                                          "\t\tValor Venda {2}\n" +                 
+                                          "\t\tValor Venda {2}\n" +
                                           "\t\tUltima Compra: {3}\n" +
                                           "\t\tData Cadastro: {4}\n" +
                                           "\t\tSituação: {5}", reader.GetString(0), reader.GetString(1), reader.GetDecimal(2), reader.GetString(3), reader.GetString(4), reader.GetString(5));
+                    }
+                }
+            }
+            connection.Close();
+        }
+
+        public void ExibirRegistroProduto()
+        {
+            Console.Clear();
+            Console.WriteLine("\t\t\tProdutos");
+            Console.WriteLine("\t\t=========================");
+
+            connection.Close();
+            connection.Open();
+
+            string sql = "select codigo_Barra, nome_produto, valor_venda, convert(varchar, ultima_venda, 103), convert(varchar, data_cadastro, 103), situacao_produto from tb_produto";
+
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.WriteLine("\n\t\tCódigo Barra: {0}\n" +
+                                          "\t\tNome Produto: {1}\n" +
+                                          "\t\tValor Venda: {2}\n" +
+                                          "\t\tUltima Compra: {3}\n" +
+                                          "\t\tData Cadastro: {4}\n" +
+                                          "\t\tSituação: {5}\n" +
+                                          "\t\t--------------------------", reader.GetString(0), reader.GetString(1), reader.GetDecimal(2), reader.GetString(3), reader.GetString(4), reader.GetString(5));
                     }
                 }
             }
@@ -251,12 +349,69 @@ namespace BILTIFUL.Core.Banco
             }
         }
 
+        public void LocalizarMateriaPrima(decimal materiaprima)
+        {
+            connection.Close();
+            connection.Open();
+
+            string sql = "select id_mat_prima, nome_mat_prima, convert(varchar, ultima_compra, 103), convert(varchar, data_cadastro, 103), situacao_mat_prima from tb_materia_prima where id_mat_prima = " + materiaprima;
+
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.WriteLine("\t\tId Matéria Prima: {0}\n" +
+                                          "\t\tNome Matéria Prima: {1}\n" +
+                                          "\t\tUltima Compra: {2}\n" +
+                                          "\t\tData Cadastro: {3}\n" +
+                                          "\t\tSituação: {4}", reader.GetDecimal(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
+                    }
+                }
+            }
+            connection.Close();
+        }
+
+        public void ExibirRegistroMateriaPrima()
+        {
+            Console.Clear();
+            Console.WriteLine("\t\t\tMatéria Prima");
+            Console.WriteLine("\t\t===============================");
+            connection.Close();
+            connection.Open();
+
+            string sql = "select id_mat_prima, nome_mat_prima, convert(varchar, ultima_compra, 103), convert(varchar, data_cadastro, 103), situacao_mat_prima from tb_materia_prima";
+
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.WriteLine("\t\tId Matéria Prima: {0}\n" +
+                                          "\t\tNome Matéria Prima: {1}\n" +
+                                          "\t\tUltima Compra: {2}\n" +
+                                          "\t\tData Cadastro: {3}\n" +
+                                          "\t\tSituação: {4}\n" +
+                                          "\t\t------------------------------\n", reader.GetDecimal(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
+                    }
+                }
+            }
+            connection.Close();
+        }
+
         public void InserirVendaDB(Venda venda)
         {
 
         }
 
         public void InserirItemVendaBD(ItemVenda itemvenda)
+        {
+
+        }
+
+        public void InserirCompraItem(string n, string s, string t, string a, string q)
         {
 
         }

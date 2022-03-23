@@ -340,10 +340,10 @@ namespace BILTIFUL.Core
 
             if (cadastros.clientes.Find(p => p.CPF == cpf) != null)
             {
-                new Controle(cpf);
-                cadastros.inadimplentes.Add("" + cpf);
+                
                 return cpf;
             }
+            banco.InserirClienteInadimplente(cpf);
             return null;
         }
         public string CadastroBloqueado()
@@ -494,16 +494,16 @@ namespace BILTIFUL.Core
                             Console.WriteLine("\t\t\t\t\tNenhum fornecedor registrado");*/
                         break;
                     case "3":
-                        if (cadastros.materiasprimas.Count() != 0)
-                            new Registros(cadastros.materiasprimas);
-                        else
-                            Console.WriteLine("\t\t\t\t\tNenhuma materia prima registrada");
+                        /*if (cadastros.materiasprimas.Count() != 0)*/
+                        banco.ExibirRegistroMateriaPrima();
+/*                        else
+                            Console.WriteLine("\t\t\t\t\tNenhuma materia prima registrada");*/
                         break;
                     case "4":
-                        if (cadastros.produtos.Count() != 0)
-                            new Registros(cadastros.produtos);
-                        else
-                            Console.WriteLine("\t\t\t\t\tNenhum produto registrado");
+                      /*  if (cadastros.produtos.Count() != 0)*/
+                            banco.ExibirRegistroProduto();
+/*                        else
+                            Console.WriteLine("\t\t\t\t\tNenhum produto registrado");*/
                         break;
                     case "5":
                         if (cadastros.vendas.Count() != 0)
@@ -584,18 +584,13 @@ namespace BILTIFUL.Core
                             }
                         } while (ValidaCnpj(cnpj) != true);
                         Console.Clear();
-
                         banco.LocalizarFornecedor(cnpj);
                         break;
                     case "3":
                         Console.Write("\t\t\t\t\tDigite o nome da matéria prima que deseja localizar: ");
-                        string nomeMateriaPrima = Console.ReadLine();
-                        List<MPrima> localizarmprima = cadastros.materiasprimas.FindAll(p => p.Nome.ToLower() == nomeMateriaPrima);
-                        if (localizarmprima != null)
-                        {
-                            encontrado = true;
-                            localizarmprima.ForEach(p => Console.WriteLine(p.DadosMateriaPrima()));
-                        }
+                        decimal nomeMateriaPrima = decimal.Parse(Console.ReadLine());
+                        banco.LocalizarMateriaPrima(nomeMateriaPrima);
+                        Console.ReadKey();
                         break;
                     case "4":
                         Console.Write("\t\t\t\t\tDigite o codigo de barra do produto que deseja localizar: ");

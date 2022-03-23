@@ -18,7 +18,7 @@ namespace BILTIFUL.ModuloVenda
 
         Controle controle = new Controle();
         bd_biltiful banco = new bd_biltiful();
-         ItemVenda vendaitem = new ItemVenda();
+        ItemVenda vendaitem = new ItemVenda();
         CadastroService servicocadastro = new CadastroService();
         Venda venda = new Venda();
 
@@ -87,20 +87,13 @@ namespace BILTIFUL.ModuloVenda
 
             string cpfCliente = Console.ReadLine();
 
-            if (BuscarInadimplentes(cpfCliente, controle.inadimplentes))
+            if (banco.VerificarCpfInadimplenteBD(cpfCliente))
             {
-                Console.WriteLine("\t\t\t\t\t------- Solicitar  ao cliente que se direcione a gerencia-------"); //Cliente Inadimplente
-                Console.ReadKey();
+                return;
             }
             else
             {
-                banco.BuscaCpfClienteBD(cpfCliente);
-                Console.ReadKey();
-                string clientecpf = cpfCliente;
-                clienteVenda = clientecpf;
-                Cliente aux = BuscarCpf(clientecpf, controle.clientes);
-
-                if (aux == null)
+                if (!banco.VerificaCpfExisteBD(cpfCliente))
                 {
                     Console.WriteLine("\n\t\t\t\t\t-----------------------------------------" +
                                       "\n\t\t\t\t\t   CPF não encontrado\n" +
@@ -117,11 +110,9 @@ namespace BILTIFUL.ModuloVenda
                         Console.WriteLine("\t\t\t\t\tRetornando para o Menu de Vendas... aperte qualquer tecla...");
                         Console.ReadKey();
                     }
-                    //Console.Clear();
                 }
                 else
                 {
-                    Console.WriteLine(aux.VendasCliente());
                     Console.Write("\n\t\t\t\t\tConfirma dados Cliente (S/N): ");
                     if (char.TryParse(Console.ReadLine().ToUpper(), out char confirmarCliente))
                     {
@@ -130,17 +121,9 @@ namespace BILTIFUL.ModuloVenda
                             ItemVenda();
                         }
                     }
-                    //Console.Clear();
                 }
             }
         }
-        //else
-        //{
-        //    Console.Write("\n\t\t\t\t\tDigite um CPF!!");
-        //    Console.ReadKey();
-        //}
-
-
 
         public void ItemVenda()
         {
@@ -260,7 +243,7 @@ namespace BILTIFUL.ModuloVenda
                 SalvarItemVenda(codigo);
                 controle.vendas.Add(new Venda(codigo, clienteVenda, valorVenda.ToString("F2").Replace(",", "").Replace(".", "")));
                 new Controle(new Venda(codigo, clienteVenda, valorVenda.ToString("F2").Replace(",", "").Replace(".", "")));
-                
+
                 Console.WriteLine("\n\t\t\t\t\tCompra cadastrada com sucesso!!");
                 Console.ReadKey();
 

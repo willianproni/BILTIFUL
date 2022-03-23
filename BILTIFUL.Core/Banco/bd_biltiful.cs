@@ -70,6 +70,8 @@ namespace BILTIFUL.Core.Banco
 
         public void ExibirRegistroClientes()
         {
+            SqlConnection connection = new SqlConnection(connString);
+
             Console.Clear();
             Console.WriteLine("\t\t\tCliente");
             Console.WriteLine("\t\t\t===============================");
@@ -83,7 +85,6 @@ namespace BILTIFUL.Core.Banco
             {
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-
                     while (reader.Read())
                     {
                         Console.WriteLine("\n\t\t\tCPF: {0}\n" +
@@ -111,31 +112,101 @@ namespace BILTIFUL.Core.Banco
             }
         }
 
-        public bool VerificarCpfInadimplenteBD(string cpf)
+        public bool VerificarClienteInadimplente(string cpf)
         {
-            using (connection)
-            {
-                connection.Close();
-                connection.Open();
-                string sql = "select cpf_cliente from tb_risco where cpf_cliente =" + cpf;
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Console.WriteLine("\n\t\t\t\t     -----------------------------------------------------" +
-                                              "\n\t\t\t\t\tSolocitar Cliente conversar com a Gerencia!!");
-                            Console.WriteLine("\t\t\t\t\t\t     CPF: {0}", reader.GetString(0));
-                            Console.ReadKey();
+            SqlConnection connection = new SqlConnection(connString);
 
-                            return true;
-                        }
+            connection.Close();
+            connection.Open();
+
+            string select = "select cpf_cliente from tb_risco where cpf_cliente =" + cpf; 
+            string sql = "delete from tb_risco where cpf_cliente =" + cpf;
+
+            using (SqlCommand command =  new SqlCommand(select, connection))
+            {
+                using ( SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        return true;
                     }
                 }
-                connection.Close();
+            }
+            connection.Close();
+            return false;
+
+        }
+
+        public void RemoverClienteInadimplente(string cpf)
+        {
+            SqlConnection connection = new SqlConnection(connString);
+
+            connection.Close();
+            connection.Open();
+
+            string sql = "delete from tb_risco where cpf_cliente =" + cpf;
+
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                using SqlDataReader reader = command.ExecuteReader();
+            }
+            connection.Close();
+        }
+
+        public bool VerificarCpfInadimplenteBD(string cpfCliente)
+        {
+            SqlConnection connection = new SqlConnection(connString);
+            try
+            {
+                using (connection)
+                {
+                    connection.Open();
+                    string sql = "select cpf_cliente from tb_risco where cpf_cliente =" + cpfCliente;
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Console.WriteLine("\n\t\t\t\t     -----------------------------------------------------" +
+                                                   "\n\t\t\t\t\tSolocitar Cliente conversar com a Gerencia!!");
+                                Console.WriteLine("\t\t\t\t\t\t     CPF: {0}", reader.GetString(0));
+                                Console.ReadKey();
+                                return true;
+                            }
+                        }
+                    }
+                    connection.Close();
+                    return false;
+                }
+            }
+            catch
+            {
                 return false;
             }
+            /*            SqlConnection connection = new SqlConnection(connString);
+
+                        using (connection)
+                        {
+                            connection.Close();
+                            connection.Open();
+                            string sql = "select cpf_cliente from tb_risco where cpf_cliente =" + cpfCliente;
+                            using (SqlCommand command = new SqlCommand(sql, connection))
+                            {
+                                using (SqlDataReader reader = command.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        Console.WriteLine("\n\t\t\t\t     -----------------------------------------------------" +
+                                                          "\n\t\t\t\t\tSolocitar Cliente conversar com a Gerencia!!");
+                                        Console.WriteLine("\t\t\t\t\t\t     CPF: {0}", reader.GetString(0));
+                                        Console.ReadKey();
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                        return false;*/
         }
 
         public bool VerificaCpfExisteBD(string cpf)
@@ -170,15 +241,13 @@ namespace BILTIFUL.Core.Banco
             {
                 return false;
             }
-
-
-
         }
 
         //---------------------------- FORNECEDOR
 
         public void InserirFornecedorBD(Fornecedor fornecedor)
         {
+
             using (connection)
             {
                 connection.Close();
@@ -230,6 +299,8 @@ namespace BILTIFUL.Core.Banco
 
         public void ExibirRegistroFornecedor()
         {
+            SqlConnection connection = new SqlConnection(connString);
+
             Console.Clear();
             Console.WriteLine("\n\t\t\tFornecedor");
             Console.WriteLine("\t\t\t===============================");
@@ -305,6 +376,8 @@ namespace BILTIFUL.Core.Banco
 
         public void ExibirRegistroProduto()
         {
+            SqlConnection connection = new SqlConnection(connString);
+
             Console.Clear();
             Console.WriteLine("\t\t\tProdutos");
             Console.WriteLine("\t\t=========================");
@@ -331,6 +404,32 @@ namespace BILTIFUL.Core.Banco
                 }
             }
             connection.Close();
+        }
+
+        public bool VerificaProdutoExisteBD(string codproduto)
+        {
+            SqlConnection connection = new SqlConnection(connString);
+            using (connection)
+            {
+                connection.Open();
+                string sql = "select codigo_barra, nome_produto, valor_venda from tb_produto where codigo_barra =" + codproduto;
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Console.WriteLine("\n\t\t\t\t\t-------------------------------\n" +
+                                              "\t\t\t\t\tNome Produto: {1}\n" +
+                                              "\t\t\t\t\tCódigo Barra: {0}\n" +
+                                              "\t\t\t\t\tValor: {2}\n", reader.GetString(0), reader.GetString(1), reader.GetDecimal(2));
+                            return true;
+                        }
+                    }
+                    connection.Close();
+                }
+                return false;
+            }
         }
 
         //---------------------------- MATÉRIA PRIMA
@@ -375,6 +474,8 @@ namespace BILTIFUL.Core.Banco
 
         public void ExibirRegistroMateriaPrima()
         {
+            SqlConnection connection = new SqlConnection(connString);
+
             Console.Clear();
             Console.WriteLine("\t\t\tMatéria Prima");
             Console.WriteLine("\t\t===============================");
@@ -401,6 +502,7 @@ namespace BILTIFUL.Core.Banco
             connection.Close();
         }
 
+        //----------------------------- VENDA
         public void InserirVendaDB(Venda venda)
         {
 

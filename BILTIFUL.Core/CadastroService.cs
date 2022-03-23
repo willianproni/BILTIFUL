@@ -388,14 +388,22 @@ namespace BILTIFUL.Core
                     Console.WriteLine("\t\t\t\t\tCpf invalido!\n\t\t\t\t\tDigite novamente");
             } while (!ValidaCpf(inadimplente));
 
-            long cpf = long.Parse(inadimplente);
+            string cpf = inadimplente;
 
-            if (cadastros.inadimplentes.Find(p => p == "" + cpf) != null)
+            if (banco.VerificarClienteInadimplente(cpf))
             {
-                Remover(cpf);
-                Console.WriteLine("\t\t\t\t\tCpf Liberado");
+                banco.RemoverClienteInadimplente(cpf);
+                Console.WriteLine($"\t\t\t\tCPF: {cpf} removido inadimplente!!");
+                Console.ReadKey();
             }
-                
+            else
+            {
+                Console.WriteLine($"\t\t\t\tCPF: {cpf} não é inadimplente!!");
+                Console.ReadKey();
+            }
+
+
+
         }
         public void RemoverBloqueio()
         {

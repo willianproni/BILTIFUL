@@ -15,6 +15,12 @@ namespace BILTIFUL.Core.Entidades
         {
 
         }
+
+        public Venda(string cliente)
+        {
+            Cliente = cliente;
+        }
+
         public Venda(string id, string cliente, string valorTotal)
         {
             Id = id.PadLeft(5,'0');

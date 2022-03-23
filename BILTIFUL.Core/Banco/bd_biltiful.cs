@@ -372,10 +372,10 @@ namespace BILTIFUL.Core.Banco
                         {
                             while (reader.Read())
                             {
-/*                                Console.WriteLine("\n\t\t\t\t     -----------------------------------------------------" +
-                                                   "\n\t\t\t\t\tSolocitar Cliente conversar com a Gerencia!!");
-                                Console.WriteLine("\t\t\t\t\t\t     CPF: {0}", reader.GetString(0));
-                                Console.ReadKey();*/
+                                /*                                Console.WriteLine("\n\t\t\t\t     -----------------------------------------------------" +
+                                                                                   "\n\t\t\t\t\tSolocitar Cliente conversar com a Gerencia!!");
+                                                                Console.WriteLine("\t\t\t\t\t\t     CPF: {0}", reader.GetString(0));
+                                                                Console.ReadKey();*/
                                 return true;
                             }
                         }
@@ -568,12 +568,31 @@ namespace BILTIFUL.Core.Banco
         //----------------------------- VENDA
         public void InserirVendaDB(Venda venda)
         {
-
+            connection.Close();
+            connection.Open();
+            SqlCommand sql_cmnd = new SqlCommand("adiconar_venda", connection);
+            sql_cmnd.CommandType = CommandType.StoredProcedure;
+            sql_cmnd.Parameters.AddWithValue("@cpf_cliente", SqlDbType.Decimal).Value = venda.Cliente;
+            sql_cmnd.Parameters.AddWithValue("@valor_total", SqlDbType.NVarChar).Value = "0";
+            sql_cmnd.ExecuteNonQuery();
+            connection.Close();
         }
 
         public void InserirItemVendaBD(ItemVenda itemvenda)
         {
+            SqlConnection connection = new SqlConnection(connString);
 
+            using (connection)
+            {
+                connection.Close();
+                connection.Open();
+                SqlCommand sql_cmnd = new SqlCommand("adicionar_item_venda", connection);
+                sql_cmnd.CommandType = CommandType.StoredProcedure;
+                sql_cmnd.Parameters.AddWithValue("@codigo_barra", SqlDbType.NVarChar).Value = itemvenda.Produto;
+                sql_cmnd.Parameters.AddWithValue("@quantidade", SqlDbType.Decimal).Value = itemvenda.Quantidade;
+                sql_cmnd.ExecuteNonQuery();
+                connection.Close();
+            }
         }
 
         public void InserirCompraItem(string n, string s, string t, string a, string q)

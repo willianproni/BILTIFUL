@@ -23,6 +23,12 @@ namespace BILTIFUL.Core.Entidades
             this.TotalItem = totalitem;
         }
 
+        public ItemVenda(string produto, string qtd)
+        {
+            this.Produto = produto;
+            this.Quantidade = qtd;
+        }
+
         public ItemVenda(string id,string produto, string quantidade, string valorUnitario)
         {
             Id=id.PadLeft(5,'0');

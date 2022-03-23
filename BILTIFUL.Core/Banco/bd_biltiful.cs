@@ -119,12 +119,11 @@ namespace BILTIFUL.Core.Banco
             connection.Close();
             connection.Open();
 
-            string select = "select cpf_cliente from tb_risco where cpf_cliente =" + cpf; 
-            string sql = "delete from tb_risco where cpf_cliente =" + cpf;
+            string select = "select cpf_cliente from tb_risco where cpf_cliente =" + cpf;
 
-            using (SqlCommand command =  new SqlCommand(select, connection))
+            using (SqlCommand command = new SqlCommand(select, connection))
             {
-                using ( SqlDataReader reader = command.ExecuteReader())
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -184,29 +183,6 @@ namespace BILTIFUL.Core.Banco
             {
                 return false;
             }
-            /*            SqlConnection connection = new SqlConnection(connString);
-
-                        using (connection)
-                        {
-                            connection.Close();
-                            connection.Open();
-                            string sql = "select cpf_cliente from tb_risco where cpf_cliente =" + cpfCliente;
-                            using (SqlCommand command = new SqlCommand(sql, connection))
-                            {
-                                using (SqlDataReader reader = command.ExecuteReader())
-                                {
-                                    while (reader.Read())
-                                    {
-                                        Console.WriteLine("\n\t\t\t\t     -----------------------------------------------------" +
-                                                          "\n\t\t\t\t\tSolocitar Cliente conversar com a Gerencia!!");
-                                        Console.WriteLine("\t\t\t\t\t\t     CPF: {0}", reader.GetString(0));
-                                        Console.ReadKey();
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-                        return false;*/
         }
 
         public bool VerificaCpfExisteBD(string cpf)
@@ -289,12 +265,35 @@ namespace BILTIFUL.Core.Banco
             connection.Close();
         }
 
-        public void BuscaCnpjFornecedoBD(string cnpj)
+        public bool BuscaCnpjFornecedoBD(string cnpj)
         {
-            connection.Close();
-            connection.Open();
+            SqlConnection connection = new SqlConnection(connString);
+            try
+            {
+                using (connection)
+                {
+                    connection.Open();
+                    string sql = "select cnpj_fornecedor, razao_social, convert(varchar, data_abertura, 103), situacao_fornecedor from tb_fornecedor where cnpj_fornecedor =" + cnpj;
 
-            string sql = "select cnpj_fornecedor, razao_social from tb_fornecedor where cnpj_fornecedor =" + cnpj;
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    connection.Close();
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
         }
 
         public void ExibirRegistroFornecedor()
@@ -325,6 +324,70 @@ namespace BILTIFUL.Core.Banco
                 }
             }
             connection.Close();
+        }
+
+        public void InserirFornecedorBloqueado(string cnpj)
+        {
+            SqlConnection connection = new SqlConnection(connString);
+            using (connection)
+            {
+                connection.Open();
+                string sql = "insert into tb_bloqueado values ('" + cnpj + "')";
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    using SqlDataReader reader = command.ExecuteReader();
+                }
+                connection.Close();
+            }
+        }
+
+        public void RemoverFornecedorBloqueado(string cnpj)
+        {
+            SqlConnection connection = new SqlConnection(connString);
+
+            connection.Close();
+            connection.Open();
+
+            string sql = "delete from tb_bloqueado where cnpj_fornecedor =" + cnpj;
+
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                using SqlDataReader reader = command.ExecuteReader();
+            }
+            connection.Close();
+        }
+
+        public bool VerificarCnpjBloqueados(string cnpj)
+        {
+            SqlConnection connection = new SqlConnection(connString);
+            try
+            {
+                using (connection)
+                {
+                    connection.Open();
+                    string sql = "select cnpj_fornecedor from tb_bloqueado where cnpj_fornecedor =" + cnpj;
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+/*                                Console.WriteLine("\n\t\t\t\t     -----------------------------------------------------" +
+                                                   "\n\t\t\t\t\tSolocitar Cliente conversar com a Gerencia!!");
+                                Console.WriteLine("\t\t\t\t\t\t     CPF: {0}", reader.GetString(0));
+                                Console.ReadKey();*/
+                                return true;
+                            }
+                        }
+                    }
+                    connection.Close();
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         //----------------------------  PRODUTO

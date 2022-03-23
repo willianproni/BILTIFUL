@@ -331,19 +331,22 @@ namespace BILTIFUL.Core
                 if (!ValidaCpf(inadimplente))//valida cpf
                     Console.WriteLine("\t\t\t\t\tCpf invalido!\nDigite novamente");
             } while (!ValidaCpf(inadimplente));
-            if (cadastros.inadimplentes.Find(p => p == "" + inadimplente) != null)
+            if (!banco.VerificaCpfExisteBD(inadimplente))
             {
-                Console.WriteLine("\t\t\t\t\tInadimplente com esse CPF ja existe");
+                Console.WriteLine("\n\t\t\t\t\tNem Cliente cadastrado com esse cpf");
+            }
+            else if (banco.VerificarClienteInadimplente(inadimplente))
+            {
+                Console.WriteLine("\t\t\t\t\tJá está cadastrado com inadimplente!!");
+                Console.ReadKey();
                 return null;
             }
-            string cpf = inadimplente;
-
-            if (cadastros.clientes.Find(p => p.CPF == cpf) != null)
+            else if(!banco.VerificarClienteInadimplente(inadimplente))
             {
-                
-                return cpf;
+                Console.WriteLine($"\n\t\t\t\t\tCliente {inadimplente} Adicionado em Inadimplente!!");
+                Console.ReadKey();
+                banco.InserirClienteInadimplente(inadimplente);
             }
-            banco.InserirClienteInadimplente(cpf);
             return null;
         }
         public string CadastroBloqueado()
@@ -358,19 +361,22 @@ namespace BILTIFUL.Core
                 if (!ValidaCnpj(bloqueado))//valida cpf
                     Console.WriteLine("\t\t\t\t\tCnpj invalido!\nDigite novamente");
             } while (!ValidaCnpj(bloqueado));
-            if (cadastros.bloqueados.Find(p => p == bloqueado) != null)
+           
+            if (!banco.BuscaCnpjFornecedoBD(bloqueado))
             {
-                Console.WriteLine("\t\t\t\t\tFornecedor com esse cnpj ja existe");
-                return null;
+                Console.WriteLine($"\n\t\t\t\t\tCNPJ: {bloqueado} não cadastrado no sistema");
+                Console.ReadKey();
             }
-
-            string cnpj = bloqueado;
-
-            if (cadastros.fornecedores.Find(p => p.CNPJ == cnpj) != null)
+            else if (banco.VerificarCnpjBloqueados(bloqueado))
             {
-                new Controle(cnpj);
-                cadastros.bloqueados.Add("" + cnpj);
-                return cnpj;
+                Console.WriteLine($"\n\t\t\t\t\tCNPJ: {bloqueado} já está bloqueado no sistema");
+                Console.ReadKey();
+            }
+            else if (banco.BuscaCnpjFornecedoBD(bloqueado))
+            {
+                Console.WriteLine($"\n\t\t\t\t\tCNPJ: {bloqueado} Adicionado em Bloqueado");
+                banco.InserirFornecedorBloqueado(bloqueado);
+                Console.ReadKey();
             }
             return null;
         }
@@ -389,8 +395,11 @@ namespace BILTIFUL.Core
             } while (!ValidaCpf(inadimplente));
 
             string cpf = inadimplente;
-
-            if (banco.VerificarClienteInadimplente(cpf))
+            if (!banco.VerificaCpfExisteBD(inadimplente))
+            {
+                Console.WriteLine("\n\t\t\t\t\tNem Cliente cadastrado com esse cpf");
+            }
+            else if (banco.VerificarClienteInadimplente(cpf))
             {
                 banco.RemoverClienteInadimplente(cpf);
                 Console.WriteLine($"\t\t\t\tCPF: {cpf} removido inadimplente!!");
@@ -401,9 +410,6 @@ namespace BILTIFUL.Core
                 Console.WriteLine($"\t\t\t\tCPF: {cpf} não é inadimplente!!");
                 Console.ReadKey();
             }
-
-
-
         }
         public void RemoverBloqueio()
         {
@@ -417,11 +423,23 @@ namespace BILTIFUL.Core
                 if (!ValidaCnpj(bloqueado))//valida cpf
                     Console.WriteLine("\t\t\t\t\tCpf invalido!\n\t\t\t\t\tDigite novamente");
             } while (!ValidaCnpj(bloqueado));
-
-            long cnpj = long.Parse(bloqueado);
-
-            if (cadastros.bloqueados.Find(p => p == "" + cnpj) != null)
-                Remover(cnpj);
+            if (!banco.BuscaCnpjFornecedoBD(bloqueado))
+            {
+                Console.WriteLine($"\n\t\t\t\t\tCNPJ: {bloqueado} não cadastrado no sistema");
+                Console.ReadKey();
+            }
+            else if (!banco.VerificarCnpjBloqueados(bloqueado))
+            {
+                Console.WriteLine($"\n\t\t\t\t\tCNPJ: {bloqueado} não está bloqueado no sistema");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine($"\n\t\t\t\t\tCPNJ: {bloqueado} removido de bloqueado");
+                banco.RemoverFornecedorBloqueado(bloqueado);
+                Console.ReadKey();
+            }
+            
         }
         public void Remover(long chave)
         {
